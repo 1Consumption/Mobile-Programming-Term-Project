@@ -27,7 +27,7 @@
     <ImageButton
         android:id="@+id/setting_button"
         android:layout_width="50dp"
-        android:layout_height=50dp"
+        android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"

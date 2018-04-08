@@ -2,7 +2,97 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
+
+    <!--this part for partition for selecting ingredients: 육류-->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/select_meat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="육류
+
+
+
+
+
+
+
+
+
+
+
+"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!--this part for partition for selecting ingredients: 생선류-->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/select_fish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="생선류
+
+
+
+
+
+
+
+
+
+
+
+"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <!--this part for partition for selecting ingredients: 채소류-->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/select_vege"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="채소류
+
+
+
+
+
+
+
+
+
+
+"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
