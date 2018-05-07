@@ -3,12 +3,12 @@ package org.androidtown.seobang_term_project;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class TutorialActivity extends AppCompatActivity {
+public class MenuSelectActivity extends AppCompatActivity {
 
-    //라이브러리 쓰기
+    //recycler view 에서 section 을 나눠서
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutorial);
+        setContentView(R.layout.activity_manu_select);
     }
 }
