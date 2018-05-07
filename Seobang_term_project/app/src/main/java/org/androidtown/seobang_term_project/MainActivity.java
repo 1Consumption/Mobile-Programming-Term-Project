@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.start_select_button) //annotation
     public void startButton(View view) {
-        Intent intent = new Intent(getApplicationContext(), ManuSelectActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MenuSelectActivity.class);
         startActivity(intent);
     }
 
