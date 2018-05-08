@@ -1,41 +1,21 @@
 package org.androidtown.seobang_term_project;
 
-import android.app.Activity;
+public class Ingredient {
+    private String ingredientType;
+    private int image;
 
-public class Ingredient extends Activity {
-    private String meat, fish, vege;
-
-    public Ingredient(){
-
+    public String getIngredientType(){
+        return ingredientType;
+    }
+    public void setIngredientType(String ingredientType){
+        this.ingredientType = ingredientType;
     }
 
-    public Ingredient(String meat, String fish, String vege){
-        this.meat = meat;
-        this.fish = fish;
-        this.vege = vege;
+    public int getImage(){
+        return image;
+    }
+    public void setImage(int image){
+        this.image = image;
     }
 
-    public String getMeat(){
-        return meat;
-    }
-
-    public void setMeat(String selectedMeat){
-        this.meat = selectedMeat;
-    }
-
-    public String getFish(){
-        return fish;
-    }
-
-    public void setFish(String selectedFish){
-        this.fish = selectedFish;
-    }
-
-    public String getVege(){
-        return vege;
-    }
-
-    public void setVege(String selectedVege){
-        this.vege = selectedVege;
-    }
 }

@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".InfoActivity" />
         <activity android:name=".TutorialActivity"></activity>
+        <activity android:name=".MenuSelectActivity"></activity>
     </application>
 
 </manifest>
