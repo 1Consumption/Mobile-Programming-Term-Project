@@ -47,7 +47,7 @@ public class MenuSelectActivity extends AppCompatActivity {
            //재료 아이콘 생성
         }*/
         //ingredient.setImage(R.drawable.steak);
-        ingredient2.setIngredientType("고기류");
+        ingredient2.setIngredientType("생선류");
         ingredientList.add(ingredient2);
 
         //채소
@@ -56,7 +56,7 @@ public class MenuSelectActivity extends AppCompatActivity {
            //재료 아이콘 생성
         }*/
         //ingredient.setImage(R.drawable.steak);
-        ingredient3.setIngredientType("고기류");
+        ingredient3.setIngredientType("채소류");
         ingredientList.add(ingredient3);
 
 
@@ -66,7 +66,7 @@ public class MenuSelectActivity extends AppCompatActivity {
            //재료 아이콘 생성
         }*/
         //ingredient.setImage(R.drawable.steak);
-        ingredient4.setIngredientType("고기류");
+        ingredient4.setIngredientType("기타재료");
         ingredientList.add(ingredient4);
 
         recyclerView.setAdapter(new RecyclerAdapter(ingredientList, R.layout.menu_row));
