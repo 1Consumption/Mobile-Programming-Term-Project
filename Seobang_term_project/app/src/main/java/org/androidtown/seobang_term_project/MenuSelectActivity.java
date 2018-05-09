@@ -33,6 +33,7 @@ public class MenuSelectActivity extends AppCompatActivity {
 
     TextView edtRecipeCode, edtIngredientOrder, edtIngredientName, edtIngredientAmount, edtIngredientTypeName;
     EditText edt;
+
     private RecyclerView recyclerView;
     //recycler view 에서 section 을 나눠서
 
@@ -43,6 +44,7 @@ public class MenuSelectActivity extends AppCompatActivity {
 
         initLayout();
         initData();
+
         setDB(this);
 
         edtRecipeCode = (TextView) findViewById(R.id.edtRecipeCode);
