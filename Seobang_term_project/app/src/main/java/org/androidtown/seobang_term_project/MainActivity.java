@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -18,6 +19,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this); //oncreate 안에 있는게 중요: 처음에 initialize
+
+        Button recipeButton = findViewById(R.id.recipe_select_button);
+        recipeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RecipeSelectActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @OnClick(R.id.start_select_button) //annotation
@@ -27,20 +36,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.info_button)
-    public void infoButton(View view){
+    public void infoButton(View view) {
         Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.setting_button)
-    public void settingButton(View view){
+    public void settingButton(View view) {
         PopupMenu popup = new PopupMenu(getApplicationContext(), view); //v는 클릭된 뷰를 의미
 
         getMenuInflater().inflate(R.menu.settingmenu, popup.getMenu());
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item){
-                switch (item.getItemId()){
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
                     case R.id.m1:
                         Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
                         startActivity(intent);

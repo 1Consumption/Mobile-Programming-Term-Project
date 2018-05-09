@@ -39,9 +39,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position){
         Ingredient ingredient = ingredientList.get(position);
-        holder.meat.setText(ingredient.getTitle());
-        holder.fish.setText(ingredient.getTitle());
-        holder.vege.setText(ingredient.getTitle());
+        holder.meat.setText(ingredient.getIngredientType());
+        holder.fish.setText(ingredient.getIngredientType());
+        holder.vege.setText(ingredient.getIngredientType());
     }
 
     @Override

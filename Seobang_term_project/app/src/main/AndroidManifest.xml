@@ -17,8 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoActivity" />
-        <activity android:name=".TutorialActivity"></activity>
-        <activity android:name=".MenuSelectActivity"></activity>
-</application>
+        <activity android:name=".TutorialActivity" />
+        <activity android:name=".MenuSelectActivity" />
+        <activity android:name=".RecipeSelectActivity" />
+        <activity android:name=".RecipeActivity" />
+        <activity android:name=".TestActivity"></activity>
+    </application>
 
 </manifest>

@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/recipe_select_button"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/start_select_button"
+        android:layout_centerHorizontal="true"
+        android:text="레시피 고르기" />
 
     <Button
         android:id="@+id/start_select_button"
