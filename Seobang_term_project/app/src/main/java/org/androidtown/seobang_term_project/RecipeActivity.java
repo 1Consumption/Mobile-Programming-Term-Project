@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -43,15 +44,15 @@ public class RecipeActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         String result = bundle.getString("selectedRecipe");
 
-        mHelper = new ProductDBHelper(getApplicationContext());
-        db = mHelper.getWritableDatabase();
-        Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
-        countCursor.getCount();
-        countCursor.moveToNext();
-        int cnt = countCursor.getInt(0);
-        countCursor.close();
+        if (!result.equals("No Result")) {
+            mHelper = new ProductDBHelper(getApplicationContext());
+            db = mHelper.getWritableDatabase();
+            Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
+            countCursor.getCount();
+            countCursor.moveToNext();
+            int cnt = countCursor.getInt(0);
+            countCursor.close();
 
-        if (cnt != 0) {
             cursor = db.rawQuery("SELECT process,explanation FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
             startManagingCursor(cursor);
 
@@ -60,22 +61,22 @@ public class RecipeActivity extends AppCompatActivity {
 
             while (cursor.moveToNext()) {
                 strRecipeProcess += cursor.getString(0);
-                strRecipeProcess += "&" + cursor.getString(1) + "$";
+                strRecipeProcess += "&" + cursor.getString(1) + "#";
             }
             strRecipeProcess = strRecipeProcess.substring(0, strRecipeProcess.length() - 1);
 
-            String[] RecipeProcess = strRecipeProcess.split("$");
+            String[] RecipeProcess = strRecipeProcess.split("#");
 
             for (int i = 0; i < RecipeProcess.length; i++) {
                 recipe.append(RecipeProcess[i] + "\n\n");
             }
+
+
+            cursor.close();
+            db.close();
         } else {
-            // recipe.setText("No Result");
+            recipe.append(result + "\n\n");
         }
-
-        cursor.close();
-        db.close();
-
     }
 
 

@@ -52,15 +52,27 @@ public class RecipeSelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mHelper = new ProductDBHelper(getApplicationContext());
                 db = mHelper.getWritableDatabase();
-                String selectedRecipeCode = "";
-                cursor = db.rawQuery("SELECT recipe_code FROM " + TABLE_NAME + " WHERE recipe_name=\"" + searchRecipe.getText().toString() + "\"", null); //쿼리문
-                startManagingCursor(cursor);
 
-                while (cursor.moveToNext()) {
-                    selectedRecipeCode = cursor.getString(0);
+                Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_name=\"" + searchRecipe.getText().toString() + "\"", null);
+                countCursor.getCount();
+                countCursor.moveToNext();
+                int cnt = countCursor.getInt(0);
+                countCursor.close();
+
+                String selectedRecipeCode = "";
+
+                if (cnt != 0) {
+                    cursor = db.rawQuery("SELECT recipe_code FROM " + TABLE_NAME + " WHERE recipe_name=\"" + searchRecipe.getText().toString() + "\"", null); //쿼리문
+                    startManagingCursor(cursor);
+
+                    while (cursor.moveToNext()) {
+                        selectedRecipeCode = cursor.getString(0);
+                    }
+                    cursor.close();
+                    db.close();
+                } else {
+                    selectedRecipeCode = "No Result";
                 }
-                cursor.close();
-                db.close();
 
                 Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
                 Bundle bundle = new Bundle();
