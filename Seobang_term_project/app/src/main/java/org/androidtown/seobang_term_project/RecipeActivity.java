@@ -78,8 +78,6 @@ public class RecipeActivity extends AppCompatActivity {
                     }
                 }
             }
-
-
             cursor.close();
             db.close();
         } else {

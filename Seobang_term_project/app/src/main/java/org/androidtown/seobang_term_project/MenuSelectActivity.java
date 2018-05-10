@@ -76,7 +76,7 @@ public class MenuSelectActivity extends AppCompatActivity {
                 countCursor.close();
 
                 if (cnt != 0) {
-                    cursor = db.rawQuery("SELECT * FROM recipe_ingredient_info WHERE ingredient_name = \"" + edt.getText().toString() + "\"", null); //쿼리문
+                    cursor = db.rawQuery("SELECT * FROM recipe_ingredient_info WHERE ingredient_type_name = \"주재료\" and ingredient_name=\"" + edt.getText().toString() + "\"", null); //쿼리문
                     startManagingCursor(cursor);
 
                     String strRecipeCode = "Recipe Code" + "\r\n" + "--------" + "\r\n";
