@@ -45,6 +45,7 @@ public class RecipeActivity extends AppCompatActivity {
         String result = bundle.getString("selectedRecipe");
 
         if (!result.equals("No Result")) {
+            int min = 1;
             mHelper = new ProductDBHelper(getApplicationContext());
             db = mHelper.getWritableDatabase();
             Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
@@ -68,7 +69,14 @@ public class RecipeActivity extends AppCompatActivity {
             String[] RecipeProcess = strRecipeProcess.split("#");
 
             for (int i = 0; i < RecipeProcess.length; i++) {
-                recipe.append(RecipeProcess[i] + "\n\n");
+                for (int j = 0; j < RecipeProcess.length; j++) {
+                    if (Integer.parseInt(RecipeProcess[j].substring(0, RecipeProcess[j].indexOf("&"))) == min) {
+                        Log.e("Test", RecipeProcess[j].substring(RecipeProcess[j].indexOf("&") + 1));
+                        recipe.append(RecipeProcess[j].substring(RecipeProcess[j].indexOf("&") + 1) + "\n\n");
+                        min++;
+                        break;
+                    }
+                }
             }
 
 

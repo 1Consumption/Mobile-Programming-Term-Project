@@ -93,6 +93,9 @@ public class MenuSelectActivity extends AppCompatActivity {
                         strIngredientTypeName += cursor.getString(4) + "\r\n";
                     }
 
+                    cursor.close();
+                    db.close();
+
                     edtRecipeCode.setText(strRecipeCode);
                     edtIngredientOrder.setText(strIngredientOrder);
                     edtIngredientName.setText(strIngredientName);
@@ -105,9 +108,6 @@ public class MenuSelectActivity extends AppCompatActivity {
                     edtIngredientAmount.setText("No Result");
                     edtIngredientTypeName.setText("No Result");
                 }
-
-                cursor.close();
-                db.close();
             }
         });
     }
