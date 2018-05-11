@@ -50,7 +50,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ViewHolder(View itemView){
             super(itemView);
 
-            ingredientType = itemView.findViewById(R.id.IngredientType);
+            ingredientType = itemView.findViewById(R.id.IngredientType_meat);
             ingredientImage = itemView.findViewById(R.id.lettuceEx);
         }
     }

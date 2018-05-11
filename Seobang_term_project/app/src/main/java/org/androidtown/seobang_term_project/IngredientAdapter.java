@@ -15,13 +15,14 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
     private List<Ingredient> ingredientList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView meat, fish, vege;
+        public TextView meat, fish, vege, etc;
 
         public MyViewHolder(View view){
             super(view);
-            meat = view.findViewById(R.id.meat);
-            fish = view.findViewById(R.id.fish);
-            vege = view.findViewById(R.id.vege);
+            meat = view.findViewById(R.id.IngredientType_meat);
+            fish = view.findViewById(R.id.IngredientType_fish);
+            vege = view.findViewById(R.id.IngredientType_vege);
+            etc = view.findViewById(R.id.IngredientType_etc);
 
         }
     }
@@ -42,6 +43,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
         holder.meat.setText(ingredient.getIngredientType());
         holder.fish.setText(ingredient.getIngredientType());
         holder.vege.setText(ingredient.getIngredientType());
+        holder.etc.setText(ingredient.getIngredientType());
     }
 
     @Override
