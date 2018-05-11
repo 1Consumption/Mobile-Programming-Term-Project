@@ -18,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -106,16 +107,18 @@ static final String[] menus=new String[]{"콩비지동그랑땡","누드김밥",
                     }
                     cursor.close();
                     db.close();
+                    Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("selectedRecipe", selectedRecipeCode);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
                 } else {
-                    selectedRecipeCode = "No Result";
+                    String msg="Sorry...There is no such food.";
+                    Toast.makeText(getApplicationContext(), msg , Toast.LENGTH_SHORT).show();
                 }
 
-                Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("selectedRecipe", selectedRecipeCode);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+
             }
         });
     }
