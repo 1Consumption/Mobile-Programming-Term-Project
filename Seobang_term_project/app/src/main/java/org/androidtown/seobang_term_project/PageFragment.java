@@ -37,7 +37,7 @@ public class PageFragment extends Fragment {
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
             webView.loadUrl(mPageString.substring(mPageString.indexOf("|") + 1));
         else {
-
+            webView.loadUrl("https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/no_Info.png?raw=true");
         }
         webView.setWebViewClient(new WebViewClient());
         return rootView;
