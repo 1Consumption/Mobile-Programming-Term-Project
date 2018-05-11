@@ -1,36 +1,37 @@
 package org.androidtown.seobang_term_project;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends FragmentActivity {
+    private ViewPager mViewPager;
+    private PagerAdapter mPagerAdapter;
 
+    String[] RecipeProcess;
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
     public static final String DB_Name = "recipe_process.db";
     public static final String TABLE_NAME = "recipe_process";
     public SQLiteDatabase db;
     public Cursor cursor;
     ProductDBHelper mHelper;
-
-    TextView recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,50 +40,67 @@ public class RecipeActivity extends AppCompatActivity {
 
         setDB(this);
 
-        recipe = findViewById(R.id.recipe);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String result = bundle.getString("selectedRecipe");
 
-        if (!result.equals("No Result")) {
-            int min = 1;
-            mHelper = new ProductDBHelper(getApplicationContext());
-            db = mHelper.getWritableDatabase();
-            Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
-            countCursor.getCount();
-            countCursor.moveToNext();
-            int cnt = countCursor.getInt(0);
-            countCursor.close();
+        int min = 1;
 
-            cursor = db.rawQuery("SELECT process,explanation FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
-            startManagingCursor(cursor);
+        mHelper = new ProductDBHelper(getApplicationContext());
+        db = mHelper.getWritableDatabase();
 
-            String strRecipeProcess = "";
+        Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
+        countCursor.getCount();
+        countCursor.moveToNext();
+        int cnt = countCursor.getInt(0);
+        countCursor.close();
 
+        cursor = db.rawQuery("SELECT process,explanation FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
+        startManagingCursor(cursor);
 
-            while (cursor.moveToNext()) {
-                strRecipeProcess += cursor.getString(0);
-                strRecipeProcess += "&" + cursor.getString(1) + "#";
-            }
-            strRecipeProcess = strRecipeProcess.substring(0, strRecipeProcess.length() - 1);
+        String strRecipeProcess = "";
 
-            String[] RecipeProcess = strRecipeProcess.split("#");
-
-            for (int i = 0; i < RecipeProcess.length; i++) {
-                for (int j = 0; j < RecipeProcess.length; j++) {
-                    if (Integer.parseInt(RecipeProcess[j].substring(0, RecipeProcess[j].indexOf("&"))) == min) {
-                        Log.e("Test", RecipeProcess[j].substring(RecipeProcess[j].indexOf("&") + 1));
-                        recipe.append(RecipeProcess[j].substring(RecipeProcess[j].indexOf("&") + 1) + "\n\n");
-                        min++;
-                        break;
-                    }
-                }
-            }
-            cursor.close();
-            db.close();
-        } else {
-            recipe.append(result + "\n\n");
+        while (cursor.moveToNext()) {
+            strRecipeProcess += cursor.getString(0);
+            strRecipeProcess += "&" + cursor.getString(1) + "#";
         }
+        strRecipeProcess = strRecipeProcess.substring(0, strRecipeProcess.length() - 1);
+
+        RecipeProcess = strRecipeProcess.split("#");
+        Log.e("LENGTH", String.valueOf(RecipeProcess.length));
+
+        QuickSort sort = new QuickSort();
+
+        sort.sort(RecipeProcess, 0, RecipeProcess.length - 1);
+
+        for (int i = 0; i < RecipeProcess.length; i++)
+            Log.e("Recipe", RecipeProcess[i]);
+
+        cursor.close();
+        db.close();
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mPagerAdapter);
+    }
+
+    private class PagerAdapter extends FragmentStatePagerAdapter {
+
+        public PagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return PageFragment.create(RecipeProcess[position]);
+        }
+
+        @Override
+        public int getCount() {
+            Log.e("getCountTest", String.valueOf(RecipeProcess.length));
+            return RecipeProcess.length;
+        }
+
     }
 
 
@@ -129,5 +147,36 @@ public class RecipeActivity extends AppCompatActivity {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             // TODO Auto-generated method stub
         }
+    }
+
+    static int partition(int arr[], int left, int right) {
+
+        int pivot = arr[(left + right) / 2];
+
+        while (left < right) {
+            while ((arr[left] < pivot) && (left < right))
+                left++;
+            while ((arr[right] > pivot) && (left < right))
+                right--;
+
+            if (left < right) {
+                int temp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = temp;
+            }
+        }
+
+        return left;
+    }
+
+    public static void quickSort(int arr[], int left, int right) {
+
+        if (left < right) {
+            int pivotNewIndex = partition(arr, left, right);
+
+            quickSort(arr, left, pivotNewIndex - 1);
+            quickSort(arr, pivotNewIndex + 1, right);
+        }
+
     }
 }
