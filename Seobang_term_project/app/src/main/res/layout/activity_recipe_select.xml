@@ -21,10 +21,11 @@
             android:text="레시피 선택" />
     </LinearLayout>
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/searchRecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:completionThreshold="1"
         android:hint="여기에 레시피 검색" />
 
     <ScrollView
