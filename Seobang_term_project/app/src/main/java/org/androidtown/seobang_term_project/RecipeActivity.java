@@ -44,26 +44,22 @@ public class RecipeActivity extends FragmentActivity {
         Bundle bundle = intent.getExtras();
         String result = bundle.getString("selectedRecipe");
 
-        int min = 1;
-
         mHelper = new ProductDBHelper(getApplicationContext());
         db = mHelper.getWritableDatabase();
 
-        Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
-        countCursor.getCount();
-        countCursor.moveToNext();
-        int cnt = countCursor.getInt(0);
-        countCursor.close();
-
-        cursor = db.rawQuery("SELECT process,explanation FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
+        cursor = db.rawQuery("SELECT process,explanation,url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
         startManagingCursor(cursor);
+
+//        Cursor URLCursor=db.rawQuery("SELECT url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
 
         String strRecipeProcess = "";
 
         while (cursor.moveToNext()) {
             strRecipeProcess += cursor.getString(0);
-            strRecipeProcess += "&" + cursor.getString(1) + "#";
+            strRecipeProcess += "&" + cursor.getString(1) + "|";
+            strRecipeProcess += cursor.getString(2) + "#";
         }
+
         strRecipeProcess = strRecipeProcess.substring(0, strRecipeProcess.length() - 1);
 
         RecipeProcess = strRecipeProcess.split("#");
@@ -149,34 +145,4 @@ public class RecipeActivity extends FragmentActivity {
         }
     }
 
-    static int partition(int arr[], int left, int right) {
-
-        int pivot = arr[(left + right) / 2];
-
-        while (left < right) {
-            while ((arr[left] < pivot) && (left < right))
-                left++;
-            while ((arr[right] > pivot) && (left < right))
-                right--;
-
-            if (left < right) {
-                int temp = arr[left];
-                arr[left] = arr[right];
-                arr[right] = temp;
-            }
-        }
-
-        return left;
-    }
-
-    public static void quickSort(int arr[], int left, int right) {
-
-        if (left < right) {
-            int pivotNewIndex = partition(arr, left, right);
-
-            quickSort(arr, left, pivotNewIndex - 1);
-            quickSort(arr, pivotNewIndex + 1, right);
-        }
-
-    }
 }

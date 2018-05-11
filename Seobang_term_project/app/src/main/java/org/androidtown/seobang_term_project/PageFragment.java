@@ -2,9 +2,12 @@ package org.androidtown.seobang_term_project;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 public class PageFragment extends Fragment {
@@ -28,8 +31,15 @@ public class PageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
-        mPageString = mPageString.substring(mPageString.indexOf("&") + 1);
-        ((TextView) rootView.findViewById(R.id.number)).setText(mPageString);
+        ((TextView) rootView.findViewById(R.id.recipeString)).setText(mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|")));
+        WebView webView = rootView.findViewById(R.id.processWebView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
+            webView.loadUrl(mPageString.substring(mPageString.indexOf("|") + 1));
+        else {
+
+        }
+        webView.setWebViewClient(new WebViewClient());
         return rootView;
     }
 }
