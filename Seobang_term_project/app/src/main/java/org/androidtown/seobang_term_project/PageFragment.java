@@ -13,6 +13,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class PageFragment extends Fragment {
@@ -21,7 +22,8 @@ public class PageFragment extends Fragment {
     TextView hour;
     TextView minute;
     TextView second;
-    int time = 3666;
+    LinearLayout timerLayout;
+    int time = 0;
 
     public static PageFragment create(String pageNumber) {
         PageFragment fragment = new PageFragment();
@@ -39,8 +41,9 @@ public class PageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
-        ((TextView) rootView.findViewById(R.id.recipeString)).setText(mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|")));
+        ((TextView) rootView.findViewById(R.id.recipeString)).setText(processString);
         WebView webView = rootView.findViewById(R.id.processWebView);
         webView.getSettings().setJavaScriptEnabled(true);
 
@@ -48,20 +51,72 @@ public class PageFragment extends Fragment {
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
 
+        timerLayout = rootView.findViewById(R.id.timerLayout);
         hour = rootView.findViewById(R.id.hourText);
         minute = rootView.findViewById(R.id.minuteText);
         second = rootView.findViewById(R.id.secondText);
 
+        if (processString.indexOf("시간") != -1 || processString.indexOf("분") != -1) {
+            double extractedTime = 0;
+            int timeIndex = 0;
+            String timeInProcess = "";
+            final Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
 
-        final Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
-        timerStartButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                new CountDownTask().execute();
-                Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
-                timerStartButton.startAnimation(anim);
-                timerStartButton.setVisibility(View.INVISIBLE);
+            if (processString.indexOf("시간") != -1) {
+                timerLayout.setVisibility(View.VISIBLE);
+                timerStartButton.setVisibility(View.VISIBLE);
+                int index = processString.indexOf("시간");
+
+                timeIndex = extractTime(processString, index);
+                timeInProcess = processString.substring(timeIndex, processString.indexOf("시간"));
+
+                if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {
+                    String[] temp = null;
+                    if (timeInProcess.indexOf("~") != -1)
+                        temp = timeInProcess.split("~");
+
+                    if (timeInProcess.indexOf("-") != -1)
+                        temp = timeInProcess.split("-");
+
+                    timeInProcess = String.valueOf((Double.parseDouble(temp[0]) + Double.parseDouble(temp[1])) / 2);
+                }
+                extractedTime = Double.parseDouble(timeInProcess) * 3600;
             }
-        });
+
+            if (processString.indexOf("분") != -1) {
+                int index = processString.indexOf("분");
+                timeIndex = extractTime(processString, index);
+                char errorCheck = processString.charAt(processString.indexOf("분") - 1);
+
+                if (Character.isDigit(errorCheck) == true) {
+                    timerLayout.setVisibility(View.VISIBLE);
+                    timerStartButton.setVisibility(View.VISIBLE);
+                    timeInProcess = processString.substring(timeIndex, processString.indexOf("분"));
+
+                    if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {
+                        String[] temp = null;
+                        if (timeInProcess.indexOf("~") != -1)
+                            temp = timeInProcess.split("~");
+
+                        if (timeInProcess.indexOf("-") != -1)
+                            temp = timeInProcess.split("-");
+                        timeInProcess = String.valueOf((Double.parseDouble(temp[0]) + Double.parseDouble(temp[1])) / 2);
+                    }
+                    extractedTime = Double.parseDouble(timeInProcess) * 60;
+                }
+            }
+
+            time = (int) extractedTime;
+
+            timerStartButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    new CountDownTask().execute();
+                    Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+                    timerStartButton.startAnimation(anim);
+                    timerStartButton.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
 
 
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
@@ -100,5 +155,21 @@ public class PageFragment extends Fragment {
             minute.setText(String.format("%02d", intMinute));
             second.setText(String.format("%02d", intSecond));
         }
+    }
+
+    private int extractTime(String process, int curIndex) {
+        int timeIndex = 0;
+
+        char temp = process.charAt(--curIndex);
+
+        if (Character.isDigit(temp) == true) {
+            timeIndex = extractTime(process, curIndex);
+        } else if (temp == '~' || temp == '-') {
+            timeIndex = extractTime(process, curIndex);
+        } else {
+            return curIndex + 1;
+        }
+
+        return timeIndex;
     }
 }
