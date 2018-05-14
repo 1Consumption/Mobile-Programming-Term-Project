@@ -55,8 +55,9 @@
             android:textSize="30dp" />
     </LinearLayout>
 
+
     <Button
-        android:id="@+id/timerButton"
+        android:id="@+id/timerStartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

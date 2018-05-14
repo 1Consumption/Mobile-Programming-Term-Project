@@ -50,12 +50,15 @@ public class PageFragment extends Fragment {
         minute = rootView.findViewById(R.id.minuteText);
         second = rootView.findViewById(R.id.secondText);
 
-        Button timerButton = rootView.findViewById(R.id.timerButton);
-        timerButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                new CountDownTask().execute();
-            }
-        });
+        int a = 1;
+        if (a != 4) {
+            Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
+            timerStartButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    new CountDownTask().execute();
+                }
+            });
+        }
 
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
             webView.loadUrl(mPageString.substring(mPageString.indexOf("|") + 1));
@@ -88,7 +91,7 @@ public class PageFragment extends Fragment {
             int intHour = temp / 3600;
             int intMinute = (temp - (intHour * 3600)) / 60;
             int intSecond = (temp - (intHour * 3600 + intMinute * 60));
-            
+
             hour.setText(String.format("%02d", intHour));
             minute.setText(String.format("%02d", intMinute));
             second.setText(String.format("%02d", intSecond));

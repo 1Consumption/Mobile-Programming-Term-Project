@@ -43,7 +43,6 @@
         android:scaleType="fitCenter"
         android:src="@drawable/setting" />
 
-
     <!--뒷 배경 넣어야 함 이쁜걸로-->
 
 </RelativeLayout>
