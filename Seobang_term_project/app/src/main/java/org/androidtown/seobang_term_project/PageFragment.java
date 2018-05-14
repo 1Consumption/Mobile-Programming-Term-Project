@@ -22,6 +22,7 @@ public class PageFragment extends Fragment {
     TextView hour;
     TextView minute;
     TextView second;
+    TextView page;
     LinearLayout timerLayout;
     int time = 0;
 
@@ -43,6 +44,7 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
+        ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(0, mPageString.indexOf("&")));
         ((TextView) rootView.findViewById(R.id.recipeString)).setText(processString);
         WebView webView = rootView.findViewById(R.id.processWebView);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -83,7 +85,7 @@ public class PageFragment extends Fragment {
                 extractedTime = Double.parseDouble(timeInProcess) * 3600;
             }
 
-            if (processString.indexOf("분") != -1) {
+            if (processString.indexOf("분") != -1 && processString.indexOf("분") != 0) {
                 int index = processString.indexOf("분");
                 timeIndex = extractTime(processString, index);
                 char errorCheck = processString.charAt(processString.indexOf("분") - 1);
@@ -129,7 +131,6 @@ public class PageFragment extends Fragment {
 
         return rootView;
     }
-
 
     private class CountDownTask extends AsyncTask<Void, Integer, Void> {
         @Override
