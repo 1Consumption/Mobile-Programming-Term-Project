@@ -16,7 +16,10 @@ import android.widget.TextView;
 public class PageFragment extends Fragment {
 
     private String mPageString;
-    TextView timer;
+    TextView hour;
+    TextView minute;
+    TextView second;
+    int time = 3666;
 
     public static PageFragment create(String pageNumber) {
         PageFragment fragment = new PageFragment();
@@ -43,37 +46,36 @@ public class PageFragment extends Fragment {
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
 
-        timer = rootView.findViewById(R.id.timer);
-        timer.setText("No info");
+        hour = rootView.findViewById(R.id.hourText);
+        minute = rootView.findViewById(R.id.minuteText);
+        second = rootView.findViewById(R.id.secondText);
+
         Button timerButton = rootView.findViewById(R.id.timerButton);
         timerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 new CountDownTask().execute();
             }
         });
+
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
             webView.loadUrl(mPageString.substring(mPageString.indexOf("|") + 1));
         else {
             webView.loadUrl("https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/no_Info.png?raw=true");
         }
+
         webView.setWebViewClient(new WebViewClient());
+
         return rootView;
     }
 
     private class CountDownTask extends AsyncTask<Void, Integer, Void> {
-//        @Override
-//
-//        protected void onPreExecute() {
-//            timer.setText("*START*");
-//        }
-
         @Override
-
         protected Void doInBackground(Void... params) {
-            for (int i = 30; i >= 0; i--) {
+            for (int i = time; i >= 0; i--) {
                 try {
                     Thread.sleep(1000);
-                    publishProgress(i); //Invokes onProgressUpdate();
+                    publishProgress(i);
+
                 } catch (Exception e) {
                 }
             }
@@ -81,15 +83,15 @@ public class PageFragment extends Fragment {
         }
 
         @Override
-
         protected void onProgressUpdate(Integer... values) {
-            timer.setText(Integer.toString(values[0].intValue()));
+            int temp = values[0].intValue();
+            int intHour = temp / 3600;
+            int intMinute = (temp - (intHour * 3600)) / 60;
+            int intSecond = (temp - (intHour * 3600 + intMinute * 60));
+            
+            hour.setText(String.format("%02d", intHour));
+            minute.setText(String.format("%02d", intMinute));
+            second.setText(String.format("%02d", intSecond));
         }
-
-//        @Override
-//
-//        protected void onPostExecute(Void aVoid) {
-//            timer.setText("*DONE*");
-//        }
     }
 }
