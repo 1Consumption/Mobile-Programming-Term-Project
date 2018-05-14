@@ -25,10 +25,10 @@ public class PageFragment extends Fragment {
     LinearLayout timerLayout;
     int time = 0;
 
-    public static PageFragment create(String pageNumber) {
+    public static PageFragment create(String pageContents) {
         PageFragment fragment = new PageFragment();
         Bundle args = new Bundle();
-        args.putString("page", pageNumber);
+        args.putString("page", pageContents);
         fragment.setArguments(args);
         return fragment;
     }
@@ -129,6 +129,7 @@ public class PageFragment extends Fragment {
 
         return rootView;
     }
+
 
     private class CountDownTask extends AsyncTask<Void, Integer, Void> {
         @Override
