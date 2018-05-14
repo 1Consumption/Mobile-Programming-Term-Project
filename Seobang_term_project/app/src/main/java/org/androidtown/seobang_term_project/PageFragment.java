@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -50,15 +52,17 @@ public class PageFragment extends Fragment {
         minute = rootView.findViewById(R.id.minuteText);
         second = rootView.findViewById(R.id.secondText);
 
-        int a = 1;
-        if (a != 4) {
-            Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
-            timerStartButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    new CountDownTask().execute();
-                }
-            });
-        }
+
+        final Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
+        timerStartButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                new CountDownTask().execute();
+                Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+                timerStartButton.startAnimation(anim);
+                timerStartButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
 
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
             webView.loadUrl(mPageString.substring(mPageString.indexOf("|") + 1));
