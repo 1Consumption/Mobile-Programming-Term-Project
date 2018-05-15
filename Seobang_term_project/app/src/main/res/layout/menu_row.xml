@@ -78,7 +78,7 @@
             android:layout_weight="40"
             android:orientation="horizontal">
 
-
+<!--사진들 넣어야 함 재료 사진들 -->
 
 
         </LinearLayout>
@@ -110,7 +110,7 @@
             android:layout_height="match_parent"
             android:layout_weight="40"
             android:orientation="horizontal">
-
+<!--여기도 재료 사진 넣어야 함 -->
 
         </LinearLayout>
 
@@ -142,8 +142,7 @@
             android:layout_weight="40"
             android:orientation="horizontal">
 
-
-
+<!--재료 사진 넣기 -->
 
         </LinearLayout>
 

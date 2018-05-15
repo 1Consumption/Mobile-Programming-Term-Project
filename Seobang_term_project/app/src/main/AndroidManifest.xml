@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".InfoActivity" />
+        <activity android:name=".IngredientSelectActivity"/>
         <activity android:name=".TutorialActivity" />
-        <activity android:name=".MenuSelectActivity" />
         <activity android:name=".RecipeSelectActivity" />
         <activity android:name=".RecipeActivity" />
         <activity android:name=".TestActivity" />

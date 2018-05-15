@@ -3,6 +3,6 @@
     <string name="meat">고기류</string>
     <string name="fish">생선류</string>
     <string name="vege">채소류</string>
-    <string name="etc">기타</string>
+    <string name="etc">기타재료</string>
 
 </resources>

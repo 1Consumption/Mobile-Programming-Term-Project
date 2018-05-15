@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -20,18 +19,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this); //oncreate 안에 있는게 중요: 처음에 initialize
 
-        Button recipeButton = findViewById(R.id.recipe_select_button);
-        recipeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RecipeSelectActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
+
+    @OnClick(R.id.recipe_select_button)
+    public void recipeButton(View view){
+        Intent intent = new Intent(getApplicationContext(), RecipeSelectActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.start_select_button) //annotation
     public void startButton(View view) {
-        Intent intent = new Intent(getApplicationContext(), MenuSelectActivity.class);
+        Intent intent = new Intent(getApplicationContext(), IngredientSelectActivity.class);
         startActivity(intent);
     }
 
