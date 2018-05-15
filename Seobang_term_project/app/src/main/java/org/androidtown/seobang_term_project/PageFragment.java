@@ -22,7 +22,6 @@ public class PageFragment extends Fragment {
     TextView hour;
     TextView minute;
     TextView second;
-    TextView page;
     LinearLayout timerLayout;
     int time = 0;
 
@@ -161,7 +160,7 @@ public class PageFragment extends Fragment {
 
     private int extractTime(String process, int curIndex) {
         int timeIndex = 0;
-        
+
         if (curIndex == 0)
             return 0;
 

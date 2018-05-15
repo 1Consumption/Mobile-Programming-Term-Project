@@ -47,7 +47,6 @@ public class RecipeActivity extends FragmentActivity {
         db = mHelper.getWritableDatabase();
 
         cursor = db.rawQuery("SELECT process,explanation,url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
-        startManagingCursor(cursor);
 
 //        Cursor URLCursor=db.rawQuery("SELECT url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
 
@@ -70,9 +69,6 @@ public class RecipeActivity extends FragmentActivity {
 
         for (int i = 0; i < RecipeProcess.length; i++)
             Log.e("Recipe", RecipeProcess[i]);
-
-        cursor.close();
-        db.close();
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
