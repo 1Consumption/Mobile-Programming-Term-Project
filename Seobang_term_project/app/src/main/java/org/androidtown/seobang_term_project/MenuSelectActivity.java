@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ public class MenuSelectActivity extends AppCompatActivity {
     public static final String DB_Name = "recipe_ingredient_info.db";
     public SQLiteDatabase db;
     public Cursor cursor;
+    public Cursor countCursor;
+
     ProductDBHelper mHelper;
     Button btnSelect, go;
 
@@ -56,6 +59,9 @@ public class MenuSelectActivity extends AppCompatActivity {
         go = (Button) findViewById(R.id.go);
         edt = (EditText) findViewById(R.id.edt);
 
+        mHelper = new ProductDBHelper(getApplicationContext());
+        db = mHelper.getWritableDatabase();
+
         go.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TestActivity.class);
@@ -67,17 +73,14 @@ public class MenuSelectActivity extends AppCompatActivity {
         btnSelect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView count = findViewById(R.id.count);
-                mHelper = new ProductDBHelper(getApplicationContext());
-                db = mHelper.getWritableDatabase();
-                Cursor countCursor = db.rawQuery("SELECT count(*) FROM recipe_ingredient_info WHERE ingredient_name=\"" + edt.getText().toString() + "\"", null);
+
+                countCursor = db.rawQuery("SELECT count(*) FROM recipe_ingredient_info WHERE ingredient_name=\"" + edt.getText().toString() + "\"", null);
                 countCursor.getCount();
                 countCursor.moveToNext();
                 int cnt = countCursor.getInt(0);
-                countCursor.close();
 
                 if (cnt != 0) {
                     cursor = db.rawQuery("SELECT * FROM recipe_ingredient_info WHERE ingredient_type_name = \"주재료\" and ingredient_name=\"" + edt.getText().toString() + "\"", null); //쿼리문
-                    startManagingCursor(cursor);
 
                     String strRecipeCode = "Recipe Code" + "\r\n" + "--------" + "\r\n";
                     String strIngredientOrder = "Ingredient Order" + "\r\n" + "--------" + "\r\n";
@@ -92,9 +95,6 @@ public class MenuSelectActivity extends AppCompatActivity {
                         strIngredientAmount += cursor.getString(3) + "\r\n";
                         strIngredientTypeName += cursor.getString(4) + "\r\n";
                     }
-
-                    cursor.close();
-                    db.close();
 
                     edtRecipeCode.setText(strRecipeCode);
                     edtIngredientOrder.setText(strIngredientOrder);
