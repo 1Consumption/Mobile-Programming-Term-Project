@@ -161,6 +161,9 @@ public class PageFragment extends Fragment {
 
     private int extractTime(String process, int curIndex) {
         int timeIndex = 0;
+        
+        if (curIndex == 0)
+            return 0;
 
         char temp = process.charAt(--curIndex);
 
