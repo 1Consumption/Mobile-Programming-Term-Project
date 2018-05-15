@@ -34,7 +34,9 @@ public class IngredientSelectActivity extends AppCompatActivity {
     TextView edtRecipeCode, edtIngredientOrder, edtIngredientName, edtIngredientAmount, edtIngredientTypeName;
     EditText edt;
 
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager myLayoutManager;
     //recycler view 에서 section 을 나눠서
 
     @Override
@@ -159,7 +161,13 @@ public class IngredientSelectActivity extends AppCompatActivity {
 
     //initialize layout
     private void initLayout() {
-        recyclerView = findViewById(R.id.ingredient_select_recyclerView);
+        mRecyclerView = findViewById(R.id.ingredient_select_recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+
+        myLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(myLayoutManager);
+
+        //mAdapter = new IngredientAdapter()
     }
 
     //initialize data
@@ -167,44 +175,47 @@ public class IngredientSelectActivity extends AppCompatActivity {
         List<Ingredient> ingredientList = new ArrayList<Ingredient>();
 
         Ingredient ingredient1 = new Ingredient();
+        ingredient1.setIngredientType("고기류");
         /*for(int i = 0; i < 5; i ++){
            //재료 아이콘 생성
         }*/
         //ingredient.setImage(R.drawable.steak);
-        ingredient1.setIngredientType("고기류");
+
+       // ingredient1.setImage(R.drawable.steak);
         ingredientList.add(ingredient1);
 
         //생선
         Ingredient ingredient2 = new Ingredient();
+        ingredient2.setIngredientType("생선류");
         /*for(int i = 0; i < 5; i ++){
            //재료 아이콘 생성
         }*/
         //ingredient.setImage(R.drawable.steak);
-        ingredient2.setIngredientType("생선류");
+
         ingredientList.add(ingredient2);
 
         //채소
         Ingredient ingredient3 = new Ingredient();
+        ingredient3.setIngredientType("채소류");
         /*for(int i = 0; i < 5; i ++){
            //재료 아이콘 생성
         }*/
         //ingredient.setImage(R.drawable.steak);
-        ingredient3.setIngredientType("채소류");
         ingredientList.add(ingredient3);
 
 
         //기타
         Ingredient ingredient4 = new Ingredient();
+        ingredient4.setIngredientType("기타재료");
         /*for(int i = 0; i < 5; i ++){
            //재료 아이콘 생성
         }*/
         //ingredient.setImage(R.drawable.steak);
-        ingredient4.setIngredientType("기타재료");
         ingredientList.add(ingredient4);
 
-        recyclerView.setAdapter(new RecyclerAdapter(ingredientList, R.layout.menu_row));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(new RecyclerAdapter(ingredientList, R.layout.menu_row));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }
 }

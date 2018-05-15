@@ -30,14 +30,26 @@
             android:layout_weight="40"
             android:orientation="horizontal">
 
-            <ImageView
+
+            <ImageButton
                 android:id="@+id/lettuceEx"
 
                 android:layout_margin="8dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/lettuce" />
+                android:background="@drawable/circle_border"
+                android:src="@drawable/lettuce_before"
+                />
+            <ImageButton
+                android:id="@+id/fish1"
+
+                android:layout_margin="8dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/circle_border"
+                android:src="@drawable/fish1"/>
 
             <ImageView
                 android:id="@+id/meatEx"
@@ -50,101 +62,101 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-    <LinearLayout
-        android:id="@+id/fish_layout"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/fish_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:orientation="horizontal">-->
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="10">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="10">-->
 
-            <TextView
-                android:id="@+id/IngredientType_fish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/fish" />
+            <!--<TextView-->
+                <!--android:id="@+id/IngredientType_fish"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/fish" />-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="40"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="40"-->
+            <!--android:orientation="horizontal">-->
 
-<!--사진들 넣어야 함 재료 사진들 -->
+<!--&lt;!&ndash;사진들 넣어야 함 재료 사진들 &ndash;&gt;-->
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-    <LinearLayout
-        android:id="@+id/vage_layout"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/vage_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:orientation="horizontal">-->
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="10">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="10">-->
 
-            <TextView
-                android:id="@+id/IngredientType_vege"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/vege" />
+            <!--<TextView-->
+                <!--android:id="@+id/IngredientType_vege"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/vege" />-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="40"
-            android:orientation="horizontal">
-<!--여기도 재료 사진 넣어야 함 -->
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="40"-->
+            <!--android:orientation="horizontal">-->
+<!--&lt;!&ndash;여기도 재료 사진 넣어야 함 &ndash;&gt;-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-    <LinearLayout
-        android:id="@+id/layout_etc"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/layout_etc"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:orientation="horizontal">-->
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="10">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="10">-->
 
-            <TextView
-                android:id="@+id/IngredientType_etc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/etc" />
+            <!--<TextView-->
+                <!--android:id="@+id/IngredientType_etc"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/etc" />-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="40"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="40"-->
+            <!--android:orientation="horizontal">-->
 
-<!--재료 사진 넣기 -->
+<!--&lt;!&ndash;재료 사진 넣기 &ndash;&gt;-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
     </LinearLayout>
 
