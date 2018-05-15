@@ -57,10 +57,12 @@ public class RecipeSelectActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, menus);
         searchRecipe.setAdapter(adapter);
 
+        mHelper = new ProductDBHelper(getApplicationContext());
+        db = mHelper.getWritableDatabase();
+
         showRecipe.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mHelper = new ProductDBHelper(getApplicationContext());
-                db = mHelper.getWritableDatabase();
+
                 Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME, null);
                 countCursor.getCount();
                 countCursor.moveToNext();
@@ -81,16 +83,11 @@ public class RecipeSelectActivity extends AppCompatActivity {
                 } else {
                     recipeOutput.setText("No Result");
                 }
-
-                cursor.close();
-                db.close();
             }
         });
 
         goToRecipe.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mHelper = new ProductDBHelper(getApplicationContext());
-                db = mHelper.getWritableDatabase();
                 Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME + " WHERE recipe_name=\"" + searchRecipe.getText().toString() + "\"", null);
                 countCursor.getCount();
                 countCursor.moveToNext();
@@ -118,8 +115,6 @@ public class RecipeSelectActivity extends AppCompatActivity {
                     String msg = "Sorry...There is no such food.";
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
     }
