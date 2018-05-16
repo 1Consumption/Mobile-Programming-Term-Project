@@ -179,6 +179,8 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         ingredients_fish.add(new Ingredient("갈치", R.drawable.fish4));
         ingredients_fish.add(new Ingredient("병어", R.drawable.fish5));
         ingredients_fish.add(new Ingredient("멸치", R.drawable.fish6));
+        ingredients_fish.add(new Ingredient("쭈꾸미", R.drawable.fish7));
+        ingredients_fish.add(new Ingredient("도미", R.drawable.fish8));
 
         List<Ingredient> ingredients_veget = new ArrayList<>();
         for (int i = 0; i < 10; i++)
@@ -204,4 +206,4 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         if (isOnClicked) tv_count.setText(++count + "");
         else tv_count.setText(--count + "");
     }
-}
+}v
