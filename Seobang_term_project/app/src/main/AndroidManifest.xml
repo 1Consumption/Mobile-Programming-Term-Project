@@ -10,18 +10,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.info.InfoActivity" />
-        <activity android:name=".ui.ingredient.IngredientSelectActivity"/>
-        <activity android:name=".ui.tutorial.TutorialActivity" />
-        <activity android:name=".ui.recipe.RecipeSelectActivity" />
-        <activity android:name=".ui.recipe.RecipeActivity" />
-        <activity android:name=".ui.intro.IntroActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".IngredientSelectActivity"/>
+        <activity android:name=".TutorialActivity" />
+        <activity android:name=".RecipeSelectActivity" />
+        <activity android:name=".RecipeActivity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
+
 </manifest>

@@ -4,5 +4,6 @@
     <string name="fish">생선류</string>
     <string name="vege">채소류</string>
     <string name="etc">기타재료</string>
+    <string name="lettuce">상추</string>
 
 </resources>

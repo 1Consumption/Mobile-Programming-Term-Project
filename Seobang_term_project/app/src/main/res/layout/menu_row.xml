@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/meat_layout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10">
+
+            <TextView
+                android:id="@+id/IngredientType_meat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/meat" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:orientation="horizontal">
+
+
+            <ImageButton
+                android:id="@+id/lettuceEx"
+
+                android:layout_margin="8dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/circle_border"
+                />
+            <!--<ImageButton-->
+                <!--android:id="@+id/fish1"-->
+
+                <!--android:layout_margin="8dp"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:background="@drawable/circle_border"-->
+                <!--android:src="@drawable/fish1"/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/meatEx"-->
+                <!--android:layout_margin="8dp"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/steak" />-->
+
+
+        </LinearLayout>
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/fish_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="10">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/IngredientType_fish"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/fish" />-->
+
+        <!--</RelativeLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="40"-->
+            <!--android:orientation="horizontal">-->
+
+<!--&lt;!&ndash;사진들 넣어야 함 재료 사진들 &ndash;&gt;-->
+
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/vage_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="10">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/IngredientType_vege"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/vege" />-->
+
+        <!--</RelativeLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="40"-->
+            <!--android:orientation="horizontal">-->
+<!--&lt;!&ndash;여기도 재료 사진 넣어야 함 &ndash;&gt;-->
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/layout_etc"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="10">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/IngredientType_etc"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/etc" />-->
+
+        <!--</RelativeLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="40"-->
+            <!--android:orientation="horizontal">-->
+
+<!--&lt;!&ndash;재료 사진 넣기 &ndash;&gt;-->
+
+        <!--</LinearLayout>-->
+
+    </LinearLayout>
+
+</LinearLayout>
