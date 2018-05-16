@@ -176,6 +176,8 @@ public class IngredientSelectActivity extends AppCompatActivity {
 
         Ingredient ingredient1 = new Ingredient();
         ingredient1.setIngredientType("고기류");
+        ingredient1.setImage(R.drawable.default_pork);
+        ingredient1.setImage(R.drawable.default_beef);
         /*for(int i = 0; i < 5; i ++){
            //재료 아이콘 생성
         }*/
@@ -187,6 +189,8 @@ public class IngredientSelectActivity extends AppCompatActivity {
         //생선
         Ingredient ingredient2 = new Ingredient();
         ingredient2.setIngredientType("생선류");
+        ingredient2.setImage(R.drawable.default_f1);
+        ingredient2.setImage(R.drawable.default_f2);
         /*for(int i = 0; i < 5; i ++){
            //재료 아이콘 생성
         }*/
