@@ -43,7 +43,8 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
     EditText edt;
 
     private int count = 0;
-    protected @BindView(R.id.count) TextView tv_count;
+    protected @BindView(R.id.count)
+    TextView tv_count;
 
     private RecyclerView recyclerView;
     private IngredientListAdapter adapter;
@@ -68,10 +69,12 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         go = (Button) findViewById(R.id.go);
         edt = (EditText) findViewById(R.id.edt);
 
+        mHelper = new ProductDBHelper(getApplicationContext());
+        db = mHelper.getWritableDatabase();
+
         btnSelect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mHelper = new ProductDBHelper(getApplicationContext());
-                db = mHelper.getWritableDatabase();
+
                 Cursor countCursor = db.rawQuery("SELECT count(*) FROM recipe_ingredient_info WHERE ingredient_name=\"" + edt.getText().toString() + "\"", null);
                 countCursor.getCount();
                 countCursor.moveToNext();
@@ -80,7 +83,6 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
 
                 if (cnt != 0) {
                     cursor = db.rawQuery("SELECT * FROM recipe_ingredient_info WHERE ingredient_type_name = \"주재료\" and ingredient_name=\"" + edt.getText().toString() + "\"", null); //쿼리문
-                    startManagingCursor(cursor);
 
                     String strRecipeCode = "Recipe Code" + "\r\n" + "--------" + "\r\n";
                     String strIngredientOrder = "Ingredient Order" + "\r\n" + "--------" + "\r\n";
@@ -95,9 +97,6 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
                         strIngredientAmount += cursor.getString(3) + "\r\n";
                         strIngredientTypeName += cursor.getString(4) + "\r\n";
                     }
-
-                    cursor.close();
-                    db.close();
 
                     edtRecipeCode.setText(strRecipeCode);
                     edtIngredientOrder.setText(strIngredientOrder);
@@ -174,15 +173,15 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         ingredients_meat.add(new Ingredient("오리고기", R.drawable.duck));
 
         List<Ingredient> ingredients_fish = new ArrayList<>();
-        for(int i=0 ;i<10; i++)
+        for (int i = 0; i < 10; i++)
             ingredients_fish.add(new Ingredient("생선" + i, R.drawable.lettuce));
 
         List<Ingredient> ingredients_veget = new ArrayList<>();
-        for(int i=0 ;i<10; i++)
+        for (int i = 0; i < 10; i++)
             ingredients_veget.add(new Ingredient("채소" + i, R.drawable.lettuce));
 
         List<Ingredient> ingredients_others = new ArrayList<>();
-        for(int i=0 ;i<10; i++)
+        for (int i = 0; i < 10; i++)
             ingredients_others.add(new Ingredient("기타" + i, R.drawable.setting));
 
         adapter = new IngredientListAdapter(this);
@@ -198,7 +197,7 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
         Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
 
-        if(isOnClicked) tv_count.setText(++count + "");
+        if (isOnClicked) tv_count.setText(++count + "");
         else tv_count.setText(--count + "");
     }
 }

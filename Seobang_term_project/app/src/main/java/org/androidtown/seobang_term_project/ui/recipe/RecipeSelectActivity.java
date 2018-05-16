@@ -61,27 +61,16 @@ public class RecipeSelectActivity extends AppCompatActivity {
         showRecipe.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Cursor countCursor = db.rawQuery("SELECT count(*) FROM " + TABLE_NAME, null);
-                countCursor.getCount();
-                countCursor.moveToNext();
-                int cnt = countCursor.getInt(0);
-                countCursor.close();
+                cursor = db.rawQuery("SELECT recipe_name FROM " + TABLE_NAME, null); //쿼리문
+                startManagingCursor(cursor);
 
-                if (cnt != 0) {
-                    cursor = db.rawQuery("SELECT recipe_name FROM " + TABLE_NAME, null); //쿼리문
-                    startManagingCursor(cursor);
-
-                    String strRecipeName = "Recipe Name" + "\r\n" + "--------" + "\r\n";
+                String strRecipeName = "Recipe Name" + "\r\n" + "--------" + "\r\n";
 
 
-                    while (cursor.moveToNext()) {
-                        strRecipeName += cursor.getString(0) + "\r\n";
-                    }
-                    recipeOutput.setText(strRecipeName);
-                } else {
-                    recipeOutput.setText("No Result");
+                while (cursor.moveToNext()) {
+                    strRecipeName += cursor.getString(0) + "\r\n";
                 }
-
+                recipeOutput.setText(strRecipeName);
             }
         });
 
@@ -102,14 +91,11 @@ public class RecipeSelectActivity extends AppCompatActivity {
                     while (cursor.moveToNext()) {
                         selectedRecipeCode = cursor.getString(0);
                     }
-                    cursor.close();
-                    db.close();
                     Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("selectedRecipe", selectedRecipeCode);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    finish();
                 } else {
                     String msg = "Sorry...There is no such food.";
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
