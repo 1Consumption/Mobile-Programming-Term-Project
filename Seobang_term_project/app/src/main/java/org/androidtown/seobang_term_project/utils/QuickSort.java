@@ -4,12 +4,12 @@ public class QuickSort {
     public static void sort(String[] data, int l, int r) {
         int left = l;
         int right = r;
-        int pivot = Integer.parseInt(data[(l + r) / 2].substring(0, data[(l + r) / 2].indexOf("&")));
+        int pivot = Integer.parseInt(data[(l + r) / 2].substring(data[(l + r) / 2].indexOf("+") + 1, data[(l + r) / 2].indexOf("&")));
 
         do {
-            while (Integer.parseInt(data[left].substring(0, data[left].indexOf("&"))) < pivot)
+            while (Integer.parseInt(data[left].substring(data[left].indexOf("+") + 1, data[left].indexOf("&"))) < pivot)
                 left++;
-            while (Integer.parseInt(data[right].substring(0, data[right].indexOf("&"))) > pivot)
+            while (Integer.parseInt(data[right].substring(data[right].indexOf("+") + 1, data[right].indexOf("&"))) > pivot)
                 right--;
             if (left <= right) {
                 String temp = data[left];

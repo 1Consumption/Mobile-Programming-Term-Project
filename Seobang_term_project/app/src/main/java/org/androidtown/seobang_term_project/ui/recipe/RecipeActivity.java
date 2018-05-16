@@ -2,10 +2,6 @@
 
 package org.androidtown.seobang_term_project.ui.recipe;
 
-
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -14,10 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,12 +24,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static android.support.v4.app.NotificationCompat.*;
-
-public class RecipeActivity extends AppCompatActivity implements org.androidtown.seobang_term_project.ui.recipe.PageFragment.OnTimePickerSetListener {
+public class RecipeActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
-    int mresult;
 
     String[] RecipeProcess;
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
@@ -44,21 +35,6 @@ public class RecipeActivity extends AppCompatActivity implements org.androidtown
     public SQLiteDatabase db;
     public Cursor cursor;
     ProductDBHelper mHelper;
-
-    public void onTimePickerSet(int result) {
-        mresult = result;
-        if (mresult == 0) {
-            Builder mBuilder = new Builder(RecipeActivity.this);
-            mBuilder.setContentText("서방");
-            mBuilder.setSmallIcon(R.drawable.spoon);
-            mBuilder.setContentTitle("타이머 종료!");
-            mBuilder.setDefaults(Notification.DEFAULT_ALL);
-            mBuilder.setPriority(PRIORITY_DEFAULT);
-            mBuilder.setAutoCancel(true);
-            NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            mNotificationManager.notify(0, mBuilder.build());
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,18 +49,16 @@ public class RecipeActivity extends AppCompatActivity implements org.androidtown
 
         mHelper = new ProductDBHelper(getApplicationContext());
 
-
         db = mHelper.getWritableDatabase();
 
         cursor = db.rawQuery("SELECT process,explanation,url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
 
-//        Cursor URLCursor=db.rawQuery("SELECT url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null);
-
         String strRecipeProcess = "";
 
         while (cursor.moveToNext()) {
-            strRecipeProcess += cursor.getString(0);
-            strRecipeProcess += "&" + cursor.getString(1) + "|";
+            strRecipeProcess += result + "+";
+            strRecipeProcess += cursor.getString(0) + "&";
+            strRecipeProcess += cursor.getString(1) + "|";
             strRecipeProcess += cursor.getString(2) + "#";
         }
 
@@ -121,9 +95,7 @@ public class RecipeActivity extends AppCompatActivity implements org.androidtown
             Log.e("getCountTest", String.valueOf(RecipeProcess.length));
             return RecipeProcess.length;
         }
-
     }
-
 
     public static void setDB(Context ctx) {
         File folder = new File(ROOT_DIR);

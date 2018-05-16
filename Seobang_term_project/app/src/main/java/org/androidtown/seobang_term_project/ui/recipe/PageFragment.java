@@ -1,9 +1,17 @@
 
 package org.androidtown.seobang_term_project.ui.recipe;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +27,8 @@ import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class PageFragment extends Fragment {
 
     private String mPageString;
@@ -26,12 +36,9 @@ public class PageFragment extends Fragment {
     TextView minute;
     TextView second;
     LinearLayout timerLayout;
-    int result =0;
+    int result = 0;
     int time = 0;
-    private OnTimePickerSetListener onTimePickerSetListener;
-    public interface  OnTimePickerSetListener{
-        void onTimePickerSet(int result);
-    }
+
     public static PageFragment create(String pageContents) {
         PageFragment fragment = new PageFragment();
         Bundle args = new Bundle();
@@ -45,18 +52,12 @@ public class PageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPageString = getArguments().getString("page");
     }
-    @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-        if(getActivity() !=null && getActivity() instanceof OnTimePickerSetListener){
-            onTimePickerSetListener = (OnTimePickerSetListener) getActivity();
-        }
-    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
-        ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(0, mPageString.indexOf("&")));
+        ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
         ((TextView) rootView.findViewById(R.id.recipeString)).setText(processString);
         WebView webView = rootView.findViewById(R.id.processWebView);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -124,7 +125,7 @@ public class PageFragment extends Fragment {
 
             timerStartButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    new CountDownTask().execute();
+                    new CountDownTask(getContext()).execute();
                     Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
                     timerStartButton.startAnimation(anim);
                     timerStartButton.setVisibility(View.INVISIBLE);
@@ -145,6 +146,12 @@ public class PageFragment extends Fragment {
     }
 
     private class CountDownTask extends AsyncTask<Void, Integer, Void> {
+        Context cnt;
+
+        CountDownTask(Context context) {
+            cnt = context;
+        }
+
         @Override
         protected Void doInBackground(Void... params) {
             for (int i = time; i >= 0; i--) {
@@ -156,12 +163,29 @@ public class PageFragment extends Fragment {
                     Log.d(this.getClass().getName(), "error-exception");
                 }
                 if (i == 0) {
-                    if(onTimePickerSetListener != null){
-                        onTimePickerSetListener.onTimePickerSet(result);
-                    }
-                    else
-                        Log.d(this.getClass().getName(), "error-i is not 0");
+                    Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground);
 
+                    Intent intent = new Intent(getActivity(), RecipeActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("selectedRecipe", mPageString.substring(0, mPageString.indexOf("+")));
+                    intent.putExtras(bundle);
+
+                    PendingIntent mPendingIntent = PendingIntent.getActivity(getActivity(), 0,
+                            intent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(getActivity())
+                                    .setSmallIcon(R.drawable.spoon)
+                                    .setContentTitle("타이머 종료!")
+                                    .setContentText("서방")
+                                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                                    .setLargeIcon(mLargeIconForNoti)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setAutoCancel(true)
+                                    .setContentIntent(mPendingIntent);
+                    NotificationManager mNotificationManager = (NotificationManager) cnt.getSystemService(NOTIFICATION_SERVICE);
+                    mNotificationManager.notify(0, mBuilder.build());
                 }
             }
             return null;

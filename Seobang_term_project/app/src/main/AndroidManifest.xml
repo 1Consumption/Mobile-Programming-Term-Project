@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.info.InfoActivity" />
-        <activity android:name=".ui.ingredient.IngredientSelectActivity"/>
+        <activity android:name=".ui.ingredient.IngredientSelectActivity" />
         <activity android:name=".ui.tutorial.TutorialActivity" />
         <activity android:name=".ui.recipe.RecipeSelectActivity" />
         <activity android:name=".ui.recipe.RecipeActivity" />

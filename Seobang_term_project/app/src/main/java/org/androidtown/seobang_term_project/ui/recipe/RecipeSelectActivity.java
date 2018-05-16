@@ -66,7 +66,6 @@ public class RecipeSelectActivity extends AppCompatActivity {
 
                 String strRecipeName = "Recipe Name" + "\r\n" + "--------" + "\r\n";
 
-
                 while (cursor.moveToNext()) {
                     strRecipeName += cursor.getString(0) + "\r\n";
                 }
@@ -100,8 +99,6 @@ public class RecipeSelectActivity extends AppCompatActivity {
                     String msg = "Sorry...There is no such food.";
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
     }
