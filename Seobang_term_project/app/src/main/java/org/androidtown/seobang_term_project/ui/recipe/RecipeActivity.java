@@ -72,9 +72,6 @@ public class RecipeActivity extends FragmentActivity {
         for (int i = 0; i < RecipeProcess.length; i++)
             Log.e("Recipe", RecipeProcess[i]);
 
-        cursor.close();
-        db.close();
-
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
