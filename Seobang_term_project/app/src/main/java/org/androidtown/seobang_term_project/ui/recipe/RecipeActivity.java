@@ -142,4 +142,10 @@ public class RecipeActivity extends AppCompatActivity {
         }
     }
 
+    protected void onDestroy(){
+        super.onDestroy();
+        cursor.close();
+        db.close();
+    }
+
 }

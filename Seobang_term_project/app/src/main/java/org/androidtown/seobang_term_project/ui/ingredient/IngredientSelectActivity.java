@@ -173,8 +173,12 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         ingredients_meat.add(new Ingredient("오리고기", R.drawable.duck));
 
         List<Ingredient> ingredients_fish = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
-            ingredients_fish.add(new Ingredient("생선" + i, R.drawable.lettuce));
+        ingredients_fish.add(new Ingredient("꽁치", R.drawable.fish1));
+        ingredients_fish.add(new Ingredient("고등어", R.drawable.fish2));
+        ingredients_fish.add(new Ingredient("삼치", R.drawable.fish3));
+        ingredients_fish.add(new Ingredient("갈치", R.drawable.fish4));
+        ingredients_fish.add(new Ingredient("병어", R.drawable.fish5));
+        ingredients_fish.add(new Ingredient("멸치", R.drawable.fish6));
 
         List<Ingredient> ingredients_veget = new ArrayList<>();
         for (int i = 0; i < 10; i++)
@@ -188,7 +192,7 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.addIngredientListItem(new IngredientList("고기류", ingredients_meat));
-        adapter.addIngredientListItem(new IngredientList("생선류", ingredients_fish));
+        adapter.addIngredientListItem(new IngredientList("해산물", ingredients_fish));
         adapter.addIngredientListItem(new IngredientList("채소류", ingredients_veget));
         adapter.addIngredientListItem(new IngredientList("기타재료", ingredients_others));
     }
