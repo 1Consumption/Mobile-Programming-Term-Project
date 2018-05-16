@@ -147,21 +147,18 @@ public class PageFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             for (int i = time; i >= 0; i--) {
                 try {
-                    Log.i(this.getClass().getName(), "이건됫냐2");
                     Thread.sleep(1000);
                     publishProgress(i);
 
                 } catch (Exception e) {
-                    Log.d(this.getClass().getName(), "안됨");
+                    Log.d(this.getClass().getName(), "error-exception");
                 }
                 if (i == 0) {
-                    Log.d(this.getClass().getName(), "됨");
                     if(onTimePickerSetListener != null){
-                        Log.d(this.getClass().getName(), "널아님");
                         onTimePickerSetListener.onTimePickerSet(result);
                     }
                     else
-                        Log.d(this.getClass().getName(), "널임");
+                        Log.d(this.getClass().getName(), "error-i is not 0");
 
                 }
             }
