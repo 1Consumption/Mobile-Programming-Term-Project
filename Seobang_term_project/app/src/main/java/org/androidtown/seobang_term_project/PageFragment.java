@@ -114,7 +114,7 @@ public class PageFragment extends Fragment {
                             temp = timeInProcess.split("-");
                         timeInProcess = String.valueOf((Double.parseDouble(temp[0]) + Double.parseDouble(temp[1])) / 2);
                     }
-                    extractedTime = Double.parseDouble(timeInProcess) * 5;
+                    extractedTime = Double.parseDouble(timeInProcess) * 60;
                 }
             }
 
