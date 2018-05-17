@@ -162,31 +162,6 @@ public class PageFragment extends Fragment {
                 } catch (Exception e) {
                     Log.d(this.getClass().getName(), "error-exception");
                 }
-                if (i == 0) {
-                    Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground);
-
-                    Intent intent = new Intent(getActivity(), RecipeActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("selectedRecipe", mPageString.substring(0, mPageString.indexOf("+")));
-                    intent.putExtras(bundle);
-
-                    PendingIntent mPendingIntent = PendingIntent.getActivity(getActivity(), 0,
-                            intent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
-
-                    NotificationCompat.Builder mBuilder =
-                            new NotificationCompat.Builder(getActivity())
-                                    .setSmallIcon(R.drawable.spoon)
-                                    .setContentTitle("타이머 종료!")
-                                    .setContentText("서방")
-                                    .setDefaults(Notification.DEFAULT_VIBRATE)
-                                    .setLargeIcon(mLargeIconForNoti)
-                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                    .setAutoCancel(true)
-                                    .setContentIntent(mPendingIntent);
-                    NotificationManager mNotificationManager = (NotificationManager) cnt.getSystemService(NOTIFICATION_SERVICE);
-                    mNotificationManager.notify(0, mBuilder.build());
-                }
             }
             return null;
         }
@@ -201,6 +176,33 @@ public class PageFragment extends Fragment {
             hour.setText(String.format("%02d", intHour));
             minute.setText(String.format("%02d", intMinute));
             second.setText(String.format("%02d", intSecond));
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground);
+
+            Intent intent = new Intent(getActivity(), RecipeActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("selectedRecipe", mPageString.substring(0, mPageString.indexOf("+")));
+            intent.putExtras(bundle);
+
+            PendingIntent mPendingIntent = PendingIntent.getActivity(getActivity(), 0,
+                    intent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(getActivity())
+                            .setSmallIcon(R.drawable.spoon)
+                            .setContentTitle("타이머 종료!")
+                            .setContentText("서방")
+                            .setDefaults(Notification.DEFAULT_VIBRATE)
+                            .setLargeIcon(mLargeIconForNoti)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true)
+                            .setContentIntent(mPendingIntent);
+            NotificationManager mNotificationManager = (NotificationManager) cnt.getSystemService(NOTIFICATION_SERVICE);
+            mNotificationManager.notify(0, mBuilder.build());
         }
     }
 

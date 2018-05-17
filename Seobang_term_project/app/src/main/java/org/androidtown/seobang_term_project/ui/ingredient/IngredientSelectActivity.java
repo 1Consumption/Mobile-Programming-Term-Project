@@ -206,4 +206,4 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         if (isOnClicked) tv_count.setText(++count + "");
         else tv_count.setText(--count + "");
     }
-}v
+}
