@@ -230,8 +230,10 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         List<Ingredient> ingredients_seasoning = new ArrayList<>();
         ingredients_seasoning.add(new Ingredient("소금", R.drawable.salt));
         ingredients_seasoning.add(new Ingredient("된장", R.drawable.doenjang));
-        ingredients_seasoning.add(new Ingredient("토마토 케찹", R.drawable.ketchup));
+        ingredients_seasoning.add(new Ingredient("고추장", R.drawable.gochujang));
+        ingredients_seasoning.add(new Ingredient("간장", R.drawable.ganjang));
         ingredients_seasoning.add(new Ingredient("새우젓", R.drawable.saeujeot));
+        ingredients_seasoning.add(new Ingredient("토마토 케찹", R.drawable.ketchup));
 
         List<Ingredient> ingredients_others = new ArrayList<>();
         ingredients_others.add(new Ingredient("밥", R.drawable.bob));
@@ -244,11 +246,12 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         ingredients_others.add(new Ingredient("가래떡", R.drawable.garaeddeock));
         ingredients_others.add(new Ingredient("밤", R.drawable.chestnut));
         ingredients_others.add(new Ingredient("스파게티 면", R.drawable.spaghetti));
-        ingredients_veget.add(new Ingredient("팥", R.drawable.red_been));
+        ingredients_others.add(new Ingredient("팥", R.drawable.red_been));
         ingredients_others.add(new Ingredient("설탕", R.drawable.sugar));
-        ingredients_veget.add(new Ingredient("당면", R.drawable.dangmyoen));
-        ingredients_veget.add(new Ingredient("미역", R.drawable.miyeok));
-        ingredients_veget.add(new Ingredient("찹쌀가루", R.drawable.chapssalgaru));
+        ingredients_others.add(new Ingredient("당면", R.drawable.dangmyoen));
+        ingredients_others.add(new Ingredient("미역", R.drawable.miyeok));
+        ingredients_others.add(new Ingredient("우유", R.drawable.milk));
+        ingredients_others.add(new Ingredient("찹쌀가루", R.drawable.chapssalgaru));
         ingredients_others.add(new Ingredient("게맛살", R.drawable.gaematsal));
 
 //        for (int i = 0; i < 10; i++)
