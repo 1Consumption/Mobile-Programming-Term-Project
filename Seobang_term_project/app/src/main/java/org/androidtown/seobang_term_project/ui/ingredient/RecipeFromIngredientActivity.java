@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.utils.QuickSort;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +25,13 @@ public class RecipeFromIngredientActivity extends AppCompatActivity {
     public SQLiteDatabase db;
     public Cursor cursor;
     ProductDBHelper mHelper;
+
+    String[] recipeList = new String[2000];
+    String[] tempList = new String[2000];
+
+    int recipeLength = 0;
+    int cnt = 1;
+    int tempLength = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,6 @@ public class RecipeFromIngredientActivity extends AppCompatActivity {
 
         int tempNum = 0;
 
-
         for (int i = 0; i < ingredient.length; i++) {
             cursor = db.rawQuery("SELECT count(recipe_code) FROM recipe_ingredient_info WHERE ingredient_type_name=\"주재료\" and ingredient_name=\"" + ingredient[tempNum] + "\"", null);
             tempNum++;
@@ -58,13 +65,47 @@ public class RecipeFromIngredientActivity extends AppCompatActivity {
             cursor = db.rawQuery("SELECT recipe_code FROM recipe_ingredient_info WHERE ingredient_type_name=\"주재료\" and ingredient_name=\"" + ingredient[i] + "\"", null); //쿼리문
 
             while (cursor.moveToNext()) {
-                temp += cursor.getString(0) + "\n";
+                tempList[tempLength] = cursor.getString(0);
+                tempLength++;
             }
+        }
+        QuickSort.sort(tempList, 0, tempLength - 1);
 
-            temp += "===========================================\n";
+//        Log.e("select",String.valueOf(temp));
+//        Log.e("testsetsetsetset",String.valueOf(recipeLength));
+//
+//        for (int i = 0; i < tempList.length; i++)
+//            Log.e("test", tempList[i] + "\n");
+
+        for (int i = 0; i < tempLength; i++) {
+            if (i + 1 == tempLength)
+                break;
+            else {
+                if (tempList[i].equals(tempList[i + 1]))
+                    cnt++;
+                else {
+                    recipeList[recipeLength] = tempList[i] + "." + String.valueOf(cnt);
+                    cnt = 1;
+                    recipeLength++;
+                }
+            }
         }
 
-        textView.setText(temp);
+        for (int i = 0; i < recipeLength; i++) {
+            for (int j = 0; j < recipeLength - 1 - i; j++) {
+                if (Integer.parseInt(recipeList[j].substring(recipeList[j].indexOf(".") + 1)) < Integer.parseInt(recipeList[j + 1].substring(recipeList[j + 1].indexOf(".") + 1))) {
+                    String a = recipeList[j];
+                    recipeList[j] = recipeList[j + 1];
+                    recipeList[j + 1] = a;
+                }
+            }
+        }
+
+//        for (int i = 0; i < recipeLength; i++)
+//            Log.e("testtest", recipeList[i] + "\n");
+
+        for (int i = 0; i < recipeLength; i++)
+            textView.append(recipeList[i].substring(0,recipeList[i].indexOf(".")) + " - " + recipeList[i].substring(recipeList[i].indexOf(".") + 1) + "번\n");
     }
 
     public static void setDB(Context ctx) {
@@ -111,4 +152,5 @@ public class RecipeFromIngredientActivity extends AppCompatActivity {
             // TODO Auto-generated method stub
         }
     }
+
 }

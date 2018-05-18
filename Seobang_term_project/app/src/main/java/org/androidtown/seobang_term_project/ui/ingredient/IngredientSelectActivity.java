@@ -190,7 +190,7 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         ingredients_meat.add(new Ingredient("소고기", R.drawable.beaf));
         ingredients_meat.add(new Ingredient("닭고기", R.drawable.chicken));
         ingredients_meat.add(new Ingredient("닭가슴살", R.drawable.chicken));
-        ingredients_meat.add(new Ingredient("닭고기", R.drawable.chicken));
+        ingredients_meat.add(new Ingredient("닭다리", R.drawable.chicken));
 //        ingredients_meat.add(new Ingredient("오리고기", R.drawable.duck));
 
         List<Ingredient> ingredients_fish = new ArrayList<>();
@@ -259,7 +259,7 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         List<Ingredient> ingredients_others = new ArrayList<>();
         ingredients_others.add(new Ingredient("밥", R.drawable.bob));
         ingredients_others.add(new Ingredient("두부", R.drawable.tofu));
-        ingredients_others.add(new Ingredient("김치", R.drawable.kimchi));
+        ingredients_others.add(new Ingredient("배추김치", R.drawable.kimchi));
         ingredients_others.add(new Ingredient("쌀", R.drawable.rice));
         ingredients_others.add(new Ingredient("계란", R.drawable.egg));
         ingredients_others.add(new Ingredient("밀가루", R.drawable.wheat_flour));
