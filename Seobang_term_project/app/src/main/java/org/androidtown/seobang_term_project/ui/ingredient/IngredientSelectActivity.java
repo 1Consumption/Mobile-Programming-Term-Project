@@ -1,6 +1,7 @@
 package org.androidtown.seobang_term_project.ui.ingredient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,11 +35,13 @@ import butterknife.ButterKnife;
 
 public class IngredientSelectActivity extends AppCompatActivity implements IngredientViewHolder.Delegate {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "recipe_ingredient_info.db";
+    public static final String DB_Name = "test_ingredient.db";
     public SQLiteDatabase db;
     public Cursor cursor;
     ProductDBHelper mHelper;
-    Button btnSelect, go;
+    Button btnSelect, showRecipe;
+
+    String result = "";
 
     TextView edtRecipeCode, edtIngredientOrder, edtIngredientName, edtIngredientAmount, edtIngredientTypeName;
     EditText edt;
@@ -66,15 +70,29 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
         edtIngredientAmount = (TextView) findViewById(R.id.edtIngredientAmount);
         edtIngredientTypeName = (TextView) findViewById(R.id.edtIngredientTypeName);
         btnSelect = (Button) findViewById(R.id.btnSelect);
-        go = (Button) findViewById(R.id.go);
+        showRecipe = (Button) findViewById(R.id.showRecipeFromIngredient);
         edt = (EditText) findViewById(R.id.edt);
 
         mHelper = new ProductDBHelper(getApplicationContext());
         db = mHelper.getWritableDatabase();
 
+        showRecipe.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (result.equals("")) {
+                    Toast.makeText(getApplicationContext(), "You didn't choose anything!", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), RecipeFromIngredientActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("result", result.substring(0, result.length() - 1));
+                    intent.putExtras(bundle);
+                    Log.e("IngredientSelect", result.substring(0, result.length() - 1));
+                    startActivity(intent);
+                }
+            }
+        });
+
         btnSelect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Cursor countCursor = db.rawQuery("SELECT count(*) FROM recipe_ingredient_info WHERE ingredient_name=\"" + edt.getText().toString() + "\"", null);
                 countCursor.getCount();
                 countCursor.moveToNext();
@@ -168,7 +186,10 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
     private void initData() {
         List<Ingredient> ingredients_meat = new ArrayList<>();
         ingredients_meat.add(new Ingredient("돼지고기", R.drawable.meat));
+        ingredients_meat.add(new Ingredient("돼지갈비", R.drawable.meat));
         ingredients_meat.add(new Ingredient("소고기", R.drawable.beaf));
+        ingredients_meat.add(new Ingredient("닭고기", R.drawable.chicken));
+        ingredients_meat.add(new Ingredient("닭가슴살", R.drawable.chicken));
         ingredients_meat.add(new Ingredient("닭고기", R.drawable.chicken));
 //        ingredients_meat.add(new Ingredient("오리고기", R.drawable.duck));
 
@@ -270,9 +291,25 @@ public class IngredientSelectActivity extends AppCompatActivity implements Ingre
 
     @Override
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
-        Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ingredient.getIngredientType() + " clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
+        result = checkIsInResult(ingredient, result);
 
         if (isOnClicked) tv_count.setText(++count + "");
         else tv_count.setText(--count + "");
+    }
+
+    public String checkIsInResult(Ingredient ingredient, String result) {
+        if (result.indexOf(ingredient.getIngredientType()) == -1)
+            result += ingredient.getIngredientType() + ",";
+        else {
+            if (result.indexOf(ingredient.getIngredientType()) == 0) {
+                if (result.length() == ingredient.getIngredientType().length() + 1)
+                    result = "";
+                else
+                    result = result.substring(ingredient.getIngredientType().length() + 1);
+            } else
+                result = result.substring(0, result.indexOf(ingredient.getIngredientType()) - 1) + result.substring(result.indexOf(ingredient.getIngredientType()) + ingredient.getIngredientType().length());
+        }
+        return result;
     }
 }

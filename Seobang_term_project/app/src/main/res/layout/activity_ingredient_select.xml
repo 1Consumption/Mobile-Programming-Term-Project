@@ -50,10 +50,10 @@
                     android:text="click" />
 
                 <Button
-                    android:id="@+id/go"
+                    android:id="@+id/showRecipeFromIngredient"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="go" />
+                    android:text="show recipe" />
             </LinearLayout>
 
             <TextView
