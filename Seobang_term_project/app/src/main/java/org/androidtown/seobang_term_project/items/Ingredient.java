@@ -22,7 +22,7 @@ public class Ingredient {
         return image;
     }
 
-    public void setImage(int image){
+    public void setImage(int image) {
         this.image = image;
     }
 }
