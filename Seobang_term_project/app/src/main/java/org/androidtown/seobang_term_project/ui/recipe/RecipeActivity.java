@@ -1,56 +1,45 @@
-
-
 package org.androidtown.seobang_term_project.ui.recipe;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.compose.BaseActivity;
+import org.androidtown.seobang_term_project.factory.DatabaseFactory;
+import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.QuickSort;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import butterknife.BindView;
 
-public class RecipeActivity extends AppCompatActivity {
-    private ViewPager mViewPager;
+public class RecipeActivity extends BaseActivity {
+
+    protected @BindView(R.id.pager) ViewPager viewpager;
     private PagerAdapter mPagerAdapter;
 
-    String[] RecipeProcess;
+    private String[] RecipeProcess;
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
     public static final String DB_Name = "recipe_process.db";
     public static final String TABLE_NAME = "recipe_process";
-    public SQLiteDatabase db;
-    public Cursor cursor;
-    ProductDBHelper mHelper;
+
+    private SQLiteDatabase db;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe);
+        setContentViewById(R.layout.activity_recipe);
 
-        setDB(this);
+        DBUtils.setDB(this, ROOT_DIR, DB_Name);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        String result = bundle.getString("selectedRecipe");
-
-        mHelper = new ProductDBHelper(getApplicationContext());
-
-        db = mHelper.getWritableDatabase();
-
+        String result = getSelectedRecipeId();
+        db = DatabaseFactory.create(this, DB_Name);
         cursor = db.rawQuery("SELECT process,explanation,url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
 
         String strRecipeProcess = "";
@@ -67,85 +56,60 @@ public class RecipeActivity extends AppCompatActivity {
         RecipeProcess = strRecipeProcess.split("#");
         Log.e("LENGTH", String.valueOf(RecipeProcess.length));
 
-        QuickSort sort = new QuickSort();
+        QuickSort.sort(RecipeProcess, 0, RecipeProcess.length - 1);
 
-        sort.sort(RecipeProcess, 0, RecipeProcess.length - 1);
-
-        for (int i = 0; i < RecipeProcess.length; i++)
-            Log.e("Recipe", RecipeProcess[i]);
-
-        mViewPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mPagerAdapter);
+        viewpager.setAdapter(mPagerAdapter);
+        viewpager.addOnPageChangeListener(pageChangeListener);
+        setToolbarName(getSelectedRecipeName() + " 1/" + RecipeProcess.length);
     }
 
-    private class PagerAdapter extends FragmentStatePagerAdapter {
+    ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
 
+        @Override
+        public void onPageSelected(int position) {
+            setToolbarName(getSelectedRecipeName() + " " + (position + 1) + "/" + RecipeProcess.length);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
+    };
+
+    private class PagerAdapter extends FragmentStatePagerAdapter {
         public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return org.androidtown.seobang_term_project.ui.recipe.PageFragment.create(RecipeProcess[position]);
+            return PageFragment.create(RecipeProcess[position]);
         }
 
         @Override
         public int getCount() {
-            Log.e("getCountTest", String.valueOf(RecipeProcess.length));
             return RecipeProcess.length;
         }
     }
 
-    public static void setDB(Context ctx) {
-        File folder = new File(ROOT_DIR);
-        if (folder.exists()) {
-        } else {
-            folder.mkdirs();
-        }
-        AssetManager assetManager = ctx.getResources().getAssets();
-        File outfile = new File(ROOT_DIR + DB_Name);
-        InputStream is = null;
-        FileOutputStream fo = null;
-        long filesize = 0;
-        try {
-            is = assetManager.open(DB_Name, AssetManager.ACCESS_BUFFER);
-            filesize = is.available();
-            if (outfile.length() <= 0) {
-                byte[] tempdata = new byte[(int) filesize];
-                is.read(tempdata);
-                is.close();
-                outfile.createNewFile();
-                fo = new FileOutputStream(outfile);
-                fo.write(tempdata);
-                fo.close();
-            } else {
-            }
-        } catch (IOException e) {
-        }
+    private String getSelectedRecipeId() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        return bundle.getString("selectedRecipe");
     }
 
-    class ProductDBHelper extends SQLiteOpenHelper {  //새로 생성한 adapter 속성은 SQLiteOpenHelper이다.
-        public ProductDBHelper(Context context) {
-            super(context, DB_Name, null, 1);    // db명과 버전만 정의 한다.
-            // TODO Auto-generated constructor stub
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            // TODO Auto-generated method stub
-        }
+    private String getSelectedRecipeName() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        return bundle.getString("RecipeName");
     }
 
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         cursor.close();
         db.close();
     }
-
 }

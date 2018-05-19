@@ -20,6 +20,11 @@ import org.androidtown.seobang_term_project.utils.PowerMenuUtils;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Developed by hayeon0824 on 2018-05-19.
+ * Copyright (c) 2018 hayeon0824 rights reserved.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private PowerMenu powerMenu;

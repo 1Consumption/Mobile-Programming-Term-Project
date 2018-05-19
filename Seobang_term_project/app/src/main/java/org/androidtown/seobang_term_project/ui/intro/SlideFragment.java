@@ -7,6 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Developed by hayeon0824 on 2018-05-19.
+ * Copyright (c) 2018 hayeon0824 rights reserved.
+ */
+
 public class SlideFragment extends Fragment {
 
     private int layout;
