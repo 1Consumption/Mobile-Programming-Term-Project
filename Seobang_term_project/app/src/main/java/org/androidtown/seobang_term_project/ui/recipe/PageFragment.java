@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
 
+import butterknife.ButterKnife;
+
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class PageFragment extends Fragment {
@@ -57,6 +59,7 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
+        ButterKnife.bind(this, rootView);
         ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
         ((TextView) rootView.findViewById(R.id.recipeString)).setText(processString);
         WebView webView = rootView.findViewById(R.id.processWebView);
@@ -103,7 +106,7 @@ public class PageFragment extends Fragment {
                 timeIndex = extractTime(processString, index);
                 char errorCheck = processString.charAt(processString.indexOf("분") - 1);
 
-                if (Character.isDigit(errorCheck) == true) {
+                if (Character.isDigit(errorCheck)) {
                     timerLayout.setVisibility(View.VISIBLE);
                     timerStartButton.setVisibility(View.VISIBLE);
                     timeInProcess = processString.substring(timeIndex, processString.indexOf("분"));
