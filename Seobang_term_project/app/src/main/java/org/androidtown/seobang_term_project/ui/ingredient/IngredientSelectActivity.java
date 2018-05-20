@@ -1,10 +1,12 @@
 package org.androidtown.seobang_term_project.ui.ingredient;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,14 +31,15 @@ import butterknife.OnClick;
 public class IngredientSelectActivity extends BaseActivity implements IngredientViewHolder.Delegate {
 
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "recipe_ingredient_info.db";
+    public static final String DB_Name = "test_ingredient.db";
 
     public SQLiteDatabase db;
+
     public Cursor cursor;
 
     protected @BindView(R.id.edt) EditText edt;
     protected @BindView(R.id.btnSelect) Button btnSelect;
-    protected @BindView(R.id.go) Button go;
+    protected @BindView(R.id.showRecipeFromIngredient) Button showRecipe;
     protected @BindView(R.id.edtRecipeCode) TextView edtRecipeCode;
     protected @BindView(R.id.edtIngredientOrder) TextView edtIngredientOrder;
     protected @BindView(R.id.edtIngredientName) TextView edtIngredientName;
@@ -44,6 +47,23 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     protected @BindView(R.id.edtIngredientTypeName) TextView edtIngredientTypeName;
     protected @BindView(R.id.ingredient_select_recyclerView) RecyclerView recyclerView;
     protected @BindView(R.id.count) TextView tv_count;
+
+    String result = "";
+
+    @OnClick(R.id.showRecipeFromIngredient)
+    public void onshowRecipe(View view){
+        if(result.equals("")){
+            Toast.makeText(getApplicationContext(), "You didn't choose anything!", Toast.LENGTH_LONG).show();
+        }else{
+            Intent intent = new Intent(getApplicationContext(), RecipeFromIngredientActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("result", result.substring(0, result.length() - 1));
+            intent.putExtras(bundle);
+            Log.e("IngredientSelect", result.substring(0, result.length()-1));
+            startActivity(intent);
+        }
+    }
+
 
     private int count = 0;
     private IngredientListAdapter adapter;
@@ -102,8 +122,11 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     private void initData() {
         List<Ingredient> ingredients_meat = new ArrayList<>();
         ingredients_meat.add(new Ingredient("돼지고기", R.drawable.meat));
+        ingredients_meat.add(new Ingredient("돼지갈비", R.drawable.galbi));
         ingredients_meat.add(new Ingredient("소고기", R.drawable.beaf));
-        ingredients_meat.add(new Ingredient("닭고기", R.drawable.chicken));
+        ingredients_meat.add(new Ingredient("닭고기", R.drawable.whole_chicken));
+        ingredients_meat.add(new Ingredient("닭가슴살", R.drawable.chicken));
+        ingredients_meat.add(new Ingredient("닭다리", R.drawable.chicken_leg));
 
         List<Ingredient> ingredients_fish = new ArrayList<>();
         ingredients_fish.add(new Ingredient("오징어", R.drawable.squid));
@@ -168,7 +191,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         List<Ingredient> ingredients_others = new ArrayList<>();
         ingredients_others.add(new Ingredient("밥", R.drawable.bob));
         ingredients_others.add(new Ingredient("두부", R.drawable.tofu));
-        ingredients_others.add(new Ingredient("김치", R.drawable.kimchi));
+        ingredients_others.add(new Ingredient("배추김치", R.drawable.kimchi));
         ingredients_others.add(new Ingredient("쌀", R.drawable.rice));
         ingredients_others.add(new Ingredient("계란", R.drawable.egg));
         ingredients_others.add(new Ingredient("밀가루", R.drawable.wheat_flour));
@@ -198,9 +221,26 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     @Override
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
         Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
+        result = checkIsInResult(ingredient, result);
+
 
         if (isOnClicked) tv_count.setText(++count + "");
         else tv_count.setText(--count + "");
+    }
+
+    public String checkIsInResult(Ingredient ingredient, String result){
+        if(result.indexOf(ingredient.getIngredientType()) == -1)
+            result += ingredient.getIngredientType() + ", ";
+        else{
+            if(result.indexOf(ingredient.getIngredientType()) == 0){
+                if(result.length() == ingredient.getIngredientType().length()+1)
+                    result ="";
+                else
+                    result = result.substring(ingredient.getIngredientType().length()+1);
+            }else
+                result = result.substring(0, result.indexOf(ingredient.getIngredientType())-1)+result.substring(result.indexOf(ingredient.getIngredientType()) + ingredient.getIngredientType().length());
+        }
+        return result;
     }
 
     @Override
