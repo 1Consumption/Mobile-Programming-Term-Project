@@ -36,20 +36,24 @@ public class IngredientViewHolder extends BaseViewHolder {
         if(o instanceof Ingredient) {
             this.ingredient = (Ingredient) o;
             this.item_image.setImageDrawable(ContextCompat.getDrawable(context(), this.ingredient.getImage()));
-            this.item_image.setAlpha(0.5f);
             this.item_name.setText(this.ingredient.getIngredientType());
+
+            if(ingredient.getIsListItem()) {
+                this.item_image.setAlpha(0.5f);
+            }
         }
     }
 
     @Override
     public void onClick(View v) {
-        if(item_image.getAlpha() == 1) {
-            item_image.setAlpha(0.5f);
-            delegate.onItemClick(ingredient, false);
-        }
-        else {
-            item_image.setAlpha(1f);
-            delegate.onItemClick(ingredient, true);
+        if(ingredient.getIsListItem()) {
+            if (item_image.getAlpha() == 1) {
+                item_image.setAlpha(0.5f);
+                delegate.onItemClick(ingredient, false);
+            } else {
+                item_image.setAlpha(1f);
+                delegate.onItemClick(ingredient, true);
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import org.androidtown.seobang_term_project.compose.BaseActivity;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.items.Ingredient;
 import org.androidtown.seobang_term_project.items.IngredientList;
+import org.androidtown.seobang_term_project.recycler.adapters.IngredientAdapter;
 import org.androidtown.seobang_term_project.recycler.adapters.IngredientListAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.IngredientViewHolder;
 import org.androidtown.seobang_term_project.utils.DBUtils;
@@ -46,7 +48,8 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     protected @BindView(R.id.edtIngredientAmount) TextView edtIngredientAmount;
     protected @BindView(R.id.edtIngredientTypeName) TextView edtIngredientTypeName;
     protected @BindView(R.id.ingredient_select_recyclerView) RecyclerView recyclerView;
-    protected @BindView(R.id.selectedIngredient) RecyclerView selectedIngredient;
+    protected @BindView(R.id.selectedIngredient) RecyclerView resultRecyclerView;
+    protected @BindView(R.id.result_layout) LinearLayout result_layout;
 
     String result = "";
 
@@ -66,6 +69,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     private int count = 0;
     private IngredientListAdapter adapter;
+    private IngredientAdapter resultAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +119,8 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
             edtIngredientAmount.setText("No Result");
             edtIngredientTypeName.setText("No Result");
         }
+
+        result_layout.setVisibility(View.VISIBLE);
     }
 
     //initialize data
@@ -215,12 +221,27 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         adapter.addIngredientListItem(new IngredientList("버섯류", ingredients_mushroom));
         adapter.addIngredientListItem(new IngredientList("양념", ingredients_seasoning));
         adapter.addIngredientListItem(new IngredientList("기타재료", ingredients_others));
+
+        resultAdapter = new IngredientAdapter(this);
+        resultRecyclerView.setAdapter(resultAdapter);
+        resultRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
-        Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
-        result = checkIsInResult(ingredient, result);
+        if(ingredient.getIsListItem()) { // 리스트 아이템을 클릭한경우
+            Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
+            result = checkIsInResult(ingredient, result);
+
+            if(isOnClicked) {
+                Ingredient newIngredient = new Ingredient(ingredient.getIngredientType(), ingredient.getImage());
+                newIngredient.setListItem(false);
+                resultAdapter.addItem(newIngredient);
+
+            } else {
+                resultAdapter.removeItem(ingredient);
+            }
+        }
     }
 
     public String checkIsInResult(Ingredient ingredient, String result){

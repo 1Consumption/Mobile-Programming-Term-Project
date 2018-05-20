@@ -23,6 +23,21 @@ public class IngredientAdapter extends BaseAdapter {
         addSection(new ArrayList<Ingredient>());
     }
 
+    public void addItem(Ingredient ingredient) {
+        addItemOnSection(0, ingredient);
+        notifyDataSetChanged();
+    }
+
+    public void removeItem(Ingredient ingredient) {
+        for(int i=0; i < sections().get(0).size(); i++) {
+            Ingredient item = (Ingredient)(sections().get(0).get(i));
+            if(item.getIngredientType().equals(ingredient.getIngredientType())) {
+                sections().get(0).remove(item);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public void addItems(List<Ingredient> ingredients) {
         addItemsOnSection(0, ingredients);
         notifyDataSetChanged();

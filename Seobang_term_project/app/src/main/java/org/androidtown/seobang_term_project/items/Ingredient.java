@@ -4,6 +4,7 @@ public class Ingredient {
 
     private String ingredientType;
     private int image;
+    private boolean isListItem = true;
 
     public Ingredient(String ingredientType, int image) {
         this.ingredientType = ingredientType;
@@ -24,5 +25,13 @@ public class Ingredient {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public boolean getIsListItem() {
+        return isListItem;
+    }
+
+    public void setListItem(boolean listItem) {
+        this.isListItem = listItem;
     }
 }
