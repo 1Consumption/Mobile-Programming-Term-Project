@@ -46,7 +46,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     protected @BindView(R.id.edtIngredientAmount) TextView edtIngredientAmount;
     protected @BindView(R.id.edtIngredientTypeName) TextView edtIngredientTypeName;
     protected @BindView(R.id.ingredient_select_recyclerView) RecyclerView recyclerView;
-    protected @BindView(R.id.count) TextView tv_count;
+    protected @BindView(R.id.selectedIngredient) RecyclerView selectedIngredient;
 
     String result = "";
 
@@ -63,7 +63,6 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
             startActivity(intent);
         }
     }
-
 
     private int count = 0;
     private IngredientListAdapter adapter;
@@ -222,10 +221,6 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
         Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
         result = checkIsInResult(ingredient, result);
-
-
-        if (isOnClicked) tv_count.setText(++count + "");
-        else tv_count.setText(--count + "");
     }
 
     public String checkIsInResult(Ingredient ingredient, String result){

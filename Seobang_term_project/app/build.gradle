@@ -36,4 +36,8 @@ dependencies {
     implementation 'com.github.skydoves:powermenu:2.0.4'
     implementation "com.github.skydoves:baserecyclerviewadapter:0.1.0"
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.github.medyo:android-about-page:1.2.4'
 }
