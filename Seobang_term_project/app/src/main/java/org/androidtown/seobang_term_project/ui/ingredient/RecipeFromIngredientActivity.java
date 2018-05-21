@@ -71,12 +71,6 @@ public class RecipeFromIngredientActivity extends AppCompatActivity {
         }
         QuickSort.sort(tempList, 0, tempLength - 1);
 
-//        Log.e("select",String.valueOf(temp));
-//        Log.e("testsetsetsetset",String.valueOf(recipeLength));
-//
-//        for (int i = 0; i < tempList.length; i++)
-//            Log.e("test", tempList[i] + "\n");
-
         for (int i = 0; i < tempLength; i++) {
             if (i + 1 == tempLength)
                 break;
@@ -100,9 +94,6 @@ public class RecipeFromIngredientActivity extends AppCompatActivity {
                 }
             }
         }
-
-//        for (int i = 0; i < recipeLength; i++)
-//            Log.e("testtest", recipeList[i] + "\n");
 
         for (int i = 0; i < recipeLength; i++)
             textView.append(recipeList[i].substring(0,recipeList[i].indexOf(".")) + " - " + recipeList[i].substring(recipeList[i].indexOf(".") + 1) + "번\n");
