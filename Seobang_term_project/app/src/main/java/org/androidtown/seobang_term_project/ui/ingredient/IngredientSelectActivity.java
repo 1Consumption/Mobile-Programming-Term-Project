@@ -39,30 +39,41 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     public Cursor cursor;
 
-    protected @BindView(R.id.edt) EditText edt;
-    protected @BindView(R.id.btnSelect) Button btnSelect;
-    protected @BindView(R.id.showRecipeFromIngredient) Button showRecipe;
-    protected @BindView(R.id.edtRecipeCode) TextView edtRecipeCode;
-    protected @BindView(R.id.edtIngredientOrder) TextView edtIngredientOrder;
-    protected @BindView(R.id.edtIngredientName) TextView edtIngredientName;
-    protected @BindView(R.id.edtIngredientAmount) TextView edtIngredientAmount;
-    protected @BindView(R.id.edtIngredientTypeName) TextView edtIngredientTypeName;
-    protected @BindView(R.id.ingredient_select_recyclerView) RecyclerView recyclerView;
-    protected @BindView(R.id.selectedIngredient) RecyclerView resultRecyclerView;
-    protected @BindView(R.id.result_layout) LinearLayout result_layout;
+    protected @BindView(R.id.edt)
+    EditText edt;
+    protected @BindView(R.id.btnSelect)
+    Button btnSelect;
+    protected @BindView(R.id.showRecipeFromIngredient)
+    Button showRecipe;
+    protected @BindView(R.id.edtRecipeCode)
+    TextView edtRecipeCode;
+    protected @BindView(R.id.edtIngredientOrder)
+    TextView edtIngredientOrder;
+    protected @BindView(R.id.edtIngredientName)
+    TextView edtIngredientName;
+    protected @BindView(R.id.edtIngredientAmount)
+    TextView edtIngredientAmount;
+    protected @BindView(R.id.edtIngredientTypeName)
+    TextView edtIngredientTypeName;
+    protected @BindView(R.id.ingredient_select_recyclerView)
+    RecyclerView recyclerView;
+    protected @BindView(R.id.selectedIngredient)
+    RecyclerView resultRecyclerView;
+    protected @BindView(R.id.result_layout)
+    LinearLayout result_layout;
 
     String result = "";
 
     @OnClick(R.id.showRecipeFromIngredient)
-    public void onshowRecipe(View view){
-        if(result.equals("")){
+    public void onshowRecipe(View view) {
+        if (result.equals("")) {
             Toast.makeText(getApplicationContext(), "You didn't choose anything!", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             Intent intent = new Intent(getApplicationContext(), RecipeFromIngredientActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("result", result.substring(0, result.length() - 1));
             intent.putExtras(bundle);
-            Log.e("IngredientSelect", result.substring(0, result.length()-1));
+            Log.e("IngredientSelect", result.substring(0, result.length() - 1));
             startActivity(intent);
         }
     }
@@ -229,11 +240,11 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     @Override
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
-        if(ingredient.getIsListItem()) { // 리스트 아이템을 클릭한경우
+        if (ingredient.getIsListItem()) { // 리스트 아이템을 클릭한경우
             Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
             result = checkIsInResult(ingredient, result);
 
-            if(isOnClicked) {
+            if (isOnClicked) {
                 Ingredient newIngredient = new Ingredient(ingredient.getIngredientType(), ingredient.getImage());
                 newIngredient.setListItem(false);
                 resultAdapter.addItem(newIngredient);
@@ -244,17 +255,17 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         }
     }
 
-    public String checkIsInResult(Ingredient ingredient, String result){
-        if(result.indexOf(ingredient.getIngredientType()) == -1)
+    public String checkIsInResult(Ingredient ingredient, String result) {
+        if (result.indexOf(ingredient.getIngredientType()) == -1)
             result += ingredient.getIngredientType() + ", ";
-        else{
-            if(result.indexOf(ingredient.getIngredientType()) == 0){
-                if(result.length() == ingredient.getIngredientType().length()+1)
-                    result ="";
+        else {
+            if (result.indexOf(ingredient.getIngredientType()) == 0) {
+                if (result.length() == ingredient.getIngredientType().length() + 1)
+                    result = "";
                 else
-                    result = result.substring(ingredient.getIngredientType().length()+1);
-            }else
-                result = result.substring(0, result.indexOf(ingredient.getIngredientType())-1)+result.substring(result.indexOf(ingredient.getIngredientType()) + ingredient.getIngredientType().length());
+                    result = result.substring(ingredient.getIngredientType().length() + 1);
+            } else
+                result = result.substring(0, result.indexOf(ingredient.getIngredientType()) - 1) + result.substring(result.indexOf(ingredient.getIngredientType()) + ingredient.getIngredientType().length());
         }
         return result;
     }
