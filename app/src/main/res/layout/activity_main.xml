@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -32,30 +33,93 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <Button
-        android:id="@+id/recipe_select_button"
-        android:layout_width="262dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/start_select_button"
-        android:layout_centerHorizontal="true"
-        android:text="레시피 고르기" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4">
+        
+        <android.support.v7.widget.CardView
+            android:id="@+id/recipe_select_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/menu1"/>
 
-    <Button
-        android:id="@+id/start_select_button"
-        android:layout_width="262dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="145dp"
-        android:text="재료 고르기" />
+        </android.support.v7.widget.CardView>
 
-    <Button
-        android:id="@+id/info_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="89dp"
-        android:text="개발자 정보" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/start_select_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/menu2"/>
+        </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+        <android.support.v7.widget.CardView
+            android:id="@+id/history_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/menu3"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/info_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/menu4"/>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <!--<Button-->
+        <!--android:id="@+id/recipe_select_button"-->
+        <!--android:layout_width="262dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/start_select_button"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="레시피 고르기" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/start_select_button"-->
+        <!--android:layout_width="262dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="145dp"-->
+        <!--android:text="재료 고르기" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/info_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="89dp"-->
+        <!--android:text="개발자 정보" />-->
+
+</LinearLayout>

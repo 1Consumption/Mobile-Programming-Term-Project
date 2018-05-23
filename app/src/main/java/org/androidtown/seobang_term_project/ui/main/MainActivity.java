@@ -10,6 +10,7 @@ import com.skydoves.powermenu.OnMenuItemClickListener;
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
 
+import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
 import org.androidtown.seobang_term_project.ui.ingredient.IngredientSelectActivity;
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.ui.info.InfoActivity;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         powerMenu = PowerMenuUtils.getHamburgerPowerMenu(this, this, powerMenuItemOnMenuItemClickListener);
     }
 
-    @OnClick(R.id.recipe_select_button)
+    @OnClick(R.id.recipe_select_button) ///카드뷰로 이름 바꿔주기
     public void recipeButton(View view) {
         Intent intent = new Intent(getApplicationContext(), RecipeSelectActivity.class);
         startActivity(intent);
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.start_select_button)
     public void startButton(View view) {
         Intent intent = new Intent(getApplicationContext(), IngredientSelectActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.history_button)
+    public void historyButton(View view){
+        Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
         startActivity(intent);
     }
 
