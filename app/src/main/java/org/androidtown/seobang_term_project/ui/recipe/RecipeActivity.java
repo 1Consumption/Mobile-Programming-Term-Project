@@ -20,8 +20,7 @@ import butterknife.BindView;
 
 public class RecipeActivity extends BaseActivity {
 
-    protected @BindView(R.id.pager)
-    ViewPager viewpager;
+    protected @BindView(R.id.pager) ViewPager viewpager;
     private PagerAdapter mPagerAdapter;
 
     private String[] RecipeProcess;
