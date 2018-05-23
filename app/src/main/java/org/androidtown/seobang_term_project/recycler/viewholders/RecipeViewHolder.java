@@ -42,7 +42,7 @@ public class RecipeViewHolder extends BaseViewHolder {
         if(o instanceof Recipe) {
             this.recipe = (Recipe) o;
             RequestOptions options = new RequestOptions().placeholder(R.drawable.about_icon_github);
-            Glide.with(context()).load(recipe.getUrl()).apply(options).into(image);
+            Glide.with(context()).load(recipe.getRepresentUrl()).apply(options).into(image);
             name.setText(recipe.getName());
         }
     }

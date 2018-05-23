@@ -140,6 +140,14 @@ public class RecipeSelectActivity extends BaseActivity implements RecipeViewHold
         String recipeId = cursor.getString(0);
 
         cursor = db_process.rawQuery("SELECT process, explanation, url FROM " + TABLE_NAME2 + " WHERE recipe_code=\"" + recipeId + "\"", null);
+
+
+            strRecipeProcess += result + "+";
+            strRecipeProcess += cursor.getString(0) + "&";
+            strRecipeProcess += cursor.getString(1) + "|";
+            strRecipeProcess += cursor.getString(2) + "#";
+
+
         cursor.moveToFirst();
         return cursor.getString(2);
     }
