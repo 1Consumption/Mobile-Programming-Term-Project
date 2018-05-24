@@ -13,13 +13,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.RecipePreviewActivity;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.items.Recipe;
 import org.androidtown.seobang_term_project.recycler.adapters.RecipeAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.RecipeViewHolder;
 import org.androidtown.seobang_term_project.utils.DBUtils;
-import org.androidtown.seobang_term_project.utils.QuickSort;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -115,7 +115,7 @@ public class RecipeSelectActivity extends BaseActivity implements RecipeViewHold
             while (cursor.moveToNext()) {
                 selectedRecipeCode = cursor.getString(0);
             }
-            Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), RecipePreviewActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("selectedRecipe", selectedRecipeCode);
             bundle.putString("RecipeName", searchRecipe.getText().toString());
@@ -145,7 +145,7 @@ public class RecipeSelectActivity extends BaseActivity implements RecipeViewHold
 
     @Override
     public void onItemClick(Recipe recipe) {
-        Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), RecipePreviewActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("selectedRecipe", getFoodId(recipe.getName()));
         bundle.putString("RecipeName", recipe.getName());
