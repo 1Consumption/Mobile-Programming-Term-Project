@@ -135,30 +135,10 @@ public class RecipeSelectActivity extends BaseActivity implements RecipeViewHold
     }
 
     private String getFoodPreviewImage(String name) {
-        cursor = db_info.rawQuery("SELECT recipe_code FROM " + TABLE_NAME + " WHERE recipe_name=\"" + name + "\"", null);
+        cursor = db_info.rawQuery("SELECT URL FROM " + TABLE_NAME + " WHERE recipe_name=\"" + name + "\"", null);
         startManagingCursor(cursor);
         cursor.moveToNext();
-        String recipeId = cursor.getString(0);
-
-        cursor = db_process.rawQuery("SELECT process, explanation, url  FROM " + TABLE_NAME2 + " WHERE recipe_code=\"" + recipeId + "\"", null);
-
-        StringBuilder strRecipeProcess = new StringBuilder();
-        while (cursor.moveToNext()) {
-            strRecipeProcess.append(recipeId + "+");
-            strRecipeProcess.append(cursor.getString(0) + "&");
-            strRecipeProcess.append(cursor.getString(1) + "|");
-            strRecipeProcess.append(cursor.getString(2) + "#");
-        }
-
-        String[] splited = strRecipeProcess.toString().split("#");
-        QuickSort.sort(splited, 0, splited.length - 1);
-
-        int loop = splited.length-1;
-        String url = "";
-        while(!url.contains("http") && loop != 0) {
-            url = splited[loop].substring(splited[loop].indexOf("|") + 1);
-            loop--;
-        }
+        String url = cursor.getString(0);
 
         return url;
     }
