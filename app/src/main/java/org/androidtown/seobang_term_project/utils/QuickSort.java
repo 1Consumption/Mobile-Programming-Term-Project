@@ -11,7 +11,6 @@ public class QuickSort {
         int right = r;
         //    int pivot = Integer.parseInt(data[(l + r) / 2].substring(data[(l + r) / 2].indexOf("+") + 1, data[(l + r) / 2].indexOf("&")));
         if (data[l].indexOf("+") != -1) {
-
             int pivot = Integer.parseInt(data[(l + r) / 2].substring(data[(l + r) / 2].indexOf("+") + 1, data[(l + r) / 2].indexOf("&")));
             do {
                 while (Integer.parseInt(data[left].substring(data[left].indexOf("+") + 1, data[left].indexOf("&"))) < pivot)

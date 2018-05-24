@@ -257,7 +257,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     public String checkIsInResult(Ingredient ingredient, String result) {
         if (result.indexOf(ingredient.getIngredientType()) == -1)
-            result += ingredient.getIngredientType() + ", ";
+            result += ingredient.getIngredientType() + ",";
         else {
             if (result.indexOf(ingredient.getIngredientType()) == 0) {
                 if (result.length() == ingredient.getIngredientType().length() + 1)
