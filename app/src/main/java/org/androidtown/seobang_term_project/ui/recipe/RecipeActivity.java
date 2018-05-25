@@ -58,6 +58,7 @@ public class RecipeActivity extends BaseActivity {
         Log.e("LENGTH", String.valueOf(RecipeProcess.length));
 
         QuickSort.sort(RecipeProcess, 0, RecipeProcess.length - 1);
+        RecipeProcess[RecipeProcess.length - 1] += "last";
 
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewpager.setAdapter(mPagerAdapter);

@@ -80,4 +80,13 @@
         android:textSize="20dp"
         android:textStyle="italic|bold" />
 
+    <Button
+        android:layout_below="@+id/timerStartButton"
+        android:layout_alignParentRight="true"
+        android:text="먹은 목록에 추가하기!"
+        android:id="@+id/addToHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"/>
+
 </RelativeLayout>

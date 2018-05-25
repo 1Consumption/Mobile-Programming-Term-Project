@@ -60,7 +60,13 @@ public class PageFragment extends Fragment {
         String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
         ButterKnife.bind(this, rootView);
+
         ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
+        if (mPageString.indexOf("last") != -1) {
+            mPageString = mPageString.substring(0, mPageString.indexOf("last"));
+            ((Button) rootView.findViewById(R.id.addToHistory)).setVisibility(View.VISIBLE);
+        }
+
         ((TextView) rootView.findViewById(R.id.recipeString)).setText(processString);
         WebView webView = rootView.findViewById(R.id.processWebView);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -80,7 +86,7 @@ public class PageFragment extends Fragment {
             String timeInProcess = "";
             final Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
 
-            if (processString.indexOf("시간") != -1) {
+            if (processString.indexOf("시간") != -1 && processString.indexOf("시간") != 0&& processString.charAt(processString.indexOf("시간")-1)!=' ') {
                 timerLayout.setVisibility(View.VISIBLE);
                 timerStartButton.setVisibility(View.VISIBLE);
                 int index = processString.indexOf("시간");
@@ -101,7 +107,7 @@ public class PageFragment extends Fragment {
                 extractedTime = Double.parseDouble(timeInProcess) * 3600;
             }
 
-            if (processString.indexOf("분") != -1 && processString.indexOf("분") != 0) {
+            if (processString.indexOf("분") != -1 && processString.indexOf("분") != 0&& processString.charAt(processString.indexOf("분")-1)!=' ') {
                 int index = processString.indexOf("분");
                 timeIndex = extractTime(processString, index);
                 char errorCheck = processString.charAt(processString.indexOf("분") - 1);
