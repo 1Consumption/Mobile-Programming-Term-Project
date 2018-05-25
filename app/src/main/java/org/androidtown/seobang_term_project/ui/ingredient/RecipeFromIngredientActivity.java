@@ -23,7 +23,7 @@ import org.w3c.dom.Text;
 
 public class RecipeFromIngredientActivity extends AppCompatActivity implements RecipeViewHolder.Delegate {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "test_ingredient.db";
+    public static final String DB_Name = "test_ingredient_3.db";
     public static final String TABLE_NAME = "recipe_ingredient_info";
     public static final String DB_Name_2 = "recipe_basic_information.db";
     public static final String TABLE_NAME_2 = "recipe_basic_information";
@@ -33,8 +33,8 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
     public Cursor cursor;
 
 
-    String[] recipeList = new String[2000];
-    String[] tempList = new String[2000];
+    String[] recipeList = new String[6000];
+    String[] tempList = new String[6000];
 
     int recipeLength = 0;
     int cnt = 1;

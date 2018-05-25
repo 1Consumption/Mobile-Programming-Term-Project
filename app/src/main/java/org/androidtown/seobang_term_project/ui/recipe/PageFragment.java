@@ -2,6 +2,7 @@
 package org.androidtown.seobang_term_project.ui.recipe;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -80,68 +82,7 @@ public class PageFragment extends Fragment {
         minute = rootView.findViewById(R.id.minuteText);
         second = rootView.findViewById(R.id.secondText);
 
-        if (processString.indexOf("시간") != -1 || processString.indexOf("분") != -1) {
-            double extractedTime = 0;
-            int timeIndex = 0;
-            String timeInProcess = "";
-            final Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
-
-            if (processString.indexOf("시간") != -1 && processString.indexOf("시간") != 0&& processString.charAt(processString.indexOf("시간")-1)!=' ') {
-                timerLayout.setVisibility(View.VISIBLE);
-                timerStartButton.setVisibility(View.VISIBLE);
-                int index = processString.indexOf("시간");
-
-                timeIndex = extractTime(processString, index);
-                timeInProcess = processString.substring(timeIndex, processString.indexOf("시간"));
-
-                if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {
-                    String[] temp = null;
-                    if (timeInProcess.indexOf("~") != -1)
-                        temp = timeInProcess.split("~");
-
-                    if (timeInProcess.indexOf("-") != -1)
-                        temp = timeInProcess.split("-");
-
-                    timeInProcess = String.valueOf((Double.parseDouble(temp[0]) + Double.parseDouble(temp[1])) / 2);
-                }
-                extractedTime = Double.parseDouble(timeInProcess) * 3600;
-            }
-
-            if (processString.indexOf("분") != -1 && processString.indexOf("분") != 0&& processString.charAt(processString.indexOf("분")-1)!=' ') {
-                int index = processString.indexOf("분");
-                timeIndex = extractTime(processString, index);
-                char errorCheck = processString.charAt(processString.indexOf("분") - 1);
-
-                if (Character.isDigit(errorCheck)) {
-                    timerLayout.setVisibility(View.VISIBLE);
-                    timerStartButton.setVisibility(View.VISIBLE);
-                    timeInProcess = processString.substring(timeIndex, processString.indexOf("분"));
-
-                    if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {
-                        String[] temp = null;
-                        if (timeInProcess.indexOf("~") != -1)
-                            temp = timeInProcess.split("~");
-
-                        if (timeInProcess.indexOf("-") != -1)
-                            temp = timeInProcess.split("-");
-                        timeInProcess = String.valueOf((Double.parseDouble(temp[0]) + Double.parseDouble(temp[1])) / 2);
-                    }
-                    extractedTime = Double.parseDouble(timeInProcess) * 60;
-                }
-            }
-
-            time = (int) extractedTime;
-
-            timerStartButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    new CountDownTask(getContext()).execute();
-                    Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
-                    timerStartButton.startAnimation(anim);
-                    timerStartButton.setVisibility(View.INVISIBLE);
-                }
-            });
-        }
-
+        checkTime(rootView,processString);
 
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
             webView.loadUrl(mPageString.substring(mPageString.indexOf("|") + 1));
@@ -190,28 +131,35 @@ public class PageFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground);
+            NotificationManager notificationmanager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
-            Intent intent = new Intent(getActivity(), RecipeActivity.class);
+            Intent notiIntent = new Intent(getActivity(), RecipeActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("selectedRecipe", mPageString.substring(0, mPageString.indexOf("+")));
-            intent.putExtras(bundle);
+            notiIntent.putExtras(bundle);
 
-            PendingIntent mPendingIntent = PendingIntent.getActivity(getActivity(), 0,
-                    intent,
-                    PendingIntent.FLAG_CANCEL_CURRENT);
+            notiIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 1, notiIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder mbuilder;
 
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(getActivity())
-                            .setSmallIcon(R.drawable.spoon)
-                            .setContentTitle("타이머 종료!")
-                            .setContentText("서방")
-                            .setDefaults(Notification.DEFAULT_VIBRATE)
-                            .setLargeIcon(mLargeIconForNoti)
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            .setAutoCancel(true)
-                            .setContentIntent(mPendingIntent);
-            NotificationManager mNotificationManager = (NotificationManager) cnt.getSystemService(NOTIFICATION_SERVICE);
-            mNotificationManager.notify(0, mBuilder.build());
+            if (Build.VERSION.SDK_INT >= 26) {
+                NotificationChannel mChannel = new NotificationChannel("Noti", "alarm", NotificationManager.IMPORTANCE_DEFAULT);
+                notificationmanager.createNotificationChannel(mChannel);
+                mbuilder = new NotificationCompat.Builder(getActivity(), mChannel.getId());
+            } else {
+                mbuilder = new NotificationCompat.Builder(getActivity());
+            }
+            mbuilder.setSmallIcon(R.drawable.spoon)
+                    .setContentTitle("타이머 종료!")
+                    .setContentText("서방")
+                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setLargeIcon(mLargeIconForNoti)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent);
+
+            notificationmanager.notify(1, mbuilder.build());
+
         }
     }
 
@@ -232,5 +180,69 @@ public class PageFragment extends Fragment {
         }
 
         return timeIndex;
+    }
+
+    private void checkTime(ViewGroup rootView, String processString){
+        if (processString.indexOf("시간") != -1 || processString.indexOf("분") != -1) {
+            double extractedTime = 0;
+            int timeIndex = 0;
+            String timeInProcess = "";
+            final Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
+
+            if (processString.indexOf("시간") != -1 && processString.indexOf("시간") != 0 && processString.charAt(processString.indexOf("시간") - 1) != ' ') {
+                timerLayout.setVisibility(View.VISIBLE);
+                timerStartButton.setVisibility(View.VISIBLE);
+                int index = processString.indexOf("시간");
+
+                timeIndex = extractTime(processString, index);
+                timeInProcess = processString.substring(timeIndex, processString.indexOf("시간"));
+
+                if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {
+                    String[] temp = null;
+                    if (timeInProcess.indexOf("~") != -1)
+                        temp = timeInProcess.split("~");
+
+                    if (timeInProcess.indexOf("-") != -1)
+                        temp = timeInProcess.split("-");
+
+                    timeInProcess = String.valueOf((Double.parseDouble(temp[0]) + Double.parseDouble(temp[1])) / 2);
+                }
+                extractedTime = Double.parseDouble(timeInProcess) * 3600;
+            }
+
+            if (processString.indexOf("분") != -1 && processString.indexOf("분") != 0 && processString.charAt(processString.indexOf("분") - 1) != ' ') {
+                int index = processString.indexOf("분");
+                timeIndex = extractTime(processString, index);
+                char errorCheck = processString.charAt(processString.indexOf("분") - 1);
+
+                if (Character.isDigit(errorCheck)) {
+                    timerLayout.setVisibility(View.VISIBLE);
+                    timerStartButton.setVisibility(View.VISIBLE);
+                    timeInProcess = processString.substring(timeIndex, processString.indexOf("분"));
+
+                    if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {
+                        String[] temp = null;
+                        if (timeInProcess.indexOf("~") != -1)
+                            temp = timeInProcess.split("~");
+
+                        if (timeInProcess.indexOf("-") != -1)
+                            temp = timeInProcess.split("-");
+                        timeInProcess = String.valueOf((Double.parseDouble(temp[0]) + Double.parseDouble(temp[1])) / 2);
+                    }
+                    extractedTime = Double.parseDouble(timeInProcess) * 60;
+                }
+            }
+
+            time = (int) extractedTime;
+
+            timerStartButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    new CountDownTask(getContext()).execute();
+                    Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+                    timerStartButton.startAnimation(anim);
+                    timerStartButton.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
     }
 }
