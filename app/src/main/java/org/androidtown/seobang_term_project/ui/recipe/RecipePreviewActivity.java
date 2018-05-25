@@ -3,8 +3,8 @@ package org.androidtown.seobang_term_project.ui.recipe;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
-import org.androidtown.seobang_term_project.ui.recipe.RecipeActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 
 public class RecipePreviewActivity extends AppCompatActivity {
+
     WebView previewWebView;
     TextView classificationTextView;
     TextView totalTimeTextView;

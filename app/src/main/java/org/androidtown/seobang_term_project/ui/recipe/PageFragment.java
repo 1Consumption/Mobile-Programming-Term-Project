@@ -31,8 +31,6 @@ import org.androidtown.seobang_term_project.R;
 
 import butterknife.ButterKnife;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
-
 public class PageFragment extends Fragment {
 
     private String mPageString;
@@ -56,6 +54,7 @@ public class PageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPageString = getArguments().getString("page");
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,6 +93,7 @@ public class PageFragment extends Fragment {
 
         return rootView;
     }
+
 
     private class CountDownTask extends AsyncTask<Void, Integer, Void> {
         Context cnt;

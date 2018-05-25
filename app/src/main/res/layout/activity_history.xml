@@ -15,7 +15,7 @@
 
             <TextView
                 android:id="@+id/toolbar_name"
-                android:text="내가 먹은 과거"
+                android:text="나의 기록"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -24,5 +24,16 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

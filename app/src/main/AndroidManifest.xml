@@ -17,6 +17,7 @@
         <activity android:name=".ui.tutorial.TutorialActivity" />
         <activity android:name=".ui.recipe.RecipeSelectActivity" />
         <activity android:name=".ui.ingredient.RecipeFromIngredientActivity" />
+        <activity android:name=".ui.history.HistoryActivity"/>
         <activity android:name=".ui.recipe.RecipeActivity" />
         <activity android:name=".ui.intro.IntroActivity">
             <intent-filter>
