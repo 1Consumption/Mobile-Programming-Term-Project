@@ -72,10 +72,11 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
             tempNum++;
             cursor.moveToNext();
             temp += cursor.getString(0) + "\n\n";
-            cursor = db.rawQuery("SELECT recipe_code FROM recipe_ingredient_info WHERE ingredient_type_name=\"주재료\" and ingredient_name=\"" + ingredient[i] + "\"", null); //쿼리문
+            cursor = db.rawQuery("SELECT recipe_code,weight FROM recipe_ingredient_info WHERE ingredient_type_name=\"주재료\" and ingredient_name=\"" + ingredient[i] + "\"", null); //쿼리문
 
             while (cursor.moveToNext()) {
                 tempList[tempLength] = cursor.getString(0);
+//                tempList[tempLength] += "a"+cursor.getString(1);
                 tempLength++;
             }
         }
@@ -88,7 +89,7 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
                 if (tempList[i].equals(tempList[i + 1]))
                     cnt++;
                 else {
-                    recipeList[recipeLength] = tempList[i] + "." + String.valueOf(cnt);
+                    recipeList[recipeLength] = tempList[i] + "b" + String.valueOf(cnt);
                     cnt = 1;
                     recipeLength++;
                 }
@@ -97,7 +98,7 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
 
         for (int i = 0; i < recipeLength; i++) {
             for (int j = 0; j < recipeLength - 1 - i; j++) {
-                if (Integer.parseInt(recipeList[j].substring(recipeList[j].indexOf(".") + 1)) < Integer.parseInt(recipeList[j + 1].substring(recipeList[j + 1].indexOf(".") + 1))) {
+                if (Integer.parseInt(recipeList[j].substring(recipeList[j].indexOf("b") + 1)) < Integer.parseInt(recipeList[j + 1].substring(recipeList[j + 1].indexOf("b") + 1))) {
                     String a = recipeList[j];
                     recipeList[j] = recipeList[j + 1];
                     recipeList[j + 1] = a;
@@ -106,8 +107,9 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
         }
 
         for (int i = 0; i < recipeLength; i++) {
-            String frequency = recipeList[i].substring(recipeList[i].indexOf(".") + 1);
-            recipeList[i] = recipeList[i].substring(0, recipeList[i].indexOf("."));
+            String frequency = recipeList[i].substring(recipeList[i].indexOf("b") + 1);
+            recipeList[i] = recipeList[i].substring(0, recipeList[i].indexOf("b"));
+            Log.e("RECIPELIST",recipeList[i]);
         }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_2);
@@ -133,7 +135,7 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
         });
 
         for (int i = 0; i < 10; i++) {
-            Log.e("iValue",recipeList[i]);
+            Log.e("iValue", recipeList[i]);
             mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
         }
     }
