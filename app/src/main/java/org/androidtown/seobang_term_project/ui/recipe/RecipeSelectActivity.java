@@ -13,7 +13,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
-import org.androidtown.seobang_term_project.RecipePreviewActivity;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.items.Recipe;

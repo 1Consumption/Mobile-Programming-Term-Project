@@ -1,4 +1,4 @@
-package org.androidtown.seobang_term_project;
+package org.androidtown.seobang_term_project.ui.recipe;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.ui.recipe.RecipeActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
