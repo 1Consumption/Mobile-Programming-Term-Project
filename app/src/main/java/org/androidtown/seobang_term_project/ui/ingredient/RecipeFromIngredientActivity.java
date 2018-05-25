@@ -133,6 +133,7 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
         });
 
         for (int i = 0; i < 10; i++) {
+            Log.e("iValue",recipeList[i]);
             mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
         }
     }
