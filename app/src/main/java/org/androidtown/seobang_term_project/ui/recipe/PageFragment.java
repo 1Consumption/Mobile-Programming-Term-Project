@@ -1,12 +1,12 @@
 
 package org.androidtown.seobang_term_project.ui.recipe;
 
+import android.content.Intent;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
 
 import butterknife.ButterKnife;
 
@@ -38,6 +39,7 @@ public class PageFragment extends Fragment {
     TextView minute;
     TextView second;
     LinearLayout timerLayout;
+    Button toHistoryButton;
     int result = 0;
     int time = 0;
 
@@ -52,15 +54,33 @@ public class PageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         mPageString = getArguments().getString("page");
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
+        final String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
+
         ButterKnife.bind(this, rootView);
+
+        
+        //여기 진짜로 잘 전달 되는지 확인해봐야함
+        toHistoryButton = rootView.findViewById(R.id.timerStartButton);
+        toHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HistoryActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("RecipeName",processString);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
 
         ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
         if (mPageString.indexOf("last") != -1) {
@@ -181,6 +201,7 @@ public class PageFragment extends Fragment {
 
         return timeIndex;
     }
+
 
     private void checkTime(ViewGroup rootView, String processString){
         if (processString.indexOf("시간") != -1 || processString.indexOf("분") != -1) {
