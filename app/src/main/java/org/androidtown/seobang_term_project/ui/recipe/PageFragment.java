@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class PageFragment extends Fragment {
     TextView minute;
     TextView second;
     LinearLayout timerLayout;
-    Button toHistoryButton;
+    FloatingActionButton toHistoryButton;
     int result = 0;
     int time = 0;
 
@@ -68,8 +69,7 @@ public class PageFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
 
-        //여기 진짜로 잘 전달 되는지 확인해봐야함
-        toHistoryButton = rootView.findViewById(R.id.timerStartButton);
+        toHistoryButton = rootView.findViewById(R.id.addToHistory);
         toHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
