@@ -12,7 +12,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             app:theme="@style/ToolbarStyle">
 
             <TextView
@@ -26,43 +26,18 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <com.yalantis.pulltomakesoup.PullToRefreshView
+        android:id="@+id/refreshView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <!--<Button-->
-            <!--android:id="@+id/showRecipe"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="레시피 보기" />-->
-
-        <Button
-            android:id="@+id/goToRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="레시피 선택" />
-    </LinearLayout>
-
-    <AutoCompleteTextView
-        android:id="@+id/searchRecipe"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:completionThreshold="1"
-        android:hint="여기에 레시피 검색" />
+        app:type="soup">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/recipeOutput"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"/>
+    </com.yalantis.pulltomakesoup.PullToRefreshView>
 </LinearLayout>

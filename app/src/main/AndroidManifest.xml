@@ -15,10 +15,20 @@
         <activity android:name=".ui.info.InfoActivity" />
         <activity android:name=".ui.ingredient.IngredientSelectActivity" />
         <activity android:name=".ui.tutorial.TutorialActivity" />
-        <activity android:name=".ui.recipe.RecipeSelectActivity" />
+        <activity
+            android:name=".ui.recipe.RecipeSelectActivity"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity android:name=".ui.ingredient.RecipeFromIngredientActivity" />
         <activity android:name=".ui.history.HistoryActivity"/>
         <activity android:name=".ui.recipe.RecipeActivity" />
+        <activity android:name=".ui.recipe.RecipePreviewActivity"/>
         <activity android:name=".ui.intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +36,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.recipe.RecipePreviewActivity"></activity>
     </application>
-
 </manifest>

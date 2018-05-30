@@ -6,16 +6,20 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.compose.BaseActivity;
 
-public class HistoryActivity extends FragmentActivity {
-
+/**
+ * Developed by hayeon0824 on 2018-05-19.
+ * Copyright (c) 2018 hayeon0824 rights reserved.
+ */
+public class HistoryActivity extends BaseActivity {
     ViewPager mPager;
     TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentViewById(R.layout.activity_history);
 
         tabLayout = findViewById(R.id.tab);
         tabLayout.addTab(tabLayout.newTab().setText("요리별 기록 보기"));

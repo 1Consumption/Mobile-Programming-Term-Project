@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#558B2F</color>
-    <color name="colorPrimaryDark">#1B5E20</color>
-    <color name="colorAccent">#1B5E20</color>
+    <color name="colorPrimary">#4B8A3D</color>
+    <color name="colorPrimaryDark">#39672E</color>
+    <color name="colorAccent">#39672E</color>
+    <color name="background">#fafafa</color>
 
     <color name="meat">#999999</color>
     <color name="fish">#222222</color>
     <color name="vege">#555555</color>
     <color name="etc">#443333</color>
     <color name="transparent">#00FF0000</color>
+    <color name="black_title">#d6000000</color>
+    <color name="black_content">#89000000</color>
+    <color name="black_small_content">#89000000</color>
 
     <!--reds-->
     <color name="md_red_50">#FFEBEE</color>

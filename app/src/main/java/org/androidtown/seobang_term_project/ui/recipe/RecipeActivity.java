@@ -15,6 +15,7 @@ import org.androidtown.seobang_term_project.compose.BaseActivity;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.QuickSort;
+import org.androidtown.seobang_term_project.utils.ZoomOutPageTransformer;
 
 import butterknife.BindView;
 
@@ -63,6 +64,7 @@ public class RecipeActivity extends BaseActivity {
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewpager.setAdapter(mPagerAdapter);
         viewpager.addOnPageChangeListener(pageChangeListener);
+        viewpager.setPageTransformer(true, new ZoomOutPageTransformer());
         setToolbarName(getSelectedRecipeName() + " 1/" + RecipeProcess.length);
     }
 

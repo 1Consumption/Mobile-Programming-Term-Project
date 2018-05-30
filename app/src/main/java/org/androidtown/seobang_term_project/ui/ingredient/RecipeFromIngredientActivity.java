@@ -3,14 +3,17 @@ package org.androidtown.seobang_term_project.ui.ingredient;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.compose.BaseActivity;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.items.Recipe;
 import org.androidtown.seobang_term_project.recycler.adapters.RecipeAdapter;
@@ -18,10 +21,9 @@ import org.androidtown.seobang_term_project.recycler.viewholders.RecipeViewHolde
 import org.androidtown.seobang_term_project.ui.recipe.RecipePreviewActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.QuickSort;
-import org.w3c.dom.Text;
 
 
-public class RecipeFromIngredientActivity extends AppCompatActivity implements RecipeViewHolder.Delegate {
+public class RecipeFromIngredientActivity extends BaseActivity implements RecipeViewHolder.Delegate {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
     public static final String DB_Name = "test_ingredient_3.db";
     public static final String TABLE_NAME = "recipe_ingredient_info";
@@ -31,7 +33,6 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
     public SQLiteDatabase db;
     public SQLiteDatabase db_info;
     public Cursor cursor;
-
 
     String[] recipeList = new String[6000];
     String[] tempList = new String[6000];
@@ -48,7 +49,7 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_from_ingredient);
+        setContentViewById(R.layout.activity_recipe_from_ingredient);
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
         DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
 
@@ -173,13 +174,19 @@ public class RecipeFromIngredientActivity extends AppCompatActivity implements R
     }
 
     @Override
-    public void onItemClick(Recipe recipe) {
+    public void onItemClick(Recipe recipe, View view) {
         Intent intent = new Intent(getApplicationContext(), RecipePreviewActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("selectedRecipe", getFoodCode(recipe.getName()));
         bundle.putString("RecipeName", recipe.getName());
         intent.putExtras(bundle);
-        startActivity(intent);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view,
+                    ViewCompat.getTransitionName(view));
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
     @Override

@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "org.androidtown.seobang_term_project"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -30,17 +30,19 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     implementation 'com.android.support:recyclerview-v7:27.1.0'
-
     implementation 'com.github.paolorotolo:appintro:4.1.0'
     implementation 'com.github.skydoves:powermenu:2.0.4'
     implementation 'com.github.skydoves:baserecyclerviewadapter:0.1.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
-
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'com.github.medyo:android-about-page:1.2.4'
+    implementation 'com.android.support:palette-v7:27.1.1'
+    implementation 'com.southernbox:RippleLayout:0.1.0'
+    implementation 'com.github.yalantis:jellytoolbar:v1.0'
+    implementation 'com.github.Yalantis:pull-to-make-soup:1.0.2'
+    implementation 'com.github.developer-shivam:Crescento:1.2.1'
 
 }

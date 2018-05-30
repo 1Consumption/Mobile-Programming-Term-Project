@@ -1,10 +1,13 @@
 package org.androidtown.seobang_term_project.compose;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.yalantis.pulltomakesoup.PullToRefreshView;
 
 import org.androidtown.seobang_term_project.R;
 import org.jetbrains.annotations.Nullable;
@@ -50,6 +53,24 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setToolbarName(String name) {
         toolbar_name.setText(name);
+    }
+
+    public void setRefreshView() {
+        final PullToRefreshView refreshView = findViewById(R.id.refreshView);
+        if(refreshView != null) {
+            refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshView.setRefreshing(false);
+                        }
+                    }, 2000);
+                }
+            });
+        }
     }
 
     @Override

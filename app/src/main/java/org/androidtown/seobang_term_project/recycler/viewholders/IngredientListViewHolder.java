@@ -1,5 +1,6 @@
 package org.androidtown.seobang_term_project.recycler.viewholders;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -35,7 +36,7 @@ public class IngredientListViewHolder extends BaseViewHolder {
 
             IngredientAdapter adapter = new IngredientAdapter(delegate);
             recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerView.setLayoutManager(new GridLayoutManager(context(), 4));
             adapter.addItems(item.getIngredients());
         }
     }
