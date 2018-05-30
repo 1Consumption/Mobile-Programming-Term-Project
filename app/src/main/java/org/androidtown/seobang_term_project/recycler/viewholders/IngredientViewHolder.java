@@ -1,9 +1,11 @@
 package org.androidtown.seobang_term_project.recycler.viewholders;
 
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.skydoves.baserecyclerviewadapter.BaseViewHolder;
 
 import org.androidtown.seobang_term_project.R;
@@ -35,9 +37,9 @@ public class IngredientViewHolder extends BaseViewHolder {
     public void bindData(Object o) throws Exception {
         if(o instanceof Ingredient) {
             this.ingredient = (Ingredient) o;
-            this.item_image.setImageDrawable(ContextCompat.getDrawable(context(), this.ingredient.getImage()));
+            RequestOptions options = new RequestOptions().placeholder(R.drawable.placeholder_food).diskCacheStrategy(DiskCacheStrategy.ALL).override(75, 75);
+            Glide.with(context()).asBitmap().load(this.ingredient.getImage()).thumbnail(0.2f).apply(options).into(item_image);
             this.item_name.setText(this.ingredient.getIngredientType());
-
             if(ingredient.getIsListItem()) {
                 this.item_image.setAlpha(0.5f);
             }

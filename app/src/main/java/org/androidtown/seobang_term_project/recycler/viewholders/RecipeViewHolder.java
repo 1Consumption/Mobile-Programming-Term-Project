@@ -1,11 +1,19 @@
 package org.androidtown.seobang_term_project.recycler.viewholders;
 
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.skydoves.baserecyclerviewadapter.BaseViewHolder;
 
 import org.androidtown.seobang_term_project.R;
@@ -26,9 +34,10 @@ public class RecipeViewHolder extends BaseViewHolder {
 
     protected @BindView(R.id.recipe_image) ImageView image;
     protected @BindView(R.id.recipe_name) TextView name;
+    protected @BindView(R.id.item_recipe_label) LinearLayout label;
 
     public interface Delegate {
-        void onItemClick(Recipe recipe);
+        void onItemClick(Recipe recipe, View view);
     }
 
     public RecipeViewHolder(View view, Delegate delegate) {
@@ -39,17 +48,33 @@ public class RecipeViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Object o) throws Exception {
-        if(o instanceof Recipe) {
+        if (o instanceof Recipe) {
             this.recipe = (Recipe) o;
-            RequestOptions options = new RequestOptions().placeholder(R.drawable.about_icon_github);
-            Glide.with(context()).load(recipe.getUrl()).apply(options).into(image);
             name.setText(recipe.getName());
+            RequestOptions options = new RequestOptions().placeholder(R.drawable.placeholder_food).diskCacheStrategy(DiskCacheStrategy.ALL).override(150, 150);
+            Glide.with(context()).asBitmap().load(recipe.getUrl()).thumbnail(0.2f).apply(options).into(new BitmapImageViewTarget(image) {
+                @Override
+                public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                    super.onResourceReady(bitmap, transition);
+                    try {
+                        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                            @Override
+                            public void onGenerated(Palette palette) {
+                                if (palette == null) return;
+                                label.setBackgroundColor(palette.getDarkVibrantColor(0));
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 
     @Override
     public void onClick(View v) {
-        delegate.onItemClick(recipe);
+        delegate.onItemClick(recipe, image);
     }
 
     @Override
