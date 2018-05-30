@@ -76,12 +76,12 @@ public class PageFragment extends Fragment {
         toHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String recipeID = mPageString.substring(0, mPageString.indexOf("+"));
+                String recipeName = mPageString.substring(0, mPageString.indexOf("+"));
                 Intent intent = new Intent(getActivity(), HistoryActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("RecipeID", recipeID);
+                bundle.putString("RecipeName", recipeName);
                 intent.putExtras(bundle);
-                Toast.makeText(getContext().getApplicationContext(), recipeID + "이(가) 정상적으로 추가 되었어요!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext().getApplicationContext(), recipeName + "이(가) 정상적으로 추가 되었어요!", Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });

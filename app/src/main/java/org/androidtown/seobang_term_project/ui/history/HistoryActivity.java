@@ -22,7 +22,7 @@ import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 public class HistoryActivity extends BaseActivity {
     ViewPager mPager;
     TabLayout tabLayout;
-    String recipeID = "";
+    String recipeName = "";
 
     SQLiteDatabase db;
     MySQLiteOpenHelper helper;
@@ -32,12 +32,18 @@ public class HistoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentViewById(R.layout.activity_history);
         helper = new MySQLiteOpenHelper(HistoryActivity.this, "frequency.db", null, 3);
+
+
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            recipeID = bundle.getString("RecipeID");
-            insert(recipeID, 1);
-            select(String.valueOf(195453));
+            recipeName = bundle.getString("RecipeName");
+            if (countFrequency(recipeName) == 0) {
+                insert(recipeName, 1);
+            } else {
+                update(recipeName, countFrequency(recipeName) + 1);
+            }
             selectAll();
         }
 
@@ -93,7 +99,7 @@ public class HistoryActivity extends BaseActivity {
 
     public void select(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select id,frequency from frequency where id=" + id, null);
+        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id+"\"", null);
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String _id = c.getString(c.getColumnIndex("id"));
@@ -113,9 +119,12 @@ public class HistoryActivity extends BaseActivity {
 
     public int countFrequency(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select frequency from frequency where id=" + id, null);
+        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id+"\"", null);
         c.moveToNext();
-        return c.getInt(c.getColumnIndex("frequency"));
+        if (c.getInt(0) == 0)
+            return 0;
+        else
+            return c.getInt(1);
     }
 
     public int countAll() {

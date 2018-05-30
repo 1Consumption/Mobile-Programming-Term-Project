@@ -23,6 +23,7 @@ import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class HistoryTwoFragment extends android.support.v4.app.Fragment {
 
@@ -30,51 +31,65 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
     SQLiteDatabase db;
     MySQLiteOpenHelper helper;
 
+    String[] list = new String[500];
+    int listLength = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        helper = new MySQLiteOpenHelper(getContext(), "frequency.db", null, 1);
-
+        helper = new MySQLiteOpenHelper(getContext(), "frequency.db", null, 3);
         View view = inflater.inflate(R.layout.history_two, container, false);
-        view.findViewById(R.id.noList).setVisibility(View.INVISIBLE);
-        pieChart = (PieChart) view.findViewById(R.id.piechart);
-        pieChart.setVisibility(View.VISIBLE);
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5, 10, 5, 5);
+        if (countAll() != 0) {
+            view.findViewById(R.id.noList).setVisibility(View.INVISIBLE);
+            pieChart = (PieChart) view.findViewById(R.id.piechart);
+            pieChart.setVisibility(View.VISIBLE);
+            pieChart.setUsePercentValues(true);
+            pieChart.getDescription().setEnabled(false);
+            pieChart.setExtraOffsets(5, 10, 5, 5);
 
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
+            pieChart.setDragDecelerationFrictionCoef(0.95f);
 
-        pieChart.setDrawHoleEnabled(false);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(100f);
+            pieChart.setDrawHoleEnabled(false);
+            pieChart.setHoleColor(Color.WHITE);
+            pieChart.setTransparentCircleRadius(100f);
+            selectAll();
+            ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();
 
-        ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();
-        selectAll();
-//        for (int i = 0; i < 10; i++) {
-//            yValues.add(new PieEntry(10f, "Japen" + i));
-//        }
+            for (int i = 0; i < countAll(); i++) {
+                for(int j=0;j<countAll()-i-1;j++){
+                    if(Integer.parseInt(list[j].substring(list[j].indexOf(",")+1))<=Integer.parseInt(list[j+1].substring(list[j+1].indexOf(",")+1))){
+                        String temp=list[j];
+                        list[j]=list[j+1];
+                        list[j+1]=temp;
+                    }
+                }
+            }
 
-        yValues.add(new PieEntry(10f, ""));
+            for (int i = 0; i < listLength; i++) {
+                String name = list[i].substring(0, list[i].indexOf(","));
+                int frequency = Integer.parseInt(list[i].substring(list[i].indexOf(",") + 1));
+                yValues.add(new PieEntry((((float) frequency / (float) (countFrequencyAll()) * 100)), name));
+            }
 
-        Description description = new Description();
-        description.setText("세계 국가"); //라벨
-        description.setTextSize(15);
-        pieChart.setDescription(description);
+            yValues.add(new PieEntry(10f, ""));
 
-        pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic); //애니메이션
+            Description description = new Description();
+            description.setText("요리 목록"); //라벨
+            description.setTextSize(15);
+            pieChart.setDescription(description);
 
-        PieDataSet dataSet = new PieDataSet(yValues, "Countries");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+            pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic); //애니메이션
 
-        PieData data = new PieData((dataSet));
-        data.setValueTextSize(10f);
-        data.setValueTextColor(Color.YELLOW);
+            PieDataSet dataSet = new PieDataSet(yValues, "요리");
+            dataSet.setSliceSpace(3f);
+            dataSet.setSelectionShift(5f);
+            dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-        pieChart.setData(data);
+            PieData data = new PieData((dataSet));
+            data.setValueTextSize(10f);
+            data.setValueTextColor(Color.YELLOW);
 
+            pieChart.setData(data);
+        }
         return view;
     }
 
@@ -83,7 +98,7 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
         ContentValues values = new ContentValues();
         values.put("id", id);
         values.put("frequency", frequency);
-        db.insert("student", null, values);
+        db.insert("frequency", null, values);
     }
 
     public void update(String id, int frequency) {
@@ -101,7 +116,7 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
 
     public void select(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select id,frequency from frequency where id=" + id, null);
+        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id+"\"", null);
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String _id = c.getString(c.getColumnIndex("id"));
@@ -115,15 +130,34 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String id = c.getString(c.getColumnIndex("id"));
+            list[listLength] = id + "," + String.valueOf(frequency);
+            listLength++;
             Log.i("db1", "id: " + id + ", frequency : " + frequency);
         }
     }
 
     public int countFrequency(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select frequency from frequency where id=" + id, null);
+        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id+"\"", null);
         c.moveToNext();
-        return c.getInt(c.getColumnIndex("frequency"));
+        if (c.getInt(0) == 0)
+            return 0;
+        else
+            return c.getInt(1);
+    }
+
+    public int countFrequencyAll() {
+        int count = 0;
+        db = helper.getReadableDatabase();
+        Cursor c = db.rawQuery("select count(frequency),frequency from frequency", null);
+        while (c.moveToNext()) {
+            if (c.getInt(0) == 0)
+                count += 0;
+            else
+                count += c.getInt(1);
+        }
+
+        return count;
     }
 
     public int countAll() {

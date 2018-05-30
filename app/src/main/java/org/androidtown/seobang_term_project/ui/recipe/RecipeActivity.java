@@ -29,9 +29,13 @@ public class RecipeActivity extends BaseActivity {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
     public static final String DB_Name = "recipe_process.db";
     public static final String TABLE_NAME = "recipe_process";
+    public static final String DB_Name_2 = "recipe_basic_information.db";
+    public static final String TABLE_NAME_2 = "recipe_basic_information";
 
     private SQLiteDatabase db;
     private Cursor cursor;
+    private SQLiteDatabase db_2;
+    private Cursor cursor_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +43,22 @@ public class RecipeActivity extends BaseActivity {
         setContentViewById(R.layout.activity_recipe);
 
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
+        DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
 
         String result = getSelectedRecipeId();
+
+        db_2 = DatabaseFactory.create(this, DB_Name_2);
+        cursor_2 = db_2.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + result + "\"", null);
+        cursor_2.moveToNext();
+        String name=cursor_2.getString(0);
+
         db = DatabaseFactory.create(this, DB_Name);
         cursor = db.rawQuery("SELECT process,explanation,url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
 
         String strRecipeProcess = "";
 
         while (cursor.moveToNext()) {
-            strRecipeProcess += result + "+";
+            strRecipeProcess += name + "+";
             strRecipeProcess += cursor.getString(0) + "&";
             strRecipeProcess += cursor.getString(1) + "|";
             strRecipeProcess += cursor.getString(2) + "#";

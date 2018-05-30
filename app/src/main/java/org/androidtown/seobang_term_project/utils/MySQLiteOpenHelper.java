@@ -13,7 +13,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table frequency (" +
                 "id text, " +
-                "frequency integer);";
+                "frequency integer,"+
+                "date text);";
         db.execSQL(sql);
     }
 
