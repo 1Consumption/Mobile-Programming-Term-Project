@@ -2,6 +2,7 @@ package org.androidtown.seobang_term_project.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -10,10 +11,10 @@ import com.skydoves.powermenu.OnMenuItemClickListener;
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
 
-import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
-import org.androidtown.seobang_term_project.ui.ingredient.IngredientSelectActivity;
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
 import org.androidtown.seobang_term_project.ui.info.InfoActivity;
+import org.androidtown.seobang_term_project.ui.ingredient.IngredientSelectActivity;
 import org.androidtown.seobang_term_project.ui.recipe.RecipeSelectActivity;
 import org.androidtown.seobang_term_project.ui.tutorial.TutorialActivity;
 import org.androidtown.seobang_term_project.utils.PowerMenuUtils;
@@ -29,6 +30,7 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     private PowerMenu powerMenu;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +41,28 @@ public class MainActivity extends AppCompatActivity {
         powerMenu = PowerMenuUtils.getHamburgerPowerMenu(this, this, powerMenuItemOnMenuItemClickListener);
     }
 
-    @OnClick(R.id.recipe_select_button) ///카드뷰로 이름 바꿔주기
+    @OnClick(R.id.recipe_select_button)
     public void recipeButton(View view) {
         Intent intent = new Intent(getApplicationContext(), RecipeSelectActivity.class);
-        startActivity(intent);
+        startIntent(intent);
     }
 
     @OnClick(R.id.start_select_button)
     public void startButton(View view) {
         Intent intent = new Intent(getApplicationContext(), IngredientSelectActivity.class);
-        startActivity(intent);
+        startIntent(intent);
     }
 
     @OnClick(R.id.history_button)
     public void historyButton(View view){
         Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-        startActivity(intent);
+        startIntent(intent);
     }
 
     @OnClick(R.id.info_button)
     public void infoButton(View view) {
         Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
-        startActivity(intent);
+        startIntent(intent);
     }
 
     @OnClick({R.id.main_more})
@@ -93,5 +95,14 @@ public class MainActivity extends AppCompatActivity {
             powerMenu.dismiss();
         else
             super.onBackPressed();
+    }
+
+    private void startIntent(final Intent intent) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(intent);
+            }
+        }, 220);
     }
 }

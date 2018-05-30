@@ -20,12 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.androidtown.seobang_term_project.R;
 
@@ -38,7 +39,6 @@ public class PageFragment extends Fragment {
     TextView minute;
     TextView second;
     LinearLayout timerLayout;
-    int result = 0;
     int time = 0;
 
     public static PageFragment create(String pageContents) {
@@ -55,7 +55,6 @@ public class PageFragment extends Fragment {
         mPageString = getArguments().getString("page");
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
@@ -65,16 +64,11 @@ public class PageFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
         if (mPageString.indexOf("last") != -1) {
             mPageString = mPageString.substring(0, mPageString.indexOf("last"));
-            ((Button) rootView.findViewById(R.id.addToHistory)).setVisibility(View.VISIBLE);
+            (rootView.findViewById(R.id.addToHistory)).setVisibility(View.VISIBLE);
         }
 
         ((TextView) rootView.findViewById(R.id.recipeString)).setText(processString);
-        WebView webView = rootView.findViewById(R.id.processWebView);
-        webView.getSettings().setJavaScriptEnabled(true);
-
-        WebSettings settings = webView.getSettings();
-        settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
+        ImageView imageView = rootView.findViewById(R.id.page_image);
 
         timerLayout = rootView.findViewById(R.id.timerLayout);
         hour = rootView.findViewById(R.id.hourText);
@@ -83,17 +77,12 @@ public class PageFragment extends Fragment {
 
         checkTime(rootView,processString);
 
-        if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty())
-            webView.loadUrl(mPageString.substring(mPageString.indexOf("|") + 1));
-        else {
-            webView.loadUrl("https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/no_Info.png?raw=true");
+        if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty()) {
+            RequestOptions options = new RequestOptions().placeholder(R.drawable.placeholder).override(250, 200);
+            Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).thumbnail(0.2f).apply(options).into(imageView);
         }
-
-        webView.setWebViewClient(new WebViewClient());
-
         return rootView;
     }
-
 
     private class CountDownTask extends AsyncTask<Void, Integer, Void> {
         Context cnt;

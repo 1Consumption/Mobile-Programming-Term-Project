@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#52000000">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -37,89 +38,142 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="4">
-        
-        <android.support.v7.widget.CardView
+        android:weightSum="4"
+        android:background="#52000000">
+
+        <com.southernbox.ripplelayout.RippleLayout
             android:id="@+id/recipe_select_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_margin="5dp">
-            <ImageView
+            android:background="#52000000">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/menu1"/>
+                android:background="#52000000">
 
-        </android.support.v7.widget.CardView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/menu1"/>
 
-        <android.support.v7.widget.CardView
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000"
+                    android:alpha="0.6"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/white"
+                    android:text="요리 선택"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+        </com.southernbox.ripplelayout.RippleLayout>
+
+        <com.southernbox.ripplelayout.RippleLayout
             android:id="@+id/start_select_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/menu2"/>
-        </android.support.v7.widget.CardView>
+            android:layout_weight="1">
 
-        <android.support.v7.widget.CardView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/menu2"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000"
+                    android:alpha="0.6"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/white"
+                    android:text="재료 선택"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+        </com.southernbox.ripplelayout.RippleLayout>
+
+        <com.southernbox.ripplelayout.RippleLayout
             android:id="@+id/history_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp">
+            android:layout_weight="1">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/menu3"/>
-        </android.support.v7.widget.CardView>
+                android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/menu3"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000"
+                    android:alpha="0.6"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/white"
+                    android:text="히스토리 선택"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+        </com.southernbox.ripplelayout.RippleLayout>
+
+        <com.southernbox.ripplelayout.RippleLayout
             android:id="@+id/info_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp">
+            android:layout_weight="1">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/menu4"/>
-        </android.support.v7.widget.CardView>
+                android:background="#52000000">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/menu4"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000"
+                    android:alpha="0.6"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/white"
+                    android:text="개발자 정보"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+        </com.southernbox.ripplelayout.RippleLayout>
     </LinearLayout>
-
-    <!--<Button-->
-        <!--android:id="@+id/recipe_select_button"-->
-        <!--android:layout_width="262dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/start_select_button"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:text="레시피 고르기" />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/start_select_button"-->
-        <!--android:layout_width="262dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="145dp"-->
-        <!--android:text="재료 고르기" />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/info_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="89dp"-->
-        <!--android:text="개발자 정보" />-->
-
 </LinearLayout>
