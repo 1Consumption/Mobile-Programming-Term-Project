@@ -1,12 +1,15 @@
 
 package org.androidtown.seobang_term_project.ui.recipe;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -25,12 +28,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
+import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 import butterknife.ButterKnife;
 
@@ -56,8 +61,6 @@ public class PageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         mPageString = getArguments().getString("page");
     }
 
@@ -73,10 +76,12 @@ public class PageFragment extends Fragment {
         toHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String recipeID = mPageString.substring(0, mPageString.indexOf("+"));
                 Intent intent = new Intent(getActivity(), HistoryActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("RecipeName",processString);
+                bundle.putString("RecipeID", recipeID);
                 intent.putExtras(bundle);
+                Toast.makeText(getContext().getApplicationContext(), recipeID + "이(가) 정상적으로 추가 되었어요!", Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });
@@ -96,7 +101,7 @@ public class PageFragment extends Fragment {
         minute = rootView.findViewById(R.id.minuteText);
         second = rootView.findViewById(R.id.secondText);
 
-        checkTime(rootView,processString);
+        checkTime(rootView, processString);
 
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty()) {
             RequestOptions options = new RequestOptions().placeholder(R.drawable.placeholder).override(250, 200);
@@ -193,7 +198,7 @@ public class PageFragment extends Fragment {
     }
 
 
-    private void checkTime(ViewGroup rootView, String processString){
+    private void checkTime(ViewGroup rootView, String processString) {
         if (processString.indexOf("시간") != -1 || processString.indexOf("분") != -1) {
             double extractedTime = 0;
             int timeIndex = 0;

@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="org.androidtown.seobang_term_project.ui.history.HistoryActivity">
 
     <TextView
+        android:id="@+id/noList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="아직 먹은 요리가 없어요!"
+        android:textSize="100dp" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:textColor="#000000"
-        android:text="fragment2"/>
+        android:visibility="invisible">
 
-</LinearLayout>
+    </com.github.mikephil.charting.charts.PieChart>
+
+</RelativeLayout>

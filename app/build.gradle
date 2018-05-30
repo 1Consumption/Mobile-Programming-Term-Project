@@ -44,5 +44,5 @@ dependencies {
     implementation 'com.github.yalantis:jellytoolbar:v1.0'
     implementation 'com.github.Yalantis:pull-to-make-soup:1.0.2'
     implementation 'com.github.developer-shivam:Crescento:1.2.1'
-
+    compile 'com.github.PhilJay:MpAndroidChart:v3.0.2'
 }
