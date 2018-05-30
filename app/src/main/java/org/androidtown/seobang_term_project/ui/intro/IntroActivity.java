@@ -1,9 +1,11 @@
 package org.androidtown.seobang_term_project.ui.intro;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.ui.main.MainActivity;
@@ -21,6 +23,9 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+        Drawable alpha = ((ImageView)findViewById(R.id.logo)).getDrawable();
+        alpha.setAlpha(80);
 
         handler = new Handler();
         handler.postDelayed(pass, 2000);
