@@ -1,6 +1,7 @@
 package org.androidtown.seobang_term_project.ui.history;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,15 +35,19 @@ public class HistoryActivity extends BaseActivity {
         helper = new MySQLiteOpenHelper(HistoryActivity.this, "frequency.db", null, 3);
 
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             recipeName = bundle.getString("RecipeName");
-            if (countFrequency(recipeName) == 0) {
-                insert(recipeName, 1);
+            if (recipeName.contains("mod")) {
+                int tempFre = Integer.parseInt(recipeName.substring(0, recipeName.indexOf("mod")));
+                update(recipeName.substring(recipeName.indexOf("d") + 1), tempFre);
             } else {
-                update(recipeName, countFrequency(recipeName) + 1);
+                if (countFrequency(recipeName) == 0) {
+                    insert(recipeName, 1);
+                } else {
+                    update(recipeName, countFrequency(recipeName) + 1);
+                }
             }
             selectAll();
         }
@@ -99,7 +104,7 @@ public class HistoryActivity extends BaseActivity {
 
     public void select(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id+"\"", null);
+        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id + "\"", null);
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String _id = c.getString(c.getColumnIndex("id"));
@@ -119,7 +124,7 @@ public class HistoryActivity extends BaseActivity {
 
     public int countFrequency(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id+"\"", null);
+        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id + "\"", null);
         c.moveToNext();
         if (c.getInt(0) == 0)
             return 0;

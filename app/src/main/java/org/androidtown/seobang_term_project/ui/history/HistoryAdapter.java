@@ -69,8 +69,7 @@ public class HistoryAdapter extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putString("RecipeName", title.getText().toString());
                 intent.putExtras(bundle);
-
-
+                context.startActivity(intent);
             }
         });
 
@@ -78,7 +77,9 @@ public class HistoryAdapter extends BaseAdapter {
             @Override
             public boolean onLongClick(View view) {
                 Intent intent = new Intent(context, HistoryEditActivity.class);
-
+                Bundle bundle = new Bundle();
+                bundle.putString("RecipeName", title.getText().toString());
+                intent.putExtras(bundle);
                 Toast.makeText(context, (pos + 1) + "번째 꾸우우욱리스트가 클릭되었습니다.", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
                 return true;
