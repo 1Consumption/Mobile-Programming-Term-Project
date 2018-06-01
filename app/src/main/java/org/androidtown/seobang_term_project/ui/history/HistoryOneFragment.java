@@ -73,14 +73,14 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
 
         //adapter를 통한 값 전달
         for (int i = 0; i < countAll(); i++) {
-            String ID = list[i].substring(0, list[i].indexOf(","));
+            String name = list[i].substring(0, list[i].indexOf(","));
 
-            cursor = db_2.rawQuery("SELECT URL FROM " + TABLE_NAME + " WHERE recipe_name=\"" + ID + "\"", null);
+            cursor = db_2.rawQuery("SELECT URL,recipe_code FROM " + TABLE_NAME + " WHERE recipe_name=\"" + name + "\"", null);
             cursor.moveToNext();
             String URL = cursor.getString(0);
-
+            String code = cursor.getString(1);
             String frequency = list[i].substring(list[i].indexOf(",") + 1) + "번";
-            adapter.addHistory(URL, ID, frequency);
+            adapter.addHistory(URL, name, frequency, code);
         }
 
 

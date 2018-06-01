@@ -41,7 +41,8 @@ public class HistoryActivity extends BaseActivity {
             recipeName = bundle.getString("RecipeName");
             if (recipeName.contains("mod")) {
                 int tempFre = Integer.parseInt(recipeName.substring(0, recipeName.indexOf("mod")));
-                update(recipeName.substring(recipeName.indexOf("d") + 1), tempFre);
+                recipeName = recipeName.substring(recipeName.indexOf("d") + 1);
+                update(recipeName, tempFre);
             } else {
                 if (countFrequency(recipeName) == 0) {
                     insert(recipeName, 1);

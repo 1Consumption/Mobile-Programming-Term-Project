@@ -52,7 +52,7 @@ public class HistoryAdapter extends BaseAdapter {
         TextView Context = (TextView) convertView.findViewById(R.id.context);
 
 
-        HistoryList listViewItem = history.get(position);
+        final HistoryList listViewItem = history.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         Glide.with(parent).load(listViewItem.getImg()).into(image);
@@ -68,6 +68,8 @@ public class HistoryAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, RecipePreviewActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("RecipeName", title.getText().toString());
+                bundle.putString("selectedRecipe", listViewItem.getCode());
+                Log.e("title", title.getText().toString());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
@@ -103,14 +105,14 @@ public class HistoryAdapter extends BaseAdapter {
     }
 
     // 데이터값 넣어줌
-    public void addHistory(String URL, String title, String desc) {
+    public void addHistory(String URL, String title, String desc, String code) {
         HistoryList item = new HistoryList();
 
         item.setImg(URL);
         Log.e("setImg", URL);
         item.setTitle(title);
         item.setContext(desc);
-
+        item.setCode(code);
         history.add(item);
     }
 }

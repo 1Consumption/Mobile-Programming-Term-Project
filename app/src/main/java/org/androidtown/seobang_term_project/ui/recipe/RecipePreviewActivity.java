@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class RecipePreviewActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("onCreate","생성되었다");
         super.onCreate(savedInstanceState);
         setContentViewById(R.layout.activity_recipe_preview);
         setToolbarName("레시피 미리보기 - " + getSelectedRecipeName());

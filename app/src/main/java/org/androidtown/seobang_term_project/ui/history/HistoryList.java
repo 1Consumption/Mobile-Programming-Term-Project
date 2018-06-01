@@ -6,6 +6,15 @@ public class HistoryList {
     private String img;
     private String Title;
     private String context;
+    private String code;
+
+    public void setCode(String code){
+        this.code=code;
+    }
+
+    public String getCode() {
+        return code;
+    }
 
     public String getImg() {
         return img;

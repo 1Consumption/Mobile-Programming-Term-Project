@@ -36,18 +36,18 @@
             android:id="@+id/crescentoContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:elevation="15dp"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="10dp"
             app:curvature="30dp">
 
             <ImageView
                 android:id="@+id/recipe_preview_image"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:scaleType="fitXY"
                 android:layout_gravity="center_horizontal"
-                android:transitionName="image"/>
+                android:scaleType="fitXY"
+                android:transitionName="image" />
         </developer.shivam.crescento.CrescentoContainer>
 
         <android.support.v7.widget.CardView
@@ -73,18 +73,18 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_assignment_black_24dp"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_assignment_black_24dp" />
 
                     <TextView
                         android:id="@+id/classification"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:textColor="@color/black_title"
-                        android:layout_gravity="center_horizontal"
-                        tools:text="classification"/>
+                        android:textSize="15sp"
+                        tools:text="classification" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -96,18 +96,18 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_pets_black_24dp"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_pets_black_24dp" />
 
                     <TextView
                         android:id="@+id/calorie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:textColor="@color/black_title"
-                        android:layout_gravity="center_horizontal"
-                        tools:text="calorie"/>
+                        android:textSize="15sp"
+                        tools:text="calorie" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -119,18 +119,18 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_alarm_black_24dp"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_alarm_black_24dp" />
 
                     <TextView
                         android:id="@+id/totalTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:textColor="@color/black_title"
-                        android:layout_gravity="center_horizontal"
-                        tools:text="totalTime"/>
+                        android:textSize="15sp"
+                        tools:text="totalTime" />
                 </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -138,9 +138,9 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
             app:cardCornerRadius="2dp"
             app:cardElevation="2dp">
 
@@ -148,20 +148,23 @@
                 android:id="@+id/explanation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black_content"
                 android:padding="10dp"
-                tools:text="explanation"/>
+                android:textColor="@color/black_content"
+                android:textSize="17sp"
+                tools:text="explanation" />
+
         </android.support.v7.widget.CardView>
+
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/preview_fab"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_arrow_forward_white_24dp"
         app:backgroundTint="@color/colorPrimary"

@@ -47,11 +47,13 @@ public class RecipeActivity extends BaseActivity {
 
         String result = getSelectedRecipeId();
 
-        db_2 = DatabaseFactory.create(this, DB_Name_2);
-        cursor_2 = db_2.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + result + "\"", null);
-        cursor_2.moveToNext();
-        String name=cursor_2.getString(0);
-
+        Log.e("ASDSDASD", result);
+//
+//        db_2 = DatabaseFactory.create(this, DB_Name_2);
+//        cursor_2 = db_2.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + result + "\"", null);
+//        cursor_2.moveToNext();
+//        String name=cursor_2.getString(0);
+        String name = getSelectedRecipeName();
         db = DatabaseFactory.create(this, DB_Name);
         cursor = db.rawQuery("SELECT process,explanation,url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
 

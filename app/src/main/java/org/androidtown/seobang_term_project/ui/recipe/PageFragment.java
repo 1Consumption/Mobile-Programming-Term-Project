@@ -82,6 +82,7 @@ public class PageFragment extends Fragment {
                 bundle.putString("RecipeName", recipeName);
                 intent.putExtras(bundle);
                 Toast.makeText(getContext().getApplicationContext(), recipeName + "이(가) 정상적으로 추가 되었어요!", Toast.LENGTH_LONG).show();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
