@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
@@ -43,9 +45,9 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
         DBUtils.setDB(getContext(), ROOT_DIR, DB_Name);
         db_2 = DatabaseFactory.create(getContext(), DB_Name);
 
-        adapter = new HistoryAdapter();
+        adapter = new HistoryAdapter(getActivity().getApplicationContext());
         listview = (ListView) view.findViewById(R.id.List_view);
-
+        adapter.notifyDataSetChanged();
         //어뎁터 할당
         listview.setAdapter(adapter);
         selectAll();
@@ -80,6 +82,7 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
             String frequency = list[i].substring(list[i].indexOf(",") + 1) + "번";
             adapter.addHistory(URL, ID, frequency);
         }
+
 
         return view;
     }

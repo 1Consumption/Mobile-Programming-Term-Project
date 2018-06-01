@@ -25,9 +25,10 @@ import java.util.ArrayList;
 
 public class HistoryAdapter extends BaseAdapter {
     private ArrayList<HistoryList> history = new ArrayList<HistoryList>();
+    private Context context;
 
-    public HistoryAdapter() {
-
+    public HistoryAdapter(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -37,10 +38,9 @@ public class HistoryAdapter extends BaseAdapter {
 
     // ** 이 부분에서 리스트뷰에 데이터를 넣어줌 **
     @Override
-    public View getView(int position, View convertView, final ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         //postion = ListView의 위치      /   첫번째면 position = 0
         final int pos = position;
-        final Context context = parent.getContext();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -69,7 +69,7 @@ public class HistoryAdapter extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putString("RecipeName", title.getText().toString());
                 intent.putExtras(bundle);
-                context.startActivity(intent);
+
 
             }
         });
@@ -77,7 +77,10 @@ public class HistoryAdapter extends BaseAdapter {
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                Intent intent = new Intent(context, HistoryEditActivity.class);
+
                 Toast.makeText(context, (pos + 1) + "번째 꾸우우욱리스트가 클릭되었습니다.", Toast.LENGTH_SHORT).show();
+                context.startActivity(intent);
                 return true;
             }
         });
