@@ -3,15 +3,15 @@ package org.androidtown.seobang_term_project.ui.history;
 import android.graphics.drawable.Drawable;
 
 public class HistoryList {
-    private Drawable img;
+    private String img;
     private String Title;
     private String context;
 
-    public Drawable getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(Drawable img) {
+    public void setImg(String img) {
         this.img = img;
     }
 

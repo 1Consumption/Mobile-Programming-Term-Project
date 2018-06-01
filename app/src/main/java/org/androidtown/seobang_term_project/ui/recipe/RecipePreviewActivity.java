@@ -51,7 +51,7 @@ public class RecipePreviewActivity extends BaseActivity {
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
 
         db = DatabaseFactory.create(this, DB_Name);
-        cursor = db.rawQuery("SELECT recipe_name, simplification, food_classification, cooking_time, URL, amount FROM " + TABLE_NAME + " WHERE recipe_code=\"" + getSelectedRecipeId() + "\"", null);
+        cursor = db.rawQuery("SELECT recipe_name, simplification, food_classification, cooking_time, URL, amount FROM " + TABLE_NAME + " WHERE recipe_name=\"" + getSelectedRecipeName() + "\"", null);
         cursor.moveToFirst();
         explanationTextView.setText(cursor.getString(1));
         classificationTextView.setText(cursor.getString(2));

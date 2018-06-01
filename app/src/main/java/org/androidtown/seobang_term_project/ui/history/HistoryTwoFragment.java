@@ -70,7 +70,7 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
                 yValues.add(new PieEntry((((float) frequency / (float) (countFrequencyAll()) * 100)), name));
             }
 
-            yValues.add(new PieEntry(10f, ""));
+//            yValues.add(new PieEntry(10f, ""));
 
             Description description = new Description();
             description.setText("요리 목록"); //라벨
@@ -85,7 +85,7 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
             dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
             PieData data = new PieData((dataSet));
-            data.setValueTextSize(10f);
+            data.setValueTextSize(20f);
             data.setValueTextColor(Color.YELLOW);
 
             pieChart.setData(data);

@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 public class HistoryOneFragment extends android.support.v4.app.Fragment {
 
     SQLiteDatabase db;
+    SQLiteDatabase db_2;
     MySQLiteOpenHelper helper;
     private Cursor cursor;
 
@@ -29,13 +31,17 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
     private HistoryAdapter adapter;
 
     String[] list = new String[500];
-    int listLength=0;
+    int listLength = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        String[] URLList = new String[500];
+
         View view = inflater.inflate(R.layout.history_one, container, false);
         helper = new MySQLiteOpenHelper(getContext(), "frequency.db", null, 3);
         DBUtils.setDB(getContext(), ROOT_DIR, DB_Name);
+        db_2 = DatabaseFactory.create(getContext(), DB_Name);
 
         adapter = new HistoryAdapter();
         listview = (ListView) view.findViewById(R.id.List_view);
@@ -44,21 +50,35 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
         listview.setAdapter(adapter);
         selectAll();
 
+        Cursor cursor;
+
         for (int i = 0; i < countAll(); i++) {
-            for(int j=0;j<countAll()-i-1;j++){
-                if(Integer.parseInt(list[j].substring(list[j].indexOf(",")+1))<=Integer.parseInt(list[j+1].substring(list[j+1].indexOf(",")+1))){
-                    String temp=list[j];
-                    list[j]=list[j+1];
-                    list[j+1]=temp;
+            cursor = db_2.rawQuery("SELECT URL FROM " + TABLE_NAME + " WHERE recipe_name=\"" + list[i].substring(0, list[i].indexOf(",")) + "\"", null);
+            cursor.moveToNext();
+            URLList[i] = cursor.getString(0);
+            Log.e("URLURLRULR", URLList[i]);
+        }
+
+        for (int i = 0; i < countAll(); i++) {
+            for (int j = 0; j < countAll() - i - 1; j++) {
+                if (Integer.parseInt(list[j].substring(list[j].indexOf(",") + 1)) <= Integer.parseInt(list[j + 1].substring(list[j + 1].indexOf(",") + 1))) {
+                    String temp = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = temp;
                 }
             }
         }
 
         //adapter를 통한 값 전달
         for (int i = 0; i < countAll(); i++) {
-            String ID=list[i].substring(0,list[i].indexOf(","));
-            String frequency=list[i].substring(list[i].indexOf(",")+1)+"번";
-            adapter.addHistory(ContextCompat.getDrawable(getContext(),R.drawable.ic_launcher_foreground),ID,frequency);
+            String ID = list[i].substring(0, list[i].indexOf(","));
+
+            cursor = db_2.rawQuery("SELECT URL FROM " + TABLE_NAME + " WHERE recipe_name=\"" + ID + "\"", null);
+            cursor.moveToNext();
+            String URL = cursor.getString(0);
+
+            String frequency = list[i].substring(list[i].indexOf(",") + 1) + "번";
+            adapter.addHistory(URL, ID, frequency);
         }
 
         return view;
@@ -87,7 +107,7 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
 
     public void select(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id+"\"", null);
+        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id + "\"", null);
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String _id = c.getString(c.getColumnIndex("id"));
@@ -109,7 +129,7 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
 
     public int countFrequency(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id+"\"", null);
+        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id + "\"", null);
         c.moveToNext();
         if (c.getInt(0) == 0)
             return 0;
