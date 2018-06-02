@@ -160,9 +160,9 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"
                         android:padding="10dp"
+                        android:text="설명"
                         android:textColor="@color/black_content"
-                        android:textSize="17sp"
-                        android:text="설명" />
+                        android:textSize="17sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -206,9 +206,9 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"
                         android:padding="10dp"
+                        android:text="재료"
                         android:textColor="@color/black_content"
-                        android:textSize="17sp"
-                        android:text="재료" />
+                        android:textSize="17sp" />
 
                     <View
                         android:layout_width="match_parent"

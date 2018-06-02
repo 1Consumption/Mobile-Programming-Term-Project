@@ -1,17 +1,17 @@
 
 package org.androidtown.seobang_term_project.ui.recipe;
 
-import android.content.ContentValues;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +20,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -36,7 +35,6 @@ import com.bumptech.glide.request.RequestOptions;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
-import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 import butterknife.ButterKnife;
 
@@ -47,7 +45,9 @@ public class PageFragment extends Fragment {
     TextView minute;
     TextView second;
     LinearLayout timerLayout;
-    FloatingActionButton toHistoryButton;
+    FloatingActionButton showFABBtn;
+    FloatingActionButton addToHistoryBtn;
+    FloatingActionButton goToCameraBtn;
     int result = 0;
     int time = 0;
 
@@ -70,13 +70,52 @@ public class PageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final String processString = mPageString.substring(mPageString.indexOf("&") + 1, mPageString.indexOf("|"));
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
+        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
 
         ButterKnife.bind(this, rootView);
 
+        final LinearLayout cameraLayout = rootView.findViewById(R.id.cameraLayout);
+        final LinearLayout historyLayout = rootView.findViewById(R.id.historyLayout);
 
-        toHistoryButton = rootView.findViewById(R.id.addToHistory);
-        toHistoryButton.setOnClickListener(new View.OnClickListener() {
+        final Animation hideBtn = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_button);
+        final Animation showBtn = AnimationUtils.loadAnimation(getActivity(), R.anim.show_button);
+        final Animation hideLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_layout);
+        final Animation showLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.show_layout);
+        showLayout.setInterpolator(AnimationUtils.loadInterpolator(getActivity(), android.R.anim.bounce_interpolator));
+
+        addToHistoryBtn = rootView.findViewById(R.id.addToHistory);
+        goToCameraBtn = rootView.findViewById(R.id.goToCamera);
+        showFABBtn = rootView.findViewById(R.id.showFAB);
+        showFABBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cameraLayout.getVisibility() == View.VISIBLE && historyLayout.getVisibility() == View.VISIBLE) {
+                    showFABBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4B8A3D")));
+                    cameraLayout.setVisibility(View.GONE);
+                    historyLayout.setVisibility(View.GONE);
+                    cameraLayout.startAnimation(hideLayout);
+                    historyLayout.startAnimation(hideLayout);
+                    showFABBtn.startAnimation(hideBtn);
+                } else {
+                    showFABBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#da4b3d")));
+                    cameraLayout.setVisibility(View.VISIBLE);
+                    historyLayout.setVisibility(View.VISIBLE);
+                    cameraLayout.startAnimation(showLayout);
+                    historyLayout.startAnimation(showLayout);
+                    showFABBtn.startAnimation(showBtn);
+                }
+            }
+        });
+
+        goToCameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        addToHistoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String recipeName = mPageString.substring(0, mPageString.indexOf("+"));
@@ -94,7 +133,7 @@ public class PageFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
         if (mPageString.indexOf("last") != -1) {
             mPageString = mPageString.substring(0, mPageString.indexOf("last"));
-            (rootView.findViewById(R.id.addToHistory)).setVisibility(View.VISIBLE);
+            (rootView.findViewById(R.id.showFAB)).setVisibility(View.VISIBLE);
         }
 
         ((TextView) rootView.findViewById(R.id.recipeString)).setText(processString);

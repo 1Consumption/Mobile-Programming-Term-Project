@@ -116,7 +116,6 @@ public class RecipePreviewActivity extends BaseActivity {
         bundle.putString("RecipeName", getSelectedRecipeName());
         intent.putExtras(bundle);
         startActivity(intent);
-        finish();
     }
 
     private String getSelectedRecipeId() {

@@ -42,7 +42,8 @@
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".ui.history.lastConfirmActivity"
-            android:theme="@android:style/Theme.Dialog"></activity>
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".ui.recipe.CameraActivity"></activity>
     </application>
 
 </manifest>

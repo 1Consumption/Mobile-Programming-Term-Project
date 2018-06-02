@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/page_image"
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -29,8 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20sp"
-                android:textColor="@color/black_content"/>
+                android:textColor="@color/black_content"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/timerLayout"
@@ -88,23 +88,90 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:textSize="20dp"
-                android:textStyle="italic|bold"
-                android:layout_marginBottom="10dp"/>
+                android:textStyle="italic|bold" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/addToHistory"
+                android:id="@+id/showFAB"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_playlist_add_white_24dp"
+                android:src="@drawable/plus"
+                android:tint="@color/md_white_1000"
                 android:visibility="gone"
                 app:backgroundTint="@color/colorPrimary"
+                app:elevation="0dp"
                 app:fabSize="normal" />
+
+            <LinearLayout
+                android:id="@+id/historyLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/showFAB"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:text="History" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/addToHistory"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_playlist_add_white_24dp"
+                    android:tint="@color/md_white_1000"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:elevation="0dp"
+                    app:fabSize="mini" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cameraLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/historyLayout"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:text="Camera" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/goToCamera"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/camera"
+                    android:tint="@color/md_white_1000"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:elevation="0dp"
+                    app:fabSize="mini" />
+
+            </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
 
 </LinearLayout>
