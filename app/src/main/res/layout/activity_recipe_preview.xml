@@ -1,173 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/background">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:theme="@style/ToolbarStyle">
-
-                <TextView
-                    android:id="@+id/toolbar_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="레시피 미리보기"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
-
-        <developer.shivam.crescento.CrescentoContainer
-            android:id="@+id/crescentoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:elevation="15dp"
-            android:scaleType="centerCrop"
-            app:curvature="30dp">
-
-            <ImageView
-                android:id="@+id/recipe_preview_image"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="fitXY"
-                android:transitionName="image" />
-        </developer.shivam.crescento.CrescentoContainer>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="2dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="3">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_assignment_black_24dp" />
-
-                    <TextView
-                        android:id="@+id/classification"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:textColor="@color/black_title"
-                        android:textSize="15sp"
-                        tools:text="classification" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_pets_black_24dp" />
-
-                    <TextView
-                        android:id="@+id/calorie"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:textColor="@color/black_title"
-                        android:textSize="15sp"
-                        tools:text="calorie" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_alarm_black_24dp" />
-
-                    <TextView
-                        android:id="@+id/totalTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:textColor="@color/black_title"
-                        android:textSize="15sp"
-                        tools:text="totalTime" />
-                </LinearLayout>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="2dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/explanation"
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:theme="@style/ToolbarStyle">
+
+                    <TextView
+                        android:id="@+id/toolbar_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="레시피 미리보기"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
+
+            <developer.shivam.crescento.CrescentoContainer
+                android:id="@+id/crescentoContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:padding="10dp"
-                android:textColor="@color/black_content"
-                android:textSize="17sp"
-                tools:text="explanation" />
+                android:layout_marginBottom="10dp"
+                android:elevation="15dp"
+                android:scaleType="centerCrop"
+                app:curvature="30dp">
 
-        </android.support.v7.widget.CardView>
+                <ImageView
+                    android:id="@+id/recipe_preview_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitXY"
+                    android:transitionName="image" />
+            </developer.shivam.crescento.CrescentoContainer>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_assignment_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/classification"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/black_title"
+                            android:textSize="15sp"
+                            tools:text="classification" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_pets_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/calorie"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/black_title"
+                            android:textSize="15sp"
+                            tools:text="calorie" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_alarm_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/totalTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/black_title"
+                            android:textSize="15sp"
+                            tools:text="totalTime" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black_content"
+                        android:textSize="17sp"
+                        android:text="설명" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/black_small_content" />
+
+                    <TextView
+                        android:id="@+id/explanation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black_content"
+                        android:textSize="17sp"
+                        tools:text="explanation" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black_content"
+                        android:textSize="17sp"
+                        android:text="재료" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/black_small_content" />
 
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/ingredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black_content"
+                        android:textSize="17sp"
+                        tools:text="ingredient" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/preview_fab"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_arrow_forward_white_24dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/preview_fab"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_arrow_forward_white_24dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="normal" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

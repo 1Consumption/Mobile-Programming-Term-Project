@@ -20,6 +20,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -49,6 +50,8 @@ public class PageFragment extends Fragment {
     FloatingActionButton toHistoryButton;
     int result = 0;
     int time = 0;
+
+    boolean flag = true;
 
     public static PageFragment create(String pageContents) {
         PageFragment fragment = new PageFragment();
