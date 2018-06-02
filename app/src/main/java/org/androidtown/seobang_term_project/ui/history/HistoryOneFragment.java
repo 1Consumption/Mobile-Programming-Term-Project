@@ -4,14 +4,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
@@ -35,6 +32,8 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
     String[] list = new String[500];
     int listLength = 0;
 
+    boolean flag = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -50,6 +49,7 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
         adapter.notifyDataSetChanged();
         //어뎁터 할당
         listview.setAdapter(adapter);
+        listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         selectAll();
 
         Cursor cursor;

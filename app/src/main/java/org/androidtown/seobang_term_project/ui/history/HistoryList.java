@@ -1,7 +1,5 @@
 package org.androidtown.seobang_term_project.ui.history;
 
-import android.graphics.drawable.Drawable;
-
 public class HistoryList {
     private String img;
     private String Title;

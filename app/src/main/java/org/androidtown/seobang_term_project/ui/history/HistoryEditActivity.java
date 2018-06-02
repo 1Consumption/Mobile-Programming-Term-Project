@@ -2,6 +2,8 @@ package org.androidtown.seobang_term_project.ui.history;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -26,23 +28,32 @@ public class HistoryEditActivity extends Activity {
         Button update = findViewById(R.id.updateBtn);
         Button cancel = findViewById(R.id.cancelBtn);
         final EditText receive = findViewById(R.id.editHistory);
-
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int num = Integer.parseInt(receive.getText().toString());
-                if (num <= 0)
-                    Toast.makeText(getApplicationContext(), "0보다 큰 수를 입력해 주세요.", Toast.LENGTH_LONG).show();
+                if (num < 0)
+                    Toast.makeText(getApplicationContext(), "숫자 범위를 다시 확인 해주세요.", Toast.LENGTH_LONG).show();
                 else {
                     Intent receiveIntent = getIntent();
                     Bundle rec = receiveIntent.getExtras();
-                    Toast.makeText(getApplicationContext(), "성공적으로 업데이트 되었습니다.", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("RecipeName", String.valueOf(num) + "mod" + rec.getString("RecipeName"));
-                    intent.putExtras(bundle);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+
+                    if(num!=0) {
+                        Toast.makeText(getApplicationContext(), "성공적으로 업데이트 되었습니다.", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("RecipeName", String.valueOf(num) + "mod" + rec.getString("RecipeName"));
+                        intent.putExtras(bundle);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(getApplicationContext(),lastConfirmActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("RecipeName", String.valueOf(num) + "del" + rec.getString("RecipeName"));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+
                 }
             }
         });

@@ -8,48 +8,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="#4b8a3d"
+        android:background="#da4b3d"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="수량 설정"
+            android:text="경고"
+            android:layout_gravity="center_horizontal"
             android:textColor="#ffffffff"
             android:textSize="20dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="(0 입력 시 삭제)"
-            android:textColor="#ffffffff"
-            android:textSize="15dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|center_vertical"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <TextView
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="수량: "
+            android:layout_height="match_parent"
+            android:text="해당 히스토리는 삭제 됩니다!"
             android:textColor="#ff000000"
-            android:textSize="20dp" />
+            android:textSize="18dp"/>
 
-        <EditText
-            android:id="@+id/editHistory"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:background="@color/transparent"
-            android:textSize="20dp" />
     </LinearLayout>
 
     <View
@@ -66,23 +53,22 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/updateBtn"
+            android:id="@+id/confirmBtn"
             android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
             android:background="@color/transparent"
-            android:text="수정" />
+            android:text="확인" />
 
         <Button
-            android:id="@+id/cancelBtn"
+            android:id="@+id/cancelBtn_2"
             android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
             android:background="@color/transparent"
             android:text="취소" />
-
     </LinearLayout>
 
-    </LinearLayout>
+</LinearLayout>

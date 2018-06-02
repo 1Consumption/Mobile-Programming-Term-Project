@@ -43,7 +43,12 @@ public class HistoryActivity extends BaseActivity {
                 int tempFre = Integer.parseInt(recipeName.substring(0, recipeName.indexOf("mod")));
                 recipeName = recipeName.substring(recipeName.indexOf("d") + 1);
                 update(recipeName, tempFre);
-            } else {
+            }
+            else if(recipeName.contains("del")){
+                recipeName = recipeName.substring(recipeName.indexOf("l") + 1);
+                delete(recipeName);
+            }
+            else {
                 if (countFrequency(recipeName) == 0) {
                     insert(recipeName, 1);
                 } else {

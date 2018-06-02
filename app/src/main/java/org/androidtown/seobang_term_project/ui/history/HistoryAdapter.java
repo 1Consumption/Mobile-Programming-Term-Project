@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 public class HistoryAdapter extends BaseAdapter {
     private ArrayList<HistoryList> history = new ArrayList<HistoryList>();
     private Context context;
+
+    boolean flag=false;
 
     public HistoryAdapter(Context context) {
         this.context = context;
@@ -50,7 +53,6 @@ public class HistoryAdapter extends BaseAdapter {
         ImageView image = (ImageView) convertView.findViewById(R.id.historyWebView);
         final TextView title = (TextView) convertView.findViewById(R.id.title);
         TextView Context = (TextView) convertView.findViewById(R.id.context);
-
 
         final HistoryList listViewItem = history.get(position);
 
@@ -87,7 +89,6 @@ public class HistoryAdapter extends BaseAdapter {
                 return true;
             }
         });
-
 
         return convertView;
     }

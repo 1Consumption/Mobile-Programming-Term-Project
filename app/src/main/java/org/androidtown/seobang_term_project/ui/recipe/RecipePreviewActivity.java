@@ -106,22 +106,6 @@ public class RecipePreviewActivity extends BaseActivity {
 
         ingredient = ingredient.substring(0, ingredient.length() - 2);
         ingredientTextView.setText(ingredient);
-
-        View.OnTouchListener(new View.OnTouchListener(){
-            public boolean onTouch(View v,MotionEvent event){
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
-                    if(flag==true){
-                        btn.setVisibility(View.INVISIBLE);
-                        flag=false;
-                    }else{
-                        btn.setVisibility(View.VISIBLE);
-                        flag=true;
-                    }
-                }
-                ret
-            }
-        });
-
     }
 
     @OnClick(R.id.preview_fab)
