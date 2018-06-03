@@ -73,13 +73,13 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
 //            yValues.add(new PieEntry(10f, ""));
 
             Description description = new Description();
-            description.setText("요리 목록"); //라벨
+            description.setText("요리 목록(%)"); //라벨
             description.setTextSize(15);
             pieChart.setDescription(description);
 
             pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic); //애니메이션
 
-            PieDataSet dataSet = new PieDataSet(yValues, "요리");
+            PieDataSet dataSet = new PieDataSet(yValues, "");
             dataSet.setSliceSpace(3f);
             dataSet.setSelectionShift(5f);
             dataSet.setColors(ColorTemplate.COLORFUL_COLORS);

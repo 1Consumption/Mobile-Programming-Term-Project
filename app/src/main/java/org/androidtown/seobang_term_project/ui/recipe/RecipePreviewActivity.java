@@ -11,8 +11,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -46,6 +49,8 @@ public class RecipePreviewActivity extends BaseActivity {
     TextView tv_calorie;
     @BindView(R.id.preview_fab)
     FloatingActionButton btn;
+    @BindView(R.id.relativeLayout)
+    RelativeLayout layout;
 
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
     public static final String DB_Name = "recipe_basic_information.db";
@@ -106,6 +111,25 @@ public class RecipePreviewActivity extends BaseActivity {
 
         ingredient = ingredient.substring(0, ingredient.length() - 2);
         ingredientTextView.setText(ingredient);
+
+        final Animation slide = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        final Animation hide = AnimationUtils.loadAnimation(this, R.anim.hide_layout);
+        slide.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.anim.bounce_interpolator));
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag == true) {
+                    flag = false;
+                    btn.setVisibility(View.INVISIBLE);
+                    btn.startAnimation(hide);
+                } else {
+                    flag = true;
+                    btn.setVisibility(View.VISIBLE);
+                    btn.startAnimation(slide);
+                }
+            }
+        });
     }
 
     @OnClick(R.id.preview_fab)
