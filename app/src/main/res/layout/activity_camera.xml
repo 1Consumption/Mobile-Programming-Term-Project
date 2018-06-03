@@ -27,7 +27,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/main_more"
+                android:id="@+id/shareBtn"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="end"
