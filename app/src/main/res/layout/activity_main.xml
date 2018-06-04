@@ -46,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#52000000">
+            android:background="#52000000"
+            android:layout_margin="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -80,7 +81,8 @@
             android:id="@+id/start_select_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_margin="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -113,7 +115,8 @@
             android:id="@+id/history_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_margin="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -146,7 +149,8 @@
             android:id="@+id/info_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_margin="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
