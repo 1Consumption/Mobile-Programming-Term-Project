@@ -38,6 +38,7 @@ public class IngredientAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+
     public void addItems(List<Ingredient> ingredients) {
         addItemsOnSection(0, ingredients);
         notifyDataSetChanged();

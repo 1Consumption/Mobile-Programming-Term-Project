@@ -102,36 +102,15 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         countCursor.close();
 
         if (cnt != 0) {
-            cursor = db.rawQuery("SELECT * FROM recipe_ingredient_info WHERE ingredient_type_name = \"주재료\" and ingredient_name=\"" + edt.getText().toString() + "\"", null); //쿼리문
-
-            String strRecipeCode = "Recipe Code" + "\r\n" + "--------" + "\r\n";
-            String strIngredientOrder = "Ingredient Order" + "\r\n" + "--------" + "\r\n";
-            String strIngredientName = "Ingredient Name" + "\r\n" + "--------" + "\r\n";
-            String strIngredientAmount = "Ingredient Amount" + "\r\n" + "--------" + "\r\n";
-            String strIngredientTypeName = "Ingredient Type Name" + "\r\n" + "--------" + "\r\n";
-
-            while (cursor.moveToNext()) {
-                strRecipeCode += cursor.getString(0) + "\r\n";
-                strIngredientOrder += cursor.getString(1) + "\r\n";
-                strIngredientName += cursor.getString(2) + "\r\n";
-                strIngredientAmount += cursor.getString(3) + "\r\n";
-                strIngredientTypeName += cursor.getString(4) + "\r\n";
-            }
-
-            edtRecipeCode.setText(strRecipeCode);
-            edtIngredientOrder.setText(strIngredientOrder);
-            edtIngredientName.setText(strIngredientName);
-            edtIngredientAmount.setText(strIngredientAmount);
-            edtIngredientTypeName.setText(strIngredientTypeName);
+            Ingredient newIngredient = new Ingredient(edt.getText().toString(), R.drawable.spoon);
+            newIngredient.setListItem(false);
+            resultAdapter.addItem(newIngredient);
+            result = checkIsInResultForString(edt.getText().toString(), result);
         } else {
-            edtRecipeCode.setText("No Result");
-            edtIngredientOrder.setText("No Result");
-            edtIngredientName.setText("No Result");
-            edtIngredientAmount.setText("No Result");
-            edtIngredientTypeName.setText("No Result");
+            Toast.makeText(getApplicationContext(), "해당 재료는 없습니다.", Toast.LENGTH_LONG).show();
         }
-
-        result_layout.setVisibility(View.VISIBLE);
+        edt.setText("");
+//        result_layout.setVisibility(View.VISIBLE);
     }
 
     //initialize data
@@ -260,7 +239,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         if (ingredient.getIsListItem()) { // 리스트 아이템을 클릭한경우
             Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
             result = checkIsInResult(ingredient, result);
-
+            Log.e("result", result);
             if (isOnClicked) {
                 Ingredient newIngredient = new Ingredient(ingredient.getIngredientType(), ingredient.getImage());
                 newIngredient.setListItem(false);
@@ -283,6 +262,21 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
                     result = result.substring(ingredient.getIngredientType().length() + 1);
             } else
                 result = result.substring(0, result.indexOf(ingredient.getIngredientType()) - 1) + result.substring(result.indexOf(ingredient.getIngredientType()) + ingredient.getIngredientType().length() + 1);
+        }
+        return result;
+    }
+
+    public String checkIsInResultForString(String input, String result) {
+        if (result.indexOf(input) == -1)
+            result += input + ",";
+        else {
+            if (result.indexOf(input) == 0) {
+                if (result.length() == input.length() + 1)
+                    result = "";
+                else
+                    result = result.substring(input.length() + 1);
+            } else
+                result = result.substring(0, result.indexOf(input) - 1) + result.substring(result.indexOf(input) + input.length() + 1);
         }
         return result;
     }
