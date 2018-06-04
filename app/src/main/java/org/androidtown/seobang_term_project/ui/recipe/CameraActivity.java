@@ -37,8 +37,13 @@ public class CameraActivity extends AppCompatActivity {
     String str = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Seobang";
     File file = null;
     ImageView imageView;
-    FloatingActionButton FAB;
     ImageButton shareBtn;
+    Long now = System.currentTimeMillis();
+    Date date = new Date(now);
+    SimpleDateFormat YMD = new SimpleDateFormat("yyyy_MM_dd(hh:mm:ss)");
+    String nowDate = YMD.format(date);
+    String imageFileName = "Seobang_" + nowDate + ".jpg";
+    String[] shareList = {"com.kakao.talk", "jp.naver.line.android", "com.facebook.katana", "com.instagram.android", "com.twitter.android"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +51,9 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         shareBtn = findViewById(R.id.shareBtn);
-        shareBtn.setOnClickListener(new View.OnClickListener(){
+        shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 sendShare();
             }
         });
@@ -88,11 +93,6 @@ public class CameraActivity extends AppCompatActivity {
 
 
     private File createFile() throws IOException {
-        Long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat YMD = new SimpleDateFormat("yyyy_MM_dd(hh:mm:ss)");
-        String nowDate = YMD.format(date);
-        String imageFileName = "Seobang_" + nowDate + ".jpg";
         File curFile = new File(str, imageFileName);
         return curFile;
     }
@@ -144,45 +144,33 @@ public class CameraActivity extends AppCompatActivity {
         matrix.postRotate(degree);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
+
+
     private void sendShare() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
 
-        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent, 0);
-        if (resInfo.isEmpty()) {
-            return;
-        }
-
-        String external = Environment.getExternalStorageDirectory().getAbsolutePath();
-
         List<Intent> shareIntentList = new ArrayList<>();
-        for (ResolveInfo info : resInfo) {
+        for (int i = 0; i < shareList.length; i++) {
             Intent shareIntent = (Intent) intent.clone();
-
-            if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");
+            if (android.os.Build.VERSION.SDK_INT >= M) {
+                shareIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(this, "org.androidtown.seobang_term_project", file));
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else {
-                shareIntent.setType("image/*");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "하연하연"); // title
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "모프 이미지 보내기 테스트"); // content
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///" + external + "/Download/profile.jpg")); // image file path 예시. file:/// 요건 반드시 붙어야함!!
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///" + str + "/" + imageFileName)); // image file path 예시. file:/// 요건 반드시 붙어야함!!
             }
-            shareIntent.setPackage(info.activityInfo.packageName);
+
+            shareIntent.setPackage(shareList[i]);
             shareIntentList.add(shareIntent);
         }
 
-        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
+        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "공유");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
         startActivity(chooserIntent);
     }
 
 }
 
-//    Button btn = null;
-//    ImageView iv = null;
-//
-//    String str = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Seobang";
 //
 //    @Override
 //    public void onResume() {

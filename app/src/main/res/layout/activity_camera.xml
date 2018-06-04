@@ -32,6 +32,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="end"
                 android:layout_marginRight="15dp"
+                android:background="#00000000"
                 android:src="@drawable/share"
                 android:tint="@android:color/white" />
 
