@@ -15,7 +15,8 @@
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textColor="@color/black_title"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:background="@color/md_green_200"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piechart"

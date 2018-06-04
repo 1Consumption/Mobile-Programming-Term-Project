@@ -1,41 +1,34 @@
 
 package org.androidtown.seobang_term_project.ui.recipe;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Parcelable;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static android.os.Build.VERSION_CODES.M;
 
@@ -45,11 +38,20 @@ public class CameraActivity extends AppCompatActivity {
     File file = null;
     ImageView imageView;
     FloatingActionButton FAB;
+    ImageButton shareBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+
+        shareBtn = findViewById(R.id.shareBtn);
+        shareBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                sendShare();
+            }
+        });
 
         imageView = (ImageView) findViewById(R.id.iv);
         file = new File(str);
@@ -141,6 +143,38 @@ public class CameraActivity extends AppCompatActivity {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+    private void sendShare() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent, 0);
+        if (resInfo.isEmpty()) {
+            return;
+        }
+
+        String external = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        List<Intent> shareIntentList = new ArrayList<>();
+        for (ResolveInfo info : resInfo) {
+            Intent shareIntent = (Intent) intent.clone();
+
+            if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");
+            } else {
+                shareIntent.setType("image/*");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "하연하연"); // title
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "모프 이미지 보내기 테스트"); // content
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///" + external + "/Download/profile.jpg")); // image file path 예시. file:/// 요건 반드시 붙어야함!!
+            }
+            shareIntent.setPackage(info.activityInfo.packageName);
+            shareIntentList.add(shareIntent);
+        }
+
+        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
+        startActivity(chooserIntent);
     }
 
 }
