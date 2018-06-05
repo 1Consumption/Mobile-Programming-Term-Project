@@ -82,7 +82,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     @OnClick(R.id.resetButton)
     public void setResetButton(View view){
-        //전체 선택된 recipe reset 해줘야함 
+        //전체 선택된 recipe reset 해줘야함
     }
 
     private int count = 0;

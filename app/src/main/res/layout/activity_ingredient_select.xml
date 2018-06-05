@@ -54,6 +54,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="show recipe" />
+            <Button
+                android:id="@+id/resetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="다시 선택하기(초기화)"/>
+
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
