@@ -28,12 +28,12 @@ public class QuickSort {
 
             if (l < right) sort(data, l, right);
             if (r > left) sort(data, left, r);
-        } else if (data[l].indexOf("a") != -1) {
-            int pivot = Integer.parseInt(data[(l + r) / 2].substring(0, data[(l + r) / 2].indexOf("a")));
+        } else if (data[l].indexOf("w") != -1) {
+            int pivot = Integer.parseInt(data[(l + r) / 2].substring(0, data[(l + r) / 2].indexOf("w")));
             do {
-                while (Integer.parseInt(data[left].substring(0, data[(left)].indexOf("a"))) < pivot)
+                while (Integer.parseInt(data[left].substring(0, data[(left)].indexOf("w"))) < pivot)
                     left++;
-                while (Integer.parseInt(data[right].substring(0, data[(right)].indexOf("a"))) > pivot)
+                while (Integer.parseInt(data[right].substring(0, data[(right)].indexOf("w"))) > pivot)
                     right--;
                 if (left <= right) {
                     String temp = data[left];

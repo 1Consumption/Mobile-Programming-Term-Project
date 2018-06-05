@@ -36,10 +36,14 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
     String[] recipeList = new String[6000];
     String[] tempList = new String[6000];
+    String[] mapping = new String[600];
 
+    int mapCount = 0;
     int recipeLength = 0;
-    int cnt = 1;
+    int cnt = 0;
     int tempLength = 0;
+
+    double totalWeight = 0;
 
     private RecipeAdapter mAdapter;
 
@@ -63,43 +67,93 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
         String temp = "";
 
+        calTotal();
+//        for (int i = 0; i < mapCount; i++) {
+//            Log.e("test", mapping[i]);
+//        }
+
         for (int i = 0; i < ingredient.length; i++)
             Log.e("RecipeFromIngredient", "\"" + ingredient[i] + "\"");
 
-        int tempNum = 0;
 
         for (int i = 0; i < ingredient.length; i++) {
-            cursor = db.rawQuery("SELECT count(recipe_code) FROM recipe_ingredient_info WHERE ingredient_type_name=\"주재료\" and ingredient_name=\"" + ingredient[tempNum] + "\"", null);
-            tempNum++;
-            cursor.moveToNext();
-            temp += cursor.getString(0) + "\n\n";
-            cursor = db.rawQuery("SELECT recipe_code,weight FROM recipe_ingredient_info WHERE ingredient_type_name=\"주재료\" and ingredient_name=\"" + ingredient[i] + "\"", null); //쿼리문
+            cursor = db.rawQuery("SELECT recipe_code,weight FROM recipe_ingredient_info WHERE ingredient_name=\"" + ingredient[i] + "\"", null); //쿼리문
 
             while (cursor.moveToNext()) {
                 tempList[tempLength] = cursor.getString(0);
-//                tempList[tempLength] += "a"+cursor.getString(1);
+                tempList[tempLength] += "w" + cursor.getString(1);
                 tempLength++;
             }
         }
         QuickSort.sort(tempList, 0, tempLength - 1);
 
+//        for (int i = 0; i < tempLength; i++)
+//            Log.e("test", tempList[i]);
+
+
         for (int i = 0; i < tempLength; i++) {
             if (i + 1 == tempLength)
                 break;
             else {
-                if (tempList[i].equals(tempList[i + 1]))
+                String curRecipeCode = tempList[i].substring(0, tempList[i].indexOf("w"));
+                String nextRecipeCode = tempList[i + 1].substring(0, tempList[i + 1].indexOf("w"));
+
+                Double curWeight = Double.parseDouble(tempList[i].substring(tempList[i].indexOf("w") + 1));
+                Double nextWeight = Double.parseDouble(tempList[i + 1].substring(tempList[i + 1].indexOf("w") + 1));
+
+
+                if (curRecipeCode.equals(nextRecipeCode)) {
+                    if (cnt == 0) {
+                        totalWeight = curWeight + nextWeight;
+                    } else {
+                        totalWeight += nextWeight;
+                    }
                     cnt++;
-                else {
-                    recipeList[recipeLength] = tempList[i] + "b" + String.valueOf(cnt);
-                    cnt = 1;
+                } else {
+                    if (cnt == 0) {
+                        for (int j = 0; j < mapCount; j++) {
+                            String mappedRecipeCode = mapping[j].substring(0, mapping[j].indexOf(","));
+                            Double mappedTotal = Double.parseDouble(mapping[j].substring(mapping[j].indexOf(",") + 1));
+
+                            if (curRecipeCode.equals(mappedRecipeCode)) {
+                                recipeList[recipeLength] = tempList[i] + "t" + String.valueOf(mappedTotal);
+                            }
+                        }
+
+                    } else {
+                        for (int j = 0; j < mapCount; j++) {
+                            String mappedRecipeCode = mapping[j].substring(0, mapping[j].indexOf(","));
+                            Double mappedTotal = Double.parseDouble(mapping[j].substring(mapping[j].indexOf(",") + 1));
+
+                            if (curRecipeCode.equals(mappedRecipeCode)) {
+                                recipeList[recipeLength] = tempList[i].substring(0, tempList[i].indexOf("w")) + "w" + String.valueOf(totalWeight) + "t" + String.valueOf(mappedTotal);
+                            }
+                        }
+                    }
+                    cnt = 0;
                     recipeLength++;
+                    totalWeight = 0;
                 }
             }
         }
 
+//        for (int i = 0; i < recipeLength; i++) {
+//            Log.e("test", recipeList[i] + "\n");
+////            Log.e("asdasd",String.valueOf(recipeLength));
+//        }
+
+
+        for (int i = 0; i < recipeLength; i++) {
+            double weight = Double.parseDouble(recipeList[i].substring(recipeList[i].indexOf("w") + 1, recipeList[i].indexOf("t")));
+            double total = Double.parseDouble(recipeList[i].substring(recipeList[i].indexOf("t") + 1));
+            String recipeCode = recipeList[i].substring(0, recipeList[i].indexOf("w"));
+            recipeList[i] = recipeCode + "," + String.valueOf((weight / total) * 100.0);
+        }
+
+
         for (int i = 0; i < recipeLength; i++) {
             for (int j = 0; j < recipeLength - 1 - i; j++) {
-                if (Integer.parseInt(recipeList[j].substring(recipeList[j].indexOf("b") + 1)) < Integer.parseInt(recipeList[j + 1].substring(recipeList[j + 1].indexOf("b") + 1))) {
+                if (Double.parseDouble(recipeList[j].substring(recipeList[j].indexOf(",") + 1)) < Double.parseDouble(recipeList[j + 1].substring(recipeList[j + 1].indexOf(",") + 1))) {
                     String a = recipeList[j];
                     recipeList[j] = recipeList[j + 1];
                     recipeList[j + 1] = a;
@@ -108,9 +162,13 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         }
 
         for (int i = 0; i < recipeLength; i++) {
-            String frequency = recipeList[i].substring(recipeList[i].indexOf("b") + 1);
-            recipeList[i] = recipeList[i].substring(0, recipeList[i].indexOf("b"));
-            Log.e("RECIPELIST",recipeList[i]);
+            Log.e("test", recipeList[i]);
+        }
+
+        for (int i = 0; i < recipeLength; i++) {
+            String frequency = recipeList[i].substring(recipeList[i].indexOf(",") + 1);
+            recipeList[i] = recipeList[i].substring(0, recipeList[i].indexOf(","));
+            Log.e("RECIPELIST", recipeList[i]);
         }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_2);
@@ -180,7 +238,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         bundle.putString("selectedRecipe", getFoodCode(recipe.getName()));
         bundle.putString("RecipeName", recipe.getName());
         intent.putExtras(bundle);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view,
                     ViewCompat.getTransitionName(view));
             startActivity(intent, options.toBundle());
@@ -194,5 +252,15 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         super.onDestroy();
         db.close();
         db_info.close();
+    }
+
+    public void calTotal() {
+        cursor = db.rawQuery("SELECT recipe_code,count(*) FROM " + TABLE_NAME + " group by recipe_code order by count(*) desc", null);
+        while (cursor.moveToNext()) {
+            mapping[mapCount] = cursor.getString(0);
+            mapping[mapCount] += "," + cursor.getString(1);
+            mapCount++;
+        }
+        //Log.e("totalCount",String.valueOf(mapCount));
     }
 }
