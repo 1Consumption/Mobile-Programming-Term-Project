@@ -18,6 +18,7 @@ import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.items.Recipe;
 import org.androidtown.seobang_term_project.recycler.adapters.RecipeAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.RecipeViewHolder;
+import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
 import org.androidtown.seobang_term_project.ui.recipe.RecipePreviewActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.QuickSort;
@@ -71,6 +72,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 //        for (int i = 0; i < mapCount; i++) {
 //            Log.e("test", mapping[i]);
 //        }
+        AccuracyActivity test=new AccuracyActivity();
+        Log.e("accuracy", String.valueOf(test.getAccuracy()));
 
         for (int i = 0; i < ingredient.length; i++)
             Log.e("RecipeFromIngredient", "\"" + ingredient[i] + "\"");

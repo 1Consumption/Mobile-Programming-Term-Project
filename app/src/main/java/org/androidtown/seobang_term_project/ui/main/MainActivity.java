@@ -19,6 +19,7 @@ import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
 
 import org.androidtown.seobang_term_project.R;
+import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
 import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
 import org.androidtown.seobang_term_project.ui.info.InfoActivity;
 import org.androidtown.seobang_term_project.ui.ingredient.IngredientSelectActivity;
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case 1:
+                    Intent intent1 = new Intent(getApplicationContext(), AccuracyActivity.class);
+                    startActivity(intent1);
                     Toast.makeText(getApplication(), "메뉴2", Toast.LENGTH_SHORT).show();
                     //여기도 음식 정확도 설정 해주는 부분 만들어 줘야 함 라이오 설정 뭐 이런 팝업으로
                     break;

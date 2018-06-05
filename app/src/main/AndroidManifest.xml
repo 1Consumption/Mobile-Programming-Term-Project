@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.androidtown.seobang_term_project">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -11,7 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="org.androidtown.seobang_term_project"
@@ -54,7 +55,10 @@
         <activity
             android:name=".ui.history.lastConfirmActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".ui.recipe.CameraActivity"></activity>
+        <activity android:name=".ui.recipe.CameraActivity" />
+        <activity
+            android:name=".ui.Accuracy.AccuracyActivity"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>
