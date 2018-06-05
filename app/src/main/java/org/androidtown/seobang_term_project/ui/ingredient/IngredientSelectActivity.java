@@ -45,6 +45,8 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     Button btnSelect;
     protected @BindView(R.id.showRecipeFromIngredient)
     Button showRecipe;
+    protected @BindView(R.id.resetButton)
+    Button resetButton;
     protected @BindView(R.id.edtRecipeCode)
     TextView edtRecipeCode;
     protected @BindView(R.id.edtIngredientOrder)
@@ -76,6 +78,11 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
             Log.e("IngredientSelect", result.substring(0, result.length() - 1));
             startActivity(intent);
         }
+    }
+
+    @OnClick(R.id.resetButton)
+    public void setResetButton(View view){
+        //전체 선택된 recipe reset 해줘야함 
     }
 
     private int count = 0;
