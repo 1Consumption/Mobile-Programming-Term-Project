@@ -28,8 +28,8 @@
 
             <ImageButton
                 android:id="@+id/shareBtn"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_gravity="end"
                 android:layout_marginRight="15dp"
                 android:background="#00000000"
