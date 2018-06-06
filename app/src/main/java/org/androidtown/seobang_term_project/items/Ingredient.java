@@ -6,6 +6,10 @@ public class Ingredient {
     private int image;
     private boolean isListItem = true;
 
+    public Ingredient( ){
+
+    }
+
     public Ingredient(String ingredientType, int image) {
         this.ingredientType = ingredientType;
         this.image = image;

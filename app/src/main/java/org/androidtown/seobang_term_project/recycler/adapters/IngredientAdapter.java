@@ -38,6 +38,12 @@ public class IngredientAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void removeAll(){
+        for(int i = 0; i < sections().get(0).size(); i++){
+            Ingredient item = (Ingredient)(sections().get(0).get(i));
+            sections().get(0).remove(item);
+        }
+    }
 
     public void addItems(List<Ingredient> ingredients) {
         addItemsOnSection(0, ingredients);

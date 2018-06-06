@@ -80,14 +80,10 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         }
     }
 
-    @OnClick(R.id.resetButton)
-    public void setResetButton(View view){
-        //전체 선택된 recipe reset 해줘야함
-    }
-
     private int count = 0;
     private IngredientListAdapter adapter;
     private IngredientAdapter resultAdapter;
+    private Ingredient newIngredient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +134,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         ingredients_fish.add(new Ingredient("홍합", R.drawable.mussel));
         ingredients_fish.add(new Ingredient("바지락", R.drawable.bazirak));
         ingredients_fish.add(new Ingredient("고등어", R.drawable.fish2));
-        ingredients_fish.add(new Ingredient("참치", R.drawable.nakji));
+        ingredients_fish.add(new Ingredient("참치", R.drawable.tuna));
         ingredients_fish.add(new Ingredient("굴", R.drawable.oyster));
         ingredients_fish.add(new Ingredient("멸치", R.drawable.myeolchi));
         ingredients_fish.add(new Ingredient("꽁치", R.drawable.fish1));
@@ -241,6 +237,21 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         resultRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
+    @OnClick(R.id.resetButton)
+    public void setResetButton(View view){
+//        String length[] = result.split(",");
+//
+//        for (int i = 0; i < result.length(); i++){
+//            Ingredient targetIngredient = new Ingredient();
+//            targetIngredient.setIngredientType(length[i]);
+//            resultAdapter.removeItem(targetIngredient);
+//        }
+//        result = "";
+        resultAdapter.removeAll();
+        result = "";
+       // item_image.setAlpha(0.5f);
+    }
+
     @Override
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
         if (ingredient.getIsListItem()) { // 리스트 아이템을 클릭한경우
@@ -248,8 +259,8 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
             result = checkIsInResult(ingredient, result);
             Log.e("result", result);
             if (isOnClicked) {
-                Ingredient newIngredient = new Ingredient(ingredient.getIngredientType(), ingredient.getImage());
-                newIngredient.setListItem(false);
+                newIngredient = new Ingredient(ingredient.getIngredientType(), ingredient.getImage());
+                newIngredient.setListItem(false);;
                 resultAdapter.addItem(newIngredient);
 
             } else {
