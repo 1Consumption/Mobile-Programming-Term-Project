@@ -273,31 +273,17 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         String ingredientName = ingredient.getIngredientType();
         if (result.indexOf(ingredientName) == -1)
             result += ingredient.getIngredientType() + ",";
-        else {
-            if (result.indexOf(ingredientName) == 0) {
-                if (result.length() == ingredientName.length() + 1)
-                    result = "";
-                else
-                    result = result.substring(ingredientName.length() + 1);
-            } else
-                result = result.replace(ingredientName + ",", "");
+        else
+            result = result.replace(ingredientName + ",", "");
 
-        }
         return result;
     }
 
     public String checkIsInResultForString(String input, String result) {
         if (result.indexOf(input) == -1)
             result += input + ",";
-        else {
-            if (result.indexOf(input) == 0) {
-                if (result.length() == input.length() + 1)
-                    result = "";
-                else
-                    result = result.substring(input.length() + 1);
-            } else
-                result = result.replace(input + ",", "");
-        }
+        else
+            result = result.replace(input + ",", "");
         return result;
     }
 
