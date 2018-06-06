@@ -13,9 +13,8 @@ import android.util.Log;
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
-import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
-import org.androidtown.seobang_term_project.utils.QuickSort;
+import org.androidtown.seobang_term_project.utils.QuickSortString;
 import org.androidtown.seobang_term_project.utils.ZoomOutPageTransformer;
 
 import butterknife.BindView;
@@ -71,7 +70,7 @@ public class RecipeActivity extends BaseActivity {
         RecipeProcess = strRecipeProcess.split("#");
         Log.e("LENGTH", String.valueOf(RecipeProcess.length));
 
-        QuickSort.sort(RecipeProcess, 0, RecipeProcess.length - 1);
+        QuickSortString.sort(RecipeProcess, 0, RecipeProcess.length - 1);
         RecipeProcess[RecipeProcess.length - 1] += "last";
 
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());

@@ -22,6 +22,7 @@ import org.androidtown.seobang_term_project.items.IngredientList;
 import org.androidtown.seobang_term_project.recycler.adapters.IngredientAdapter;
 import org.androidtown.seobang_term_project.recycler.adapters.IngredientListAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.IngredientViewHolder;
+import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 
 import java.util.ArrayList;
@@ -94,6 +95,8 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
 
         this.db = DatabaseFactory.create(this, DB_Name);
+        AccuracyActivity a=new AccuracyActivity();
+        Toast.makeText(getApplicationContext(),String.valueOf(a.getAccuracy()),Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btnSelect)

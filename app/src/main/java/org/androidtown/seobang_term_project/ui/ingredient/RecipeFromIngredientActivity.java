@@ -21,7 +21,9 @@ import org.androidtown.seobang_term_project.recycler.viewholders.RecipeViewHolde
 import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
 import org.androidtown.seobang_term_project.ui.recipe.RecipePreviewActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
-import org.androidtown.seobang_term_project.utils.QuickSort;
+import org.androidtown.seobang_term_project.utils.QuickSortArrayList;
+
+import java.util.ArrayList;
 
 
 public class RecipeFromIngredientActivity extends BaseActivity implements RecipeViewHolder.Delegate {
@@ -35,14 +37,12 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     public SQLiteDatabase db_info;
     public Cursor cursor;
 
-    String[] recipeList = new String[6000];
-    String[] tempList = new String[6000];
-    String[] mapping = new String[600];
+    ArrayList<String> recipeList = new ArrayList<>();
+    ArrayList<String> tempList = new ArrayList<>();
+    ArrayList<String> mapping = new ArrayList<>();
 
-    int mapCount = 0;
     int recipeLength = 0;
     int cnt = 0;
-    int tempLength = 0;
 
     double totalWeight = 0;
 
@@ -50,6 +50,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
     private int index = 2;
     private boolean isLoading = false;
+
+    private int accuracy=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +68,12 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         String received = bundle.getString("result");
         String[] ingredient = received.split(",");
 
-        String temp = "";
-
         calTotal();
 //        for (int i = 0; i < mapCount; i++) {
 //            Log.e("test", mapping[i]);
 //        }
-        AccuracyActivity test = new AccuracyActivity();
-        Log.e("accuracy", String.valueOf(test.getAccuracy()));
+        AccuracyActivity acc = new AccuracyActivity();
+        accuracy=acc.getAccuracy();
 
         for (int i = 0; i < ingredient.length; i++)
             Log.e("RecipeFromIngredient", "\"" + ingredient[i] + "\"");
@@ -83,26 +83,26 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             cursor = db.rawQuery("SELECT recipe_code,weight FROM recipe_ingredient_info WHERE ingredient_name=\"" + ingredient[i] + "\"", null); //쿼리문
 
             while (cursor.moveToNext()) {
-                tempList[tempLength] = cursor.getString(0);
-                tempList[tempLength] += "w" + cursor.getString(1);
-                tempLength++;
+                String temp = cursor.getString(0);
+                temp += "w" + cursor.getString(1);
+                tempList.add(temp);
             }
         }
-        QuickSort.sort(tempList, 0, tempLength - 1);
+        QuickSortArrayList.sort(tempList, 0, tempList.size() - 1);
 
 //        for (int i = 0; i < tempLength; i++)
 //            Log.e("test", tempList[i]);
 
 
-        for (int i = 0; i < tempLength; i++) {
-            if (i + 1 == tempLength)
+        for (int i = 0; i < tempList.size(); i++) {
+            if (i + 1 == tempList.size())
                 break;
             else {
-                String curRecipeCode = tempList[i].substring(0, tempList[i].indexOf("w"));
-                String nextRecipeCode = tempList[i + 1].substring(0, tempList[i + 1].indexOf("w"));
+                String curRecipeCode = tempList.get(i).substring(0, tempList.get(i).indexOf("w"));
+                String nextRecipeCode = tempList.get(i + 1).substring(0, tempList.get(i + 1).indexOf("w"));
 
-                Double curWeight = Double.parseDouble(tempList[i].substring(tempList[i].indexOf("w") + 1));
-                Double nextWeight = Double.parseDouble(tempList[i + 1].substring(tempList[i + 1].indexOf("w") + 1));
+                Double curWeight = Double.parseDouble(tempList.get(i).substring(tempList.get(i).indexOf("w") + 1));
+                Double nextWeight = Double.parseDouble(tempList.get(i + 1).substring(tempList.get(i + 1).indexOf("w") + 1));
 
 
                 if (curRecipeCode.equals(nextRecipeCode)) {
@@ -114,27 +114,26 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                     cnt++;
                 } else {
                     if (cnt == 0) {
-                        for (int j = 0; j < mapCount; j++) {
-                            String mappedRecipeCode = mapping[j].substring(0, mapping[j].indexOf(","));
-                            Double mappedTotal = Double.parseDouble(mapping[j].substring(mapping[j].indexOf(",") + 1));
+                        for (int j = 0; j < mapping.size(); j++) {
+                            String mappedRecipeCode = mapping.get(j).substring(0, mapping.get(j).indexOf(","));
+                            Double mappedTotal = Double.parseDouble(mapping.get(j).substring(mapping.get(j).indexOf(",") + 1));
 
                             if (curRecipeCode.equals(mappedRecipeCode)) {
-                                recipeList[recipeLength] = tempList[i] + "t" + String.valueOf(mappedTotal);
+                                recipeList.add(tempList.get(i) + "t" + String.valueOf(mappedTotal));
                             }
                         }
 
                     } else {
-                        for (int j = 0; j < mapCount; j++) {
-                            String mappedRecipeCode = mapping[j].substring(0, mapping[j].indexOf(","));
-                            Double mappedTotal = Double.parseDouble(mapping[j].substring(mapping[j].indexOf(",") + 1));
+                        for (int j = 0; j < mapping.size(); j++) {
+                            String mappedRecipeCode = mapping.get(j).substring(0, mapping.get(j).indexOf(","));
+                            Double mappedTotal = Double.parseDouble(mapping.get(j).substring(mapping.get(j).indexOf(",") + 1));
 
                             if (curRecipeCode.equals(mappedRecipeCode)) {
-                                recipeList[recipeLength] = tempList[i].substring(0, tempList[i].indexOf("w")) + "w" + String.valueOf(totalWeight) + "t" + String.valueOf(mappedTotal);
+                                recipeList.add(tempList.get(i).substring(0, tempList.get(i).indexOf("w")) + "w" + String.valueOf(totalWeight) + "t" + String.valueOf(mappedTotal));
                             }
                         }
                     }
                     cnt = 0;
-                    recipeLength++;
                     totalWeight = 0;
                 }
             }
@@ -146,33 +145,33 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 //        }
 
 
-        for (int i = 0; i < recipeLength; i++) {
-            double weight = Double.parseDouble(recipeList[i].substring(recipeList[i].indexOf("w") + 1, recipeList[i].indexOf("t")));
-            double total = Double.parseDouble(recipeList[i].substring(recipeList[i].indexOf("t") + 1));
-            String recipeCode = recipeList[i].substring(0, recipeList[i].indexOf("w"));
-            recipeList[i] = recipeCode + "," + String.valueOf((weight / total) * 100.0);
+        for (int i = 0; i < recipeList.size(); i++) {
+            double weight = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf("w") + 1, recipeList.get(i).indexOf("t")));
+            double total = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1));
+            String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf("w"));
+            recipeList.set(i, recipeCode + "," + String.valueOf((weight / total) * 100.0));
         }
 
 
-        for (int i = 0; i < recipeLength; i++) {
-            for (int j = 0; j < recipeLength - 1 - i; j++) {
-                if (Double.parseDouble(recipeList[j].substring(recipeList[j].indexOf(",") + 1)) < Double.parseDouble(recipeList[j + 1].substring(recipeList[j + 1].indexOf(",") + 1))) {
-                    String a = recipeList[j];
-                    recipeList[j] = recipeList[j + 1];
-                    recipeList[j + 1] = a;
+        for (int i = 0; i < recipeList.size(); i++) {
+            for (int j = 0; j < recipeList.size() - 1 - i; j++) {
+                if (Double.parseDouble(recipeList.get(j).substring(recipeList.get(j).indexOf(",") + 1)) < Double.parseDouble(recipeList.get(j + 1).substring(recipeList.get(j + 1).indexOf(",") + 1))) {
+                    String a = recipeList.get(j);
+                    recipeList.set(j,recipeList.get(j+1));
+                    recipeList.set(j+1,a);
                 }
             }
         }
 
-        for (int i = 0; i < recipeLength; i++) {
-            Log.e("test", recipeList[i]);
-        }
+//        for (int i = 0; i < recipeList.size(); i++) {
+//            Log.e("test", recipeList.get(i));
+//        }
 
-        for (int i = 0; i < recipeLength; i++) {
-            String frequency = recipeList[i].substring(recipeList[i].indexOf(",") + 1);
-            recipeList[i] = recipeList[i].substring(0, recipeList[i].indexOf(","));
-            Log.e("RECIPELIST", recipeList[i]);
-        }
+//        for (int i = 0; i < recipeList.size(); i++) {
+//            String frequency = recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1);
+//            recipeList.set(i,recipeList.get(i).substring(0, recipeList.get(i).indexOf(",")));
+//            Log.e("RECIPELIST", recipeList.get(i));
+//        }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_2);
 
@@ -197,22 +196,37 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         });
 
         if (recipeLength < 10) {
-            for (int i = 0; i < recipeLength; i++) {
-                Log.e("iValue", recipeList[i]);
-                mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
+            for (int i = 0; i < recipeList.size(); i++) {
+                //Log.e("iValue", recipeList.get(i));
+                Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
+                String recipeCode=recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                if (percent > accuracy)
+                    mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
+                else
+                    continue;
             }
         } else {
             for (int i = 0; i < 10; i++) {
-                Log.e("iValue", recipeList[i]);
-                mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
+//                Log.e("iValue", recipeList.get(i));
+                Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
+                String recipeCode=recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                if (percent > accuracy)
+                    mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
+                else
+                    continue;
             }
         }
     }
 
     private void loadMore() {
-        if ((index * 10) <= recipeLength) {
+        if ((index * 10) <= recipeList.size()) {
             for (int i = (index - 1) * 10; i < index * 10; i++) {
-                mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
+                Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
+                String recipeCode=recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                if (percent > accuracy)
+                    mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
+                else
+                    continue;
             }
             index++;
         }
@@ -226,10 +240,12 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     }
 
     private String getFoodName(String code) {
-        cursor = db_info.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + code + "\"", null);
+        Cursor cursor = db_info.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + code + "\"", null);
         startManagingCursor(cursor);
         cursor.moveToNext();
-        return cursor.getString(0);
+        String name=cursor.getString(0);
+        cursor.close();
+        return name;
     }
 
     private String getFoodPreviewImage(String code) {
@@ -262,15 +278,17 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         super.onDestroy();
         db.close();
         db_info.close();
+        cursor.close();
+        Log.e("디스트로이","ㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
     }
 
     public void calTotal() {
         cursor = db.rawQuery("SELECT recipe_code,count(*) FROM " + TABLE_NAME + " group by recipe_code order by count(*) desc", null);
         while (cursor.moveToNext()) {
-            mapping[mapCount] = cursor.getString(0);
-            mapping[mapCount] += "," + cursor.getString(1);
-            mapCount++;
+            String temp = cursor.getString(0);
+            temp += "," + cursor.getString(1);
+            mapping.add(temp);
         }
-        //Log.e("totalCount",String.valueOf(mapCount));
+        Log.e("totalCount", String.valueOf(mapping.size()));
     }
 }

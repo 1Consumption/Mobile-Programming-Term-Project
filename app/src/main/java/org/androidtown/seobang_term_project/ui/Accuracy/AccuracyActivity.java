@@ -1,6 +1,7 @@
 package org.androidtown.seobang_term_project.ui.Accuracy;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,8 @@ public class AccuracyActivity extends Activity {
     Button cancel;
     public static int accuracy = 50;
     public static int tempAccuracy = 50;
+    SharedPreferences sh_Pref;
+    SharedPreferences.Editor toEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class AccuracyActivity extends Activity {
         seekBar = findViewById(R.id.seekbar);
         confirm = findViewById(R.id.seekbarConfirm);
         cancel = findViewById(R.id.seekbarCancel);
+        applySharedPreference();
         seekBar.setProgress(tempAccuracy);
         textView.setText("정확도 : " + tempAccuracy + "%");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -54,6 +58,7 @@ public class AccuracyActivity extends Activity {
             @Override
             public void onClick(View v) {
                 tempAccuracy = accuracy;
+                sharedPreferences();
                 finish();
             }
         });
@@ -65,9 +70,26 @@ public class AccuracyActivity extends Activity {
                 finish();
             }
         });
+
     }
 
     public int getAccuracy() {
         return this.accuracy;
+    }
+
+    public void sharedPreferences() {
+        sh_Pref = getSharedPreferences("Accuracy", MODE_PRIVATE);
+        toEdit = sh_Pref.edit();
+        toEdit.putInt("Accuracy", tempAccuracy);
+        toEdit.commit();
+    }
+
+    public void applySharedPreference() {
+        sh_Pref = getSharedPreferences("Accuracy", MODE_PRIVATE);
+        if (sh_Pref != null && sh_Pref.contains("Accuracy")) {
+            int Accuracy = sh_Pref.getInt("Accuracy", 50);
+            textView.setText("정확도 : " + Accuracy + "%");
+            tempAccuracy = Accuracy;
+        }
     }
 }
