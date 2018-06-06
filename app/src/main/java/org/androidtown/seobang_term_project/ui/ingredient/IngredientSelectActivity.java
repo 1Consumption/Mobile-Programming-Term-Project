@@ -134,7 +134,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         ingredients_fish.add(new Ingredient("홍합", R.drawable.mussel));
         ingredients_fish.add(new Ingredient("바지락", R.drawable.bazirak));
         ingredients_fish.add(new Ingredient("고등어", R.drawable.fish2));
-        ingredients_fish.add(new Ingredient("참치", R.drawable.tuna));
+        ingredients_fish.add(new Ingredient("참치", R.drawable.fish1));
         ingredients_fish.add(new Ingredient("굴", R.drawable.oyster));
         ingredients_fish.add(new Ingredient("멸치", R.drawable.myeolchi));
         ingredients_fish.add(new Ingredient("꽁치", R.drawable.fish1));
@@ -238,7 +238,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     }
 
     @OnClick(R.id.resetButton)
-    public void setResetButton(View view){
+    public void setResetButton(View view) {
 //        String length[] = result.split(",");
 //
 //        for (int i = 0; i < result.length(); i++){
@@ -249,7 +249,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 //        result = "";
         resultAdapter.removeAll();
         result = "";
-       // item_image.setAlpha(0.5f);
+        // item_image.setAlpha(0.5f);
     }
 
     @Override
@@ -260,7 +260,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
             Log.e("result", result);
             if (isOnClicked) {
                 newIngredient = new Ingredient(ingredient.getIngredientType(), ingredient.getImage());
-                newIngredient.setListItem(false);;
+                newIngredient.setListItem(false);
                 resultAdapter.addItem(newIngredient);
 
             } else {
@@ -270,16 +270,18 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     }
 
     public String checkIsInResult(Ingredient ingredient, String result) {
-        if (result.indexOf(ingredient.getIngredientType()) == -1)
+        String ingredientName = ingredient.getIngredientType();
+        if (result.indexOf(ingredientName) == -1)
             result += ingredient.getIngredientType() + ",";
         else {
-            if (result.indexOf(ingredient.getIngredientType()) == 0) {
-                if (result.length() == ingredient.getIngredientType().length() + 1)
+            if (result.indexOf(ingredientName) == 0) {
+                if (result.length() == ingredientName.length() + 1)
                     result = "";
                 else
-                    result = result.substring(ingredient.getIngredientType().length() + 1);
+                    result = result.substring(ingredientName.length() + 1);
             } else
-                result = result.substring(0, result.indexOf(ingredient.getIngredientType()) - 1) + result.substring(result.indexOf(ingredient.getIngredientType()) + ingredient.getIngredientType().length() + 1);
+                result = result.replace(ingredientName + ",", "");
+
         }
         return result;
     }
@@ -294,7 +296,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
                 else
                     result = result.substring(input.length() + 1);
             } else
-                result = result.substring(0, result.indexOf(input) - 1) + result.substring(result.indexOf(input) + input.length() + 1);
+                result = result.replace(input + ",", "");
         }
         return result;
     }

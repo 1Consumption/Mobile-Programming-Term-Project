@@ -72,7 +72,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 //        for (int i = 0; i < mapCount; i++) {
 //            Log.e("test", mapping[i]);
 //        }
-        AccuracyActivity test=new AccuracyActivity();
+        AccuracyActivity test = new AccuracyActivity();
         Log.e("accuracy", String.valueOf(test.getAccuracy()));
 
         for (int i = 0; i < ingredient.length; i++)
@@ -196,9 +196,16 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         });
 
-        for (int i = 0; i < 10; i++) {
-            Log.e("iValue", recipeList[i]);
-            mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
+        if (recipeLength < 10) {
+            for (int i = 0; i < recipeLength; i++) {
+                Log.e("iValue", recipeList[i]);
+                mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
+            }
+        } else {
+            for (int i = 0; i < 10; i++) {
+                Log.e("iValue", recipeList[i]);
+                mAdapter.addItem(new Recipe(getFoodName(recipeList[i]), getFoodPreviewImage(recipeList[i])));
+            }
         }
     }
 

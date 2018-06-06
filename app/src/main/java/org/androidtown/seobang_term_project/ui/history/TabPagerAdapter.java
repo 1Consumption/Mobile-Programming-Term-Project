@@ -20,10 +20,13 @@ public class  TabPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                cur_fragment = new HistoryOneFragment();
+                cur_fragment = new HistoryTwoFragment();
                 break;
             case 1:
-                cur_fragment = new HistoryTwoFragment();
+                cur_fragment = new HistoryThreeFragment();
+                break;
+            case 2:
+                cur_fragment = new HistoryOneFragment();
                 break;
         }
 

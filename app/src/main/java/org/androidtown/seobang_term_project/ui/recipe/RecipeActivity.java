@@ -76,6 +76,7 @@ public class RecipeActivity extends BaseActivity {
 
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewpager.setAdapter(mPagerAdapter);
+        viewpager.setOffscreenPageLimit(RecipeProcess.length);
         viewpager.addOnPageChangeListener(pageChangeListener);
         viewpager.setPageTransformer(true, new ZoomOutPageTransformer());
         setToolbarName(getSelectedRecipeName() + " 1/" + RecipeProcess.length);

@@ -30,8 +30,8 @@ public class AccuracyActivity extends Activity {
         seekBar = findViewById(R.id.seekbar);
         confirm = findViewById(R.id.seekbarConfirm);
         cancel = findViewById(R.id.seekbarCancel);
-        seekBar.setProgress(50);
-        tempAccuracy = accuracy;
+        seekBar.setProgress(tempAccuracy);
+        textView.setText("정확도 : " + tempAccuracy + "%");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -53,6 +53,7 @@ public class AccuracyActivity extends Activity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tempAccuracy = accuracy;
                 finish();
             }
         });

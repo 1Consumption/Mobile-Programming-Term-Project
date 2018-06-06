@@ -16,6 +16,9 @@ import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
 import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Developed by hayeon0824 on 2018-05-19.
  * Copyright (c) 2018 hayeon0824 rights reserved.
@@ -43,12 +46,10 @@ public class HistoryActivity extends BaseActivity {
                 int tempFre = Integer.parseInt(recipeName.substring(0, recipeName.indexOf("mod")));
                 recipeName = recipeName.substring(recipeName.indexOf("d") + 1);
                 update(recipeName, tempFre);
-            }
-            else if(recipeName.contains("del")){
+            } else if (recipeName.contains("del")) {
                 recipeName = recipeName.substring(recipeName.indexOf("l") + 1);
                 delete(recipeName);
-            }
-            else {
+            } else {
                 if (countFrequency(recipeName) == 0) {
                     insert(recipeName, 1);
                 } else {
@@ -59,14 +60,16 @@ public class HistoryActivity extends BaseActivity {
         }
 
         tabLayout = findViewById(R.id.tab);
-        tabLayout.addTab(tabLayout.newTab().setText("요리별 기록 보기"));
+        tabLayout.addTab(tabLayout.newTab().setText("그래프로 보기"));
         tabLayout.addTab(tabLayout.newTab().setText("날짜별 기록 보기"));
+        tabLayout.addTab(tabLayout.newTab().setText("요리별 기록 보기"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
         TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         mPager = findViewById(R.id.history_pager);
         mPager.setAdapter(pagerAdapter);
+        mPager.setOffscreenPageLimit(2);
         mPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -88,10 +91,15 @@ public class HistoryActivity extends BaseActivity {
     }
 
     public void insert(String id, int frequency) {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat simple = new SimpleDateFormat("yyyy/MM/dd");
+        String formatDate = simple.format(date);
         db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id", id);
         values.put("frequency", frequency);
+        values.put("date", formatDate);
         db.insert("frequency", null, values);
     }
 
