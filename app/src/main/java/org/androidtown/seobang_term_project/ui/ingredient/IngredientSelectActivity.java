@@ -96,9 +96,9 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
 
         this.db = DatabaseFactory.create(this, DB_Name);
-        SharedPreferences preferences=getSharedPreferences("Accuracy",MODE_PRIVATE);
-        int accuracy=preferences.getInt("Accuracy",50);
-        Toast.makeText(getApplicationContext(),String.valueOf(accuracy),Toast.LENGTH_LONG).show();
+        SharedPreferences preferences = getSharedPreferences("Accuracy", MODE_PRIVATE);
+        int accuracy = preferences.getInt("Accuracy", 50);
+        Toast.makeText(getApplicationContext(), String.valueOf(accuracy), Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btnSelect)

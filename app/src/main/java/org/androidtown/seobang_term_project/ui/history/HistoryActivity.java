@@ -60,9 +60,8 @@ public class HistoryActivity extends BaseActivity {
         }
 
         tabLayout = findViewById(R.id.tab);
-        tabLayout.addTab(tabLayout.newTab().setText("그래프로 보기"));
-        tabLayout.addTab(tabLayout.newTab().setText("날짜별 기록 보기"));
         tabLayout.addTab(tabLayout.newTab().setText("요리별 기록 보기"));
+        tabLayout.addTab(tabLayout.newTab().setText("그래프로 보기"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
