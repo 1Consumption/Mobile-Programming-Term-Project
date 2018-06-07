@@ -151,12 +151,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         }
 
-//        for (int i = 0; i < recipeLength; i++) {
-//            Log.e("test", recipeList[i] + "\n");
-////            Log.e("asdasd",String.valueOf(recipeLength));
-//        }
-
-
         for (int i = 0; i < recipeList.size(); i++) {
             double weight = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf("w") + 1, recipeList.get(i).indexOf("t")));
             double total = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1));
@@ -174,16 +168,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                 }
             }
         }
-
-//        for (int i = 0; i < recipeList.size(); i++) {
-//            Log.e("test", recipeList.get(i));
-//        }
-
-//        for (int i = 0; i < recipeList.size(); i++) {
-//            String frequency = recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1);
-//            recipeList.set(i,recipeList.get(i).substring(0, recipeList.get(i).indexOf(",")));
-//            Log.e("RECIPELIST", recipeList.get(i));
-//        }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_2);
 
@@ -270,7 +254,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         startManagingCursor(cursor);
         cursor.moveToNext();
         String name = cursor.getString(0);
-        cursor.close();
+
         return name;
     }
 
@@ -304,13 +288,16 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         super.onDestroy();
         db.close();
         db_info.close();
-        cursor.close();
         Log.e("디스트로이", "ㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
     }
 
     @Override
     public void onRestart() {
         super.onRestart();
+        DBUtils.setDB(this, ROOT_DIR, DB_Name);
+        DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
+        db = DatabaseFactory.create(this, DB_Name);
+        db_info = DatabaseFactory.create(this, DB_Name_2);
         Log.e("RecipeFromIngredient", "onRestart");
     }
 

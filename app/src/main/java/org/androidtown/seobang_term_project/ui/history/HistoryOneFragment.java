@@ -41,48 +41,52 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
 
         View view = inflater.inflate(R.layout.history_one, container, false);
         helper = new MySQLiteOpenHelper(getContext(), "frequency.db", null, 3);
-        DBUtils.setDB(getContext(), ROOT_DIR, DB_Name);
-        db_2 = DatabaseFactory.create(getContext(), DB_Name);
+        if(countAll()!=0) {
 
-        adapter = new HistoryAdapter(getActivity().getApplicationContext());
-        listview = (ListView) view.findViewById(R.id.List_view);
-        adapter.notifyDataSetChanged();
-        //어뎁터 할당
-        listview.setAdapter(adapter);
-        listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        selectAll();
+            DBUtils.setDB(getContext(), ROOT_DIR, DB_Name);
+            db_2 = DatabaseFactory.create(getContext(), DB_Name);
 
-        Cursor cursor;
+            adapter = new HistoryAdapter(getActivity().getApplicationContext());
+            listview = (ListView) view.findViewById(R.id.List_view);
+            listview.setVisibility(View.VISIBLE);
+            view.findViewById(R.id.noList_one).setVisibility(View.INVISIBLE);
+            adapter.notifyDataSetChanged();
+            //어뎁터 할당
+            listview.setAdapter(adapter);
+            listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            selectAll();
 
-        for (int i = 0; i < countAll(); i++) {
-            cursor = db_2.rawQuery("SELECT URL FROM " + TABLE_NAME + " WHERE recipe_name=\"" + list[i].substring(0, list[i].indexOf(",")) + "\"", null);
-            cursor.moveToNext();
-            URLList[i] = cursor.getString(0);
-            Log.e("URLURLRULR", URLList[i]);
-        }
+            Cursor cursor;
 
-        for (int i = 0; i < countAll(); i++) {
-            for (int j = 0; j < countAll() - i - 1; j++) {
-                if (Integer.parseInt(list[j].substring(list[j].indexOf(",") + 1)) <= Integer.parseInt(list[j + 1].substring(list[j + 1].indexOf(",") + 1))) {
-                    String temp = list[j];
-                    list[j] = list[j + 1];
-                    list[j + 1] = temp;
+            for (int i = 0; i < countAll(); i++) {
+                cursor = db_2.rawQuery("SELECT URL FROM " + TABLE_NAME + " WHERE recipe_name=\"" + list[i].substring(0, list[i].indexOf(",")) + "\"", null);
+                cursor.moveToNext();
+                URLList[i] = cursor.getString(0);
+                Log.e("URLURLRULR", URLList[i]);
+            }
+
+            for (int i = 0; i < countAll(); i++) {
+                for (int j = 0; j < countAll() - i - 1; j++) {
+                    if (Integer.parseInt(list[j].substring(list[j].indexOf(",") + 1)) <= Integer.parseInt(list[j + 1].substring(list[j + 1].indexOf(",") + 1))) {
+                        String temp = list[j];
+                        list[j] = list[j + 1];
+                        list[j + 1] = temp;
+                    }
                 }
             }
+
+            //adapter를 통한 값 전달
+            for (int i = 0; i < countAll(); i++) {
+                String name = list[i].substring(0, list[i].indexOf(","));
+
+                cursor = db_2.rawQuery("SELECT URL,recipe_code FROM " + TABLE_NAME + " WHERE recipe_name=\"" + name + "\"", null);
+                cursor.moveToNext();
+                String URL = cursor.getString(0);
+                String code = cursor.getString(1);
+                String frequency = list[i].substring(list[i].indexOf(",") + 1) + "번";
+                adapter.addHistory(URL, name, frequency, code);
+            }
         }
-
-        //adapter를 통한 값 전달
-        for (int i = 0; i < countAll(); i++) {
-            String name = list[i].substring(0, list[i].indexOf(","));
-
-            cursor = db_2.rawQuery("SELECT URL,recipe_code FROM " + TABLE_NAME + " WHERE recipe_name=\"" + name + "\"", null);
-            cursor.moveToNext();
-            String URL = cursor.getString(0);
-            String code = cursor.getString(1);
-            String frequency = list[i].substring(list[i].indexOf(",") + 1) + "번";
-            adapter.addHistory(URL, name, frequency, code);
-        }
-
 
         return view;
     }

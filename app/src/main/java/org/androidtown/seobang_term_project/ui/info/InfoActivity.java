@@ -20,19 +20,16 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Element adsElement = new Element();
-        adsElement.setTitle("Advertise with us");
-
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
                 .setImage(R.drawable.title)
-                .setDescription("This is a description")
+                .setDescription("김하연 손민욱 신한섭")
                 .addItem(new Element().setTitle("Version 1.0"))
-                .addItem(adsElement)
                 .addGroup("Connect with us")
                 .addEmail("elmehdi.sakout@gmail.com")
-                .addWebsite("http://medyo.github.io/")
-                .addPlayStore("com.ideashower.readitlater.pro")
+                .addEmail("hanseop95@gmail.com")
+                .addEmail("elmehdi.sakout@gmail.com")
+                .addPlayStore("org.androidtown.seobang_term_project")
                 .addGitHub("HanseopShin/Mobile-Programming-Term-Project")
                 .create();
         setContentView(aboutPage);

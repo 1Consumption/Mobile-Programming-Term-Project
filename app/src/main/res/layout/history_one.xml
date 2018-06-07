@@ -4,7 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/noList_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아직 먹은 요리가 없어요!"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="@color/black_title"
+        android:textSize="30sp"
+        android:background="@color/md_green_200"/>
+
     <ListView
+        android:visibility="invisible"
         android:id="@+id/List_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
