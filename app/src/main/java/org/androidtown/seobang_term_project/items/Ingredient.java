@@ -5,7 +5,10 @@ public class Ingredient {
     private String ingredientType;
     private int image;
     private boolean isListItem = true;
-    private boolean isResultItem = true;
+
+    public Ingredient( ){
+
+    }
 
     public Ingredient(String ingredientType, int image) {
         this.ingredientType = ingredientType;
@@ -30,10 +33,6 @@ public class Ingredient {
 
     public boolean getIsListItem() {
         return isListItem;
-    }
-
-    public boolean getIsResult(){
-        return isResultItem;
     }
 
     public void setListItem(boolean listItem) {

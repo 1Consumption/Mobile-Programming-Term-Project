@@ -23,6 +23,7 @@ import org.androidtown.seobang_term_project.items.IngredientList;
 import org.androidtown.seobang_term_project.recycler.adapters.IngredientAdapter;
 import org.androidtown.seobang_term_project.recycler.adapters.IngredientListAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.IngredientViewHolder;
+import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 
 import java.util.ArrayList;
@@ -243,9 +244,17 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     @OnClick(R.id.resetButton)
     public void setResetButton(View view) {
+//        String length[] = result.split(",");
+//
+//        for (int i = 0; i < result.length(); i++){
+//            Ingredient targetIngredient = new Ingredient();
+//            targetIngredient.setIngredientType(length[i]);
+//            resultAdapter.removeItem(targetIngredient);
+//        }
+//        result = "";
         resultAdapter.removeAll();
         result = "";
-        initData();
+        // item_image.setAlpha(0.5f);
     }
 
     @Override
