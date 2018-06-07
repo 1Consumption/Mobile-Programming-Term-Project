@@ -12,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
@@ -53,7 +54,10 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     private int index = 2;
     private boolean isLoading = false;
 
-    private int accuracy=0;
+    private int accuracy = 0;
+
+    RecyclerView rec;
+    TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
         DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
 
-        Log.e("RecipeFromIngredient","onCreate");
+        Log.e("RecipeFromIngredient", "onCreate");
 
         db = DatabaseFactory.create(this, DB_Name);
         db_info = DatabaseFactory.create(this, DB_Name_2);
@@ -72,13 +76,16 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         String received = bundle.getString("result");
         String[] ingredient = received.split(",");
 
+        rec = findViewById(R.id.recyclerView_2);
+        text = findViewById(R.id.noList_recipe);
+
         calTotal();
 //        for (int i = 0; i < mapCount; i++) {
 //            Log.e("test", mapping[i]);
 //        }
-        SharedPreferences preferences=getSharedPreferences("Accuracy",MODE_PRIVATE);
-        accuracy=preferences.getInt("Accuracy",50);
-        Toast.makeText(getApplicationContext(),String.valueOf(accuracy),Toast.LENGTH_LONG).show();
+        SharedPreferences preferences = getSharedPreferences("Accuracy", MODE_PRIVATE);
+        accuracy = preferences.getInt("Accuracy", 50);
+        Toast.makeText(getApplicationContext(), String.valueOf(accuracy), Toast.LENGTH_LONG).show();
 
         for (int i = 0; i < ingredient.length; i++)
             Log.e("RecipeFromIngredient", "\"" + ingredient[i] + "\"");
@@ -162,8 +169,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             for (int j = 0; j < recipeList.size() - 1 - i; j++) {
                 if (Double.parseDouble(recipeList.get(j).substring(recipeList.get(j).indexOf(",") + 1)) < Double.parseDouble(recipeList.get(j + 1).substring(recipeList.get(j + 1).indexOf(",") + 1))) {
                     String a = recipeList.get(j);
-                    recipeList.set(j,recipeList.get(j+1));
-                    recipeList.set(j+1,a);
+                    recipeList.set(j, recipeList.get(j + 1));
+                    recipeList.set(j + 1, a);
                 }
             }
         }
@@ -200,11 +207,20 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         });
 
+        int percentCount = 0;
+
+        for (int i = 0; i < recipeList.size(); i++) {
+            Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
+            if (percent > accuracy) {
+                percentCount++;
+            }
+        }
+
         if (recipeLength < 10) {
             for (int i = 0; i < recipeList.size(); i++) {
                 //Log.e("iValue", recipeList.get(i));
                 Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
-                String recipeCode=recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
                 if (percent > accuracy)
                     mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
                 else
@@ -214,12 +230,17 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             for (int i = 0; i < 10; i++) {
 //                Log.e("iValue", recipeList.get(i));
                 Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
-                String recipeCode=recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
                 if (percent > accuracy)
                     mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
                 else
                     continue;
             }
+        }
+
+        if (percentCount != 0) {
+            text.setVisibility(View.INVISIBLE);
+            rec.setVisibility(View.VISIBLE);
         }
     }
 
@@ -227,7 +248,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         if ((index * 10) <= recipeList.size()) {
             for (int i = (index - 1) * 10; i < index * 10; i++) {
                 Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
-                String recipeCode=recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
                 if (percent > accuracy)
                     mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
                 else
@@ -248,7 +269,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         Cursor cursor = db_info.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + code + "\"", null);
         startManagingCursor(cursor);
         cursor.moveToNext();
-        String name=cursor.getString(0);
+        String name = cursor.getString(0);
         cursor.close();
         return name;
     }
@@ -284,19 +305,19 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         db.close();
         db_info.close();
         cursor.close();
-        Log.e("디스트로이","ㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
+        Log.e("디스트로이", "ㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
     }
 
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
-        Log.e("RecipeFromIngredient","onRestart");
+        Log.e("RecipeFromIngredient", "onRestart");
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        Log.e("RecipeFromIngredient","onResume");
+        Log.e("RecipeFromIngredient", "onResume");
     }
 
     public void calTotal() {

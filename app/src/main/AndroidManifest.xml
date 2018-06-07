@@ -24,11 +24,16 @@
         </provider>
 
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.info.InfoActivity" />
-        <activity android:name=".ui.ingredient.IngredientSelectActivity" />
+        <activity
+            android:name=".ui.info.InfoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.ingredient.IngredientSelectActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.tutorial.TutorialActivity" />
         <activity
             android:name=".ui.recipe.RecipeSelectActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -39,7 +44,9 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".ui.ingredient.RecipeFromIngredientActivity" />
-        <activity android:name=".ui.history.HistoryActivity" />
+        <activity
+            android:name=".ui.history.HistoryActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.recipe.RecipeActivity" />
         <activity android:name=".ui.recipe.RecipePreviewActivity" />
         <activity android:name=".ui.intro.IntroActivity">
@@ -58,7 +65,7 @@
         <activity android:name=".ui.recipe.CameraActivity" />
         <activity
             android:name=".ui.Accuracy.AccuracyActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
