@@ -1,6 +1,7 @@
 package org.androidtown.seobang_term_project.ui.ingredient;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -95,8 +96,9 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
 
         this.db = DatabaseFactory.create(this, DB_Name);
-        AccuracyActivity a=new AccuracyActivity();
-        Toast.makeText(getApplicationContext(),String.valueOf(a.getAccuracy()),Toast.LENGTH_LONG).show();
+        SharedPreferences preferences=getSharedPreferences("Accuracy",MODE_PRIVATE);
+        int accuracy=preferences.getInt("Accuracy",50);
+        Toast.makeText(getApplicationContext(),String.valueOf(accuracy),Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btnSelect)

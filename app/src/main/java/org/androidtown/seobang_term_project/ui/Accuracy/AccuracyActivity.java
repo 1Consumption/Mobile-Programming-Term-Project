@@ -73,10 +73,6 @@ public class AccuracyActivity extends Activity {
 
     }
 
-    public int getAccuracy() {
-        return this.accuracy;
-    }
-
     public void sharedPreferences() {
         sh_Pref = getSharedPreferences("Accuracy", MODE_PRIVATE);
         toEdit = sh_Pref.edit();
@@ -90,6 +86,7 @@ public class AccuracyActivity extends Activity {
             int Accuracy = sh_Pref.getInt("Accuracy", 50);
             textView.setText("정확도 : " + Accuracy + "%");
             tempAccuracy = Accuracy;
+            Log.e("tempAccuracy",String.valueOf(Accuracy));
         }
     }
 }

@@ -1,6 +1,7 @@
 package org.androidtown.seobang_term_project.ui.ingredient;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
@@ -60,6 +62,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
         DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
 
+        Log.e("RecipeFromIngredient","onCreate");
+
         db = DatabaseFactory.create(this, DB_Name);
         db_info = DatabaseFactory.create(this, DB_Name_2);
         Intent intent = getIntent();
@@ -72,8 +76,9 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 //        for (int i = 0; i < mapCount; i++) {
 //            Log.e("test", mapping[i]);
 //        }
-        AccuracyActivity acc = new AccuracyActivity();
-        accuracy=acc.getAccuracy();
+        SharedPreferences preferences=getSharedPreferences("Accuracy",MODE_PRIVATE);
+        accuracy=preferences.getInt("Accuracy",50);
+        Toast.makeText(getApplicationContext(),String.valueOf(accuracy),Toast.LENGTH_LONG).show();
 
         for (int i = 0; i < ingredient.length; i++)
             Log.e("RecipeFromIngredient", "\"" + ingredient[i] + "\"");
@@ -280,6 +285,18 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         db_info.close();
         cursor.close();
         Log.e("디스트로이","ㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Log.e("RecipeFromIngredient","onRestart");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.e("RecipeFromIngredient","onResume");
     }
 
     public void calTotal() {
