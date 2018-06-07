@@ -29,20 +29,18 @@ public class IngredientAdapter extends BaseAdapter {
     }
 
     public void removeItem(Ingredient ingredient) {
-        for(int i=0; i < sections().get(0).size(); i++) {
-            Ingredient item = (Ingredient)(sections().get(0).get(i));
-            if(item.getIngredientType().equals(ingredient.getIngredientType())) {
+        for (int i = 0; i < sections().get(0).size(); i++) {
+            Ingredient item = (Ingredient) (sections().get(0).get(i));
+            if (item.getIngredientType().equals(ingredient.getIngredientType())) {
                 sections().get(0).remove(item);
             }
         }
         notifyDataSetChanged();
     }
 
-    public void removeAll(){
-        for(int i = 0; i < sections().get(0).size(); i++){
-            Ingredient item = (Ingredient)(sections().get(0).get(i));
-            sections().get(0).remove(item);
-        }
+    public void removeAll() {
+        removeSection(0);
+        addSection(new ArrayList<Ingredient>());
         notifyDataSetChanged();
     }
 

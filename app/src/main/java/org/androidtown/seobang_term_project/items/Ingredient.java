@@ -5,8 +5,9 @@ public class Ingredient {
     private String ingredientType;
     private int image;
     private boolean isListItem = true;
+    private boolean isResultItem = true;
 
-    public Ingredient( ){
+    public Ingredient() {
 
     }
 
@@ -37,5 +38,9 @@ public class Ingredient {
 
     public void setListItem(boolean listItem) {
         this.isListItem = listItem;
+    }
+
+    public boolean getIsResult() {
+        return isResultItem;
     }
 }

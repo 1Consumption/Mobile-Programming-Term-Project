@@ -244,17 +244,9 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     @OnClick(R.id.resetButton)
     public void setResetButton(View view) {
-//        String length[] = result.split(",");
-//
-//        for (int i = 0; i < result.length(); i++){
-//            Ingredient targetIngredient = new Ingredient();
-//            targetIngredient.setIngredientType(length[i]);
-//            resultAdapter.removeItem(targetIngredient);
-//        }
-//        result = "";
         resultAdapter.removeAll();
         result = "";
-        // item_image.setAlpha(0.5f);
+        initData();
     }
 
     @Override

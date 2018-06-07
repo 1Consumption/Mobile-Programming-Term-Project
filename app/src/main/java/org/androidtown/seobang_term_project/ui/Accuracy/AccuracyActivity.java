@@ -35,11 +35,11 @@ public class AccuracyActivity extends Activity {
         cancel = findViewById(R.id.seekbarCancel);
         applySharedPreference();
         seekBar.setProgress(tempAccuracy);
-        textView.setText("정확도 : " + tempAccuracy + "%");
+        textView.setText("일치도 : " + tempAccuracy + "%");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textView.setText("정확도 : " + progress + "%");
+                textView.setText("일치도 : " + progress + "%");
                 accuracy = progress;
             }
 
@@ -84,7 +84,7 @@ public class AccuracyActivity extends Activity {
         sh_Pref = getSharedPreferences("Accuracy", MODE_PRIVATE);
         if (sh_Pref != null && sh_Pref.contains("Accuracy")) {
             int Accuracy = sh_Pref.getInt("Accuracy", 50);
-            textView.setText("정확도 : " + Accuracy + "%");
+            textView.setText("일치도 : " + Accuracy + "%");
             tempAccuracy = Accuracy;
             Log.e("tempAccuracy",String.valueOf(Accuracy));
         }

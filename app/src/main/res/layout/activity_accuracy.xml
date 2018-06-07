@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:gravity="center_vertical"
-            android:text="정확도 설정"
+            android:text="일치도 설정"
             android:textColor="#ffffffff"
             android:textSize="20dp" />
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="정확도 : 50%"
+        android:text="일치도 : 50%"
         android:textColor="#ff000000"
         android:textSize="20dp" />
 

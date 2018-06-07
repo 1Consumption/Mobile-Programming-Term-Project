@@ -3,6 +3,7 @@ package org.androidtown.seobang_term_project.ui.intro;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -12,11 +13,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.ui.main.MainActivity;
+import org.androidtown.seobang_term_project.ui.tutorial.TutorialActivity;
 
 import static android.os.Build.VERSION_CODES.M;
 
@@ -28,15 +31,18 @@ import static android.os.Build.VERSION_CODES.M;
 public class IntroActivity extends AppCompatActivity {
 
     private Handler handler;
+    SharedPreferences preference;
+    SharedPreferences.Editor toEdit;
+    Boolean State = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-
-        Drawable alpha = ((ImageView)findViewById(R.id.logo)).getDrawable();
+        applySharedPreference();
+        Drawable alpha = ((ImageView) findViewById(R.id.logo)).getDrawable();
         alpha.setAlpha(80);
-
+        Log.e("STATE",String.valueOf(State));
         handler = new Handler();
         handler.postDelayed(pass, 2000);
     }
@@ -44,10 +50,19 @@ public class IntroActivity extends AppCompatActivity {
     private Runnable pass = new Runnable() {
         @Override
         public void run() {
-            Intent intent = new Intent(IntroActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            if (State == false) {
+                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            } else {
+                sharedPreferences();
+                applySharedPreference();
+                Intent intent = new Intent(IntroActivity.this, TutorialActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
         }
     };
 
@@ -56,5 +71,18 @@ public class IntroActivity extends AppCompatActivity {
         handler.removeCallbacks(pass);
     }
 
+    public void sharedPreferences() {
+        preference = getSharedPreferences("isFirst", MODE_PRIVATE);
+        toEdit = preference.edit();
+        toEdit.putBoolean("State", false);
+        toEdit.commit();
+    }
 
+    public void applySharedPreference() {
+        preference = getSharedPreferences("isFirst", MODE_PRIVATE);
+        if (preference != null && preference.contains("State")) {
+            State = preference.getBoolean("State", true);
+            Log.e("tempAccuracy", String.valueOf(State));
+        }
+    }
 }
