@@ -36,6 +36,8 @@ public class RecipeActivity extends BaseActivity {
     private SQLiteDatabase db_2;
     private Cursor cursor_2;
 
+    public static Boolean timerOn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,5 +130,13 @@ public class RecipeActivity extends BaseActivity {
         super.onDestroy();
         cursor.close();
         db.close();
+    }
+
+    public void setTimerOn(Boolean b) {
+        timerOn = b;
+    }
+
+    public Boolean getTimerOn() {
+        return timerOn;
     }
 }

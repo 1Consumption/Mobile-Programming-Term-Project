@@ -22,6 +22,7 @@ import org.androidtown.seobang_term_project.items.Recipe;
 import org.androidtown.seobang_term_project.recycler.adapters.RecipeAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.RecipeViewHolder;
 import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
+import org.androidtown.seobang_term_project.ui.recipe.RecipeActivity;
 import org.androidtown.seobang_term_project.ui.recipe.RecipePreviewActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.QuickSortArrayList;
@@ -98,58 +99,73 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                 String temp = cursor.getString(0);
                 temp += "w" + cursor.getString(1);
                 tempList.add(temp);
+                Log.e("zzz", "zzzz");
             }
         }
         QuickSortArrayList.sort(tempList, 0, tempList.size() - 1);
 
-//        for (int i = 0; i < tempLength; i++)
-//            Log.e("test", tempList[i]);
+        for (int i = 0; i < tempList.size(); i++)
+            Log.e("test", tempList.get(i));
 
 
-        for (int i = 0; i < tempList.size(); i++) {
-            if (i + 1 == tempList.size())
-                break;
-            else {
-                String curRecipeCode = tempList.get(i).substring(0, tempList.get(i).indexOf("w"));
-                String nextRecipeCode = tempList.get(i + 1).substring(0, tempList.get(i + 1).indexOf("w"));
+        if (tempList.size() == 1) {
+            for (int i = 0; i < mapping.size(); i++) {
+                String mappedRecipeCode = mapping.get(i).substring(0, mapping.get(i).indexOf(","));
+                Double mappedTotal = Double.parseDouble(mapping.get(i).substring(mapping.get(i).indexOf(",") + 1));
 
-                Double curWeight = Double.parseDouble(tempList.get(i).substring(tempList.get(i).indexOf("w") + 1));
-                Double nextWeight = Double.parseDouble(tempList.get(i + 1).substring(tempList.get(i + 1).indexOf("w") + 1));
+                if (tempList.get(0).substring(0, tempList.get(0).indexOf("w")).equals(mappedRecipeCode)) {
+                    recipeList.add(tempList.get(0) + "t" + String.valueOf(mappedTotal));
+                }
+            }
+        } else {
+            for (int i = 0; i < tempList.size(); i++) {
+                if (i + 1 == tempList.size())
+                    break;
+                else {
+                    String curRecipeCode = tempList.get(i).substring(0, tempList.get(i).indexOf("w"));
+                    String nextRecipeCode = tempList.get(i + 1).substring(0, tempList.get(i + 1).indexOf("w"));
+
+                    Double curWeight = Double.parseDouble(tempList.get(i).substring(tempList.get(i).indexOf("w") + 1));
+                    Double nextWeight = Double.parseDouble(tempList.get(i + 1).substring(tempList.get(i + 1).indexOf("w") + 1));
 
 
-                if (curRecipeCode.equals(nextRecipeCode)) {
-                    if (cnt == 0) {
-                        totalWeight = curWeight + nextWeight;
+                    if (curRecipeCode.equals(nextRecipeCode)) {
+                        if (cnt == 0) {
+                            totalWeight = curWeight + nextWeight;
+                        } else {
+                            totalWeight += nextWeight;
+                        }
+                        cnt++;
                     } else {
-                        totalWeight += nextWeight;
-                    }
-                    cnt++;
-                } else {
-                    if (cnt == 0) {
-                        for (int j = 0; j < mapping.size(); j++) {
-                            String mappedRecipeCode = mapping.get(j).substring(0, mapping.get(j).indexOf(","));
-                            Double mappedTotal = Double.parseDouble(mapping.get(j).substring(mapping.get(j).indexOf(",") + 1));
+                        if (cnt == 0) {
+                            for (int j = 0; j < mapping.size(); j++) {
+                                String mappedRecipeCode = mapping.get(j).substring(0, mapping.get(j).indexOf(","));
+                                Double mappedTotal = Double.parseDouble(mapping.get(j).substring(mapping.get(j).indexOf(",") + 1));
 
-                            if (curRecipeCode.equals(mappedRecipeCode)) {
-                                recipeList.add(tempList.get(i) + "t" + String.valueOf(mappedTotal));
+                                if (curRecipeCode.equals(mappedRecipeCode)) {
+                                    recipeList.add(tempList.get(i) + "t" + String.valueOf(mappedTotal));
+                                }
+                            }
+
+                        } else {
+                            for (int j = 0; j < mapping.size(); j++) {
+                                String mappedRecipeCode = mapping.get(j).substring(0, mapping.get(j).indexOf(","));
+                                Double mappedTotal = Double.parseDouble(mapping.get(j).substring(mapping.get(j).indexOf(",") + 1));
+
+                                if (curRecipeCode.equals(mappedRecipeCode)) {
+                                    recipeList.add(tempList.get(i).substring(0, tempList.get(i).indexOf("w")) + "w" + String.valueOf(totalWeight) + "t" + String.valueOf(mappedTotal));
+                                }
                             }
                         }
-
-                    } else {
-                        for (int j = 0; j < mapping.size(); j++) {
-                            String mappedRecipeCode = mapping.get(j).substring(0, mapping.get(j).indexOf(","));
-                            Double mappedTotal = Double.parseDouble(mapping.get(j).substring(mapping.get(j).indexOf(",") + 1));
-
-                            if (curRecipeCode.equals(mappedRecipeCode)) {
-                                recipeList.add(tempList.get(i).substring(0, tempList.get(i).indexOf("w")) + "w" + String.valueOf(totalWeight) + "t" + String.valueOf(mappedTotal));
-                            }
-                        }
+                        cnt = 0;
+                        totalWeight = 0;
                     }
-                    cnt = 0;
-                    totalWeight = 0;
                 }
             }
         }
+
+        for (int i = 0; i < recipeList.size(); i++)
+            Log.e("도출스", recipeList.get(i));
 
         for (int i = 0; i < recipeList.size(); i++) {
             double weight = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf("w") + 1, recipeList.get(i).indexOf("t")));

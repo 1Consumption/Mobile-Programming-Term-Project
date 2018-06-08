@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -50,8 +51,14 @@ public class PageFragment extends Fragment {
     FloatingActionButton goToCameraBtn;
     int result = 0;
     int time = 0;
+    int tempTime = 0;
 
-    boolean flag = true;
+    int intHour;
+    int intMinute;
+    int intSecond;
+
+    boolean timerStateflag = false;
+    CountDownTimer countDownTimer;
 
     public static PageFragment create(String pageContents) {
         PageFragment fragment = new PageFragment();
@@ -153,74 +160,6 @@ public class PageFragment extends Fragment {
         return rootView;
     }
 
-    private class CountDownTask extends AsyncTask<Void, Integer, Void> {
-        Context cnt;
-
-        CountDownTask(Context context) {
-            cnt = context;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            for (int i = time; i >= 0; i--) {
-                try {
-                    Thread.sleep(1000);
-                    publishProgress(i);
-
-                } catch (Exception e) {
-                    Log.d(this.getClass().getName(), "error-exception");
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            int temp = values[0].intValue();
-            int intHour = temp / 3600;
-            int intMinute = (temp - (intHour * 3600)) / 60;
-            int intSecond = (temp - (intHour * 3600 + intMinute * 60));
-
-            hour.setText(String.format("%02d", intHour));
-            minute.setText(String.format("%02d", intMinute));
-            second.setText(String.format("%02d", intSecond));
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground);
-            NotificationManager notificationmanager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-            Intent notiIntent = new Intent(getActivity(), RecipeActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("selectedRecipe", mPageString.substring(0, mPageString.indexOf("+")));
-            notiIntent.putExtras(bundle);
-
-            notiIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 1, notiIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder mbuilder;
-
-            if (Build.VERSION.SDK_INT >= 26) {
-                NotificationChannel mChannel = new NotificationChannel("Noti", "alarm", NotificationManager.IMPORTANCE_DEFAULT);
-                notificationmanager.createNotificationChannel(mChannel);
-                mbuilder = new NotificationCompat.Builder(getActivity(), mChannel.getId());
-            } else {
-                mbuilder = new NotificationCompat.Builder(getActivity());
-            }
-            mbuilder.setSmallIcon(R.drawable.spoon)
-                    .setContentTitle("타이머 종료!")
-                    .setContentText("서방")
-                    .setDefaults(Notification.DEFAULT_SOUND)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setLargeIcon(mLargeIconForNoti)
-                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent);
-
-            notificationmanager.notify(1, mbuilder.build());
-
-        }
-    }
-
     private int extractTime(String process, int curIndex) {
         int timeIndex = 0;
 
@@ -241,16 +180,19 @@ public class PageFragment extends Fragment {
     }
 
 
-    private void checkTime(ViewGroup rootView, String processString) {
+    private void checkTime(ViewGroup rootView, final String processString) {
         if (processString.indexOf("시간") != -1 || processString.indexOf("분") != -1) {
             double extractedTime = 0;
             int timeIndex = 0;
             String timeInProcess = "";
+            LinearLayout timerButtonLayout = rootView.findViewById(R.id.timerButtonLayout);
             final Button timerStartButton = rootView.findViewById(R.id.timerStartButton);
+            Button timerPauseButton = rootView.findViewById(R.id.timerPauseButton);
+            Button timerStopButton = rootView.findViewById(R.id.timerStopButton);
 
             if (processString.indexOf("시간") != -1 && processString.indexOf("시간") != 0 && processString.charAt(processString.indexOf("시간") - 1) != ' ') {
                 timerLayout.setVisibility(View.VISIBLE);
-                timerStartButton.setVisibility(View.VISIBLE);
+                timerButtonLayout.setVisibility(View.VISIBLE);
                 int index = processString.indexOf("시간");
 
                 timeIndex = extractTime(processString, index);
@@ -276,7 +218,7 @@ public class PageFragment extends Fragment {
 
                 if (Character.isDigit(errorCheck)) {
                     timerLayout.setVisibility(View.VISIBLE);
-                    timerStartButton.setVisibility(View.VISIBLE);
+                    timerButtonLayout.setVisibility(View.VISIBLE);
                     timeInProcess = processString.substring(timeIndex, processString.indexOf("분"));
 
                     if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {
@@ -293,15 +235,107 @@ public class PageFragment extends Fragment {
             }
 
             time = (int) extractedTime;
-
+            tempTime = time+1;
+            Log.e("timetime", String.valueOf(time));
             timerStartButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    new CountDownTask(getContext()).execute();
-                    Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
-                    timerStartButton.startAnimation(anim);
-                    timerStartButton.setVisibility(View.INVISIBLE);
+                    Log.e("timerOn", String.valueOf(RecipeActivity.timerOn));
+                    if (RecipeActivity.timerOn == false && timerStateflag == false) {
+                        RecipeActivity.timerOn = true;
+                        timerStateflag = true;
+                        Log.e("timerOn", String.valueOf(RecipeActivity.timerOn));
+                        Log.e("extracedTime", String.valueOf(tempTime));
+                        countDownTimer = setTimer(processString, tempTime);
+                        countDownTimer.start();
+
+                    } else if (RecipeActivity.timerOn == true) {
+                        Log.e("asda", "ㄴㄴ");
+                        Toast.makeText(getActivity().getApplicationContext(), "이미 다른 타이머를 실행 중입니다!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+            timerPauseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (timerStateflag == true) {
+                        countDownTimer.cancel();
+                        timerStateflag = false;
+                        RecipeActivity.timerOn = false;
+                    }
+                }
+            });
+
+            timerStopButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tempTime = time+1;
+                    countDownTimer.cancel();
+                    timerStateflag = false;
+                    RecipeActivity.timerOn = false;
+                    intHour = (tempTime-1) / 3600;
+                    intMinute = ((tempTime-1) - (intHour * 3600)) / 60;
+                    intSecond = ((tempTime-1) - (intHour * 3600 + intMinute * 60));
+
+                    Log.e("timer", String.valueOf(tempTime));
+                    hour.setText(String.format("%02d", intHour));
+                    minute.setText(String.format("%02d", intMinute));
+                    second.setText(String.format("%02d", intSecond));
                 }
             });
         }
+    }
+
+    public CountDownTimer setTimer(final String process, final int time) {
+        countDownTimer = new CountDownTimer((time * 1000), 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tempTime -= 1;
+                intHour = tempTime / 3600;
+                intMinute = (tempTime - (intHour * 3600)) / 60;
+                intSecond = (tempTime - (intHour * 3600 + intMinute * 60));
+                Log.e("timer", String.valueOf(tempTime));
+                hour.setText(String.format("%02d", intHour));
+                minute.setText(String.format("%02d", intMinute));
+                second.setText(String.format("%02d", intSecond));
+            }
+
+            @Override
+            public void onFinish() {
+                RecipeActivity.timerOn = false;
+                timerStateflag = false;
+                tempTime = time;
+                Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground);
+                NotificationManager notificationmanager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                Intent notiIntent = new Intent(getActivity(), RecipeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("selectedRecipe", mPageString.substring(0, mPageString.indexOf("+")));
+                notiIntent.putExtras(bundle);
+
+                notiIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 1, notiIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                NotificationCompat.Builder mbuilder;
+
+                if (Build.VERSION.SDK_INT >= 26) {
+                    NotificationChannel mChannel = new NotificationChannel("Noti", "alarm", NotificationManager.IMPORTANCE_DEFAULT);
+                    notificationmanager.createNotificationChannel(mChannel);
+                    mbuilder = new NotificationCompat.Builder(getActivity(), mChannel.getId());
+                } else {
+                    mbuilder = new NotificationCompat.Builder(getActivity());
+                }
+                mbuilder.setSmallIcon(R.drawable.spoon)
+                        .setContentTitle("타이머 종료!")
+                        .setContentText(process)
+                        .setDefaults(Notification.DEFAULT_SOUND)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setLargeIcon(mLargeIconForNoti)
+                        .setAutoCancel(true)
+                        .setContentIntent(pendingIntent);
+
+                notificationmanager.notify(1, mbuilder.build());
+            }
+        };
+        return countDownTimer;
     }
 }

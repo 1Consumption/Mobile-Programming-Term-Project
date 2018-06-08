@@ -32,12 +32,28 @@
                 android:textColor="@color/black_content"
                 android:textSize="20sp" />
 
+            <!--<LinearLayout-->
+            <!--android:id="@+id/timerLayout"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:visibility="invisible">-->
+
+
+
             <LinearLayout
                 android:id="@+id/timerLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="invisible">
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/clokcIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/clock" />
 
                 <TextView
                     android:id="@+id/hourText"
@@ -73,14 +89,41 @@
                     android:textSize="30dp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/timerStartButton"
+            <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/timerLayout"-->
+            <!--android:id="@+id/timerButtonLayout"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:visibility="invisible">-->
+
+            <LinearLayout
+                android:id="@+id/timerButtonLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/timerLayout"
                 android:layout_centerInParent="true"
-                android:text="timer start"
-                android:visibility="invisible" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/timerStartButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="start" />
+
+                <Button
+                    android:id="@+id/timerPauseButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="pause" />
+
+                <Button
+                    android:id="@+id/timerStopButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="stop" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/pageTextView"
