@@ -71,7 +71,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     @OnClick(R.id.showRecipeFromIngredient)
     public void onshowRecipe(View view) {
         if (result.equals("")) {
-            Toast.makeText(getApplicationContext(), "You didn't choose anything!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "아무것도 고르지 않았습니다.", Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent(getApplicationContext(), RecipeFromIngredientActivity.class);
             Bundle bundle = new Bundle();

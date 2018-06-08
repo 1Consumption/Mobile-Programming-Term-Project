@@ -43,7 +43,6 @@ public class IntroActivity extends AppCompatActivity {
             if (State == false) {
                 Intent intent = new Intent(IntroActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             } else {
                 sharedPreferences();
@@ -52,6 +51,7 @@ public class IntroActivity extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
+            finish();
         }
     };
 

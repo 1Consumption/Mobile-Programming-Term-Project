@@ -45,8 +45,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".ui.ingredient.RecipeFromIngredientActivity" />
-        <activity
-            android:name=".ui.history.HistoryActivity" />
+        <activity android:name=".ui.history.HistoryActivity" />
         <activity android:name=".ui.recipe.RecipeActivity" />
         <activity android:name=".ui.recipe.RecipePreviewActivity" />
         <activity android:name=".ui.intro.IntroActivity">
@@ -65,6 +64,10 @@
         <activity android:name=".ui.recipe.CameraActivity" />
         <activity
             android:name=".ui.Accuracy.AccuracyActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".ui.recipe.pageFramgnetWarningActivity"
+            android:launchMode="singleTask"
             android:theme="@android:style/Theme.Dialog" />
     </application>
 

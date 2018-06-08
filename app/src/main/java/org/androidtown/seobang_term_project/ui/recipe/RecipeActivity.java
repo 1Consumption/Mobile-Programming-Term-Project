@@ -37,6 +37,7 @@ public class RecipeActivity extends BaseActivity {
     private Cursor cursor_2;
 
     public static Boolean timerOn = false;
+    public static Boolean dialogFlag=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

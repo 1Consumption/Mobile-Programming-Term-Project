@@ -115,7 +115,7 @@ public class RecipeSelectActivity extends BaseActivity implements RecipeViewHold
             intent.putExtras(bundle);
             startActivity(intent);
         } else {
-            String msg = "Sorry...There is no such food.";
+            String msg = "해당 요리는 없습니다.";
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }
     }

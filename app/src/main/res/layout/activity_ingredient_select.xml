@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -20,9 +20,9 @@
 
             <TextView
                 android:id="@+id/toolbar_name"
-                android:text="재료 선택"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="재료 선택"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -44,40 +44,42 @@
             android:layout_marginTop="5dp"
             app:cardCornerRadius="2dp"
             app:cardElevation="2dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/announce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="재료 검색: "
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_margin="10dp"
-                android:layout_marginTop="10dp"
-                />
-            <EditText
-                android:id="@+id/edt"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_toRightOf="@+id/announce"
-                android:hint="재료 검색..."/>
-            <ImageButton
-                android:id="@+id/btnSelect"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:text="검색하기"
-                android:src="@drawable/search"
-                android:scaleType="fitXY"
-                android:layout_margin="5dp"
-                android:layout_alignBottom="@+id/edt"
-                android:layout_alignParentRight="true"
-                android:background="#00000000"
-                />
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/announce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="재료 검색: "
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/announce"
+                    android:hint="재료 검색..."
+                    android:textSize="20sp" />
+
+                <ImageButton
+                    android:id="@+id/btnSelect"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignBottom="@+id/edt"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:background="#00000000"
+                    android:scaleType="fitXY"
+                    android:src="@android:drawable/ic_menu_search"
+                    android:text="검색하기"
+                    android:tint="#ff000000" />
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -88,40 +90,36 @@
             android:layout_marginRight="5dp"
             app:cardCornerRadius="2dp"
             app:cardElevation="2dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
 
-
-
-            <Button
-                android:id="@+id/showRecipeFromIngredient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="재료 선택 완료"
-                android:layout_margin="5dp"/>
-
-            <Button
-                android:id="@+id/resetButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="재료 다시 선택하기"
-                android:layout_margin="5dp"/>
-
-        </LinearLayout>
-            <View
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/black_small_content" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/showRecipeFromIngredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:text="재료 선택 완료" />
+
+                <Button
+                    android:background="#00000000"
+                    android:id="@+id/resetButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="재료 다시 선택하기" />
+
+            </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/selectedIngredient"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/selectedIngredient" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:id="@+id/result_layout"
@@ -163,6 +161,6 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/ingredient_select_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>

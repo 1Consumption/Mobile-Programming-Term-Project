@@ -2,6 +2,7 @@
 package org.androidtown.seobang_term_project.ui.recipe;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -19,7 +20,9 @@ import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -235,7 +238,7 @@ public class PageFragment extends Fragment {
             }
 
             time = (int) extractedTime;
-            tempTime = time+1;
+            tempTime = time + 1;
             Log.e("timetime", String.valueOf(time));
             timerStartButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
@@ -269,13 +272,13 @@ public class PageFragment extends Fragment {
             timerStopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tempTime = time+1;
+                    tempTime = time + 1;
                     countDownTimer.cancel();
                     timerStateflag = false;
                     RecipeActivity.timerOn = false;
-                    intHour = (tempTime-1) / 3600;
-                    intMinute = ((tempTime-1) - (intHour * 3600)) / 60;
-                    intSecond = ((tempTime-1) - (intHour * 3600 + intMinute * 60));
+                    intHour = (tempTime - 1) / 3600;
+                    intMinute = ((tempTime - 1) - (intHour * 3600)) / 60;
+                    intSecond = ((tempTime - 1) - (intHour * 3600 + intMinute * 60));
 
                     Log.e("timer", String.valueOf(tempTime));
                     hour.setText(String.format("%02d", intHour));
@@ -338,4 +341,13 @@ public class PageFragment extends Fragment {
         };
         return countDownTimer;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+    }
+
+
 }
