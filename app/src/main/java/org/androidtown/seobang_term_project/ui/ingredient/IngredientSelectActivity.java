@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +24,6 @@ import org.androidtown.seobang_term_project.items.IngredientList;
 import org.androidtown.seobang_term_project.recycler.adapters.IngredientAdapter;
 import org.androidtown.seobang_term_project.recycler.adapters.IngredientListAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.IngredientViewHolder;
-import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     protected @BindView(R.id.edt)
     EditText edt;
     protected @BindView(R.id.btnSelect)
-    Button btnSelect;
+    ImageButton btnSelect;
     protected @BindView(R.id.showRecipeFromIngredient)
     Button showRecipe;
     protected @BindView(R.id.resetButton)
@@ -86,6 +86,12 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
     private IngredientListAdapter adapter;
     private IngredientAdapter resultAdapter;
     private Ingredient newIngredient;
+    List<Ingredient> ingredients_meat;
+    List<Ingredient> ingredients_fish ;
+    List<Ingredient> ingredients_veget;
+    List<Ingredient> ingredients_mushroom;
+    List<Ingredient> ingredients_seasoning;
+    List<Ingredient> ingredients_others;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +113,59 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         countCursor.getCount();
         countCursor.moveToNext();
         int cnt = countCursor.getInt(0);
+        int check = 1;
         countCursor.close();
+
+        String compareString;
+
+        for(int i = 0; i < ingredients_meat.size(); i++){
+            compareString = ingredients_meat.get(i).getIngredientType();
+            if(edt.getText().toString().compareTo(compareString) == 0) { //같다 즉 있으면
+                Toast.makeText(getApplicationContext(), "해당 재료는 고기류 리스트에 이미 존재합니다.", Toast.LENGTH_LONG).show();
+                cnt = 0;
+                check = 0;
+            }
+        }
+        for(int i = 0; i < ingredients_fish.size(); i++) {
+            compareString = ingredients_fish.get(i).getIngredientType();
+            if(edt.getText().toString().compareTo(compareString) == 0) { //같다 즉 있으면
+                Toast.makeText(getApplicationContext(), "해당 재료는 해산물 리스트에 이미 존재합니다.", Toast.LENGTH_LONG).show();
+                cnt = 0;
+                check = 0;
+            }
+        }
+        for(int i = 0; i < ingredients_mushroom.size(); i++){
+            compareString = ingredients_mushroom.get(i).getIngredientType();
+            if(edt.getText().toString().compareTo(compareString) == 0) { //같다 즉 있으면
+                Toast.makeText(getApplicationContext(), "해당 재료는 버섯류 리스트에 이미 존재합니다.", Toast.LENGTH_LONG).show();
+                cnt = 0;
+                check = 0;
+            }
+        }
+        for(int i = 0 ; i <ingredients_others.size(); i++){
+            compareString = ingredients_others.get(i).getIngredientType();
+            if(edt.getText().toString().compareTo(compareString) == 0) { //같다 즉 있으면
+                Toast.makeText(getApplicationContext(), "해당 재료는 기타재료 리스트에 이미 존재합니다.", Toast.LENGTH_LONG).show();
+                cnt = 0;
+                check = 0;
+            }
+        }
+        for(int i = 0; i < ingredients_seasoning.size(); i++){
+            compareString = ingredients_seasoning.get(i).getIngredientType();
+            if(edt.getText().toString().compareTo(compareString) == 0) { //같다 즉 있으면
+                Toast.makeText(getApplicationContext(), "해당 재료는 양념 리스트에 이미 존재합니다.", Toast.LENGTH_LONG).show();
+                cnt = 0;
+                check = 0;
+            }
+        }
+        for(int i = 0 ; i <ingredients_veget.size(); i++){
+            compareString = ingredients_veget.get(i).getIngredientType();
+            if(edt.getText().toString().compareTo(compareString) == 0) { //같다 즉 있으면
+                Toast.makeText(getApplicationContext(), "해당 재료는 채소류 리스트에 이미 존재합니다.", Toast.LENGTH_LONG).show();
+                cnt = 0;
+                check = 0;
+            }
+        }
 
         if (cnt != 0) {
             Ingredient newIngredient = new Ingredient(edt.getText().toString(), R.drawable.spoon);
@@ -115,15 +173,26 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
             resultAdapter.addItem(newIngredient);
             result = checkIsInResultForString(edt.getText().toString(), result);
         } else {
-            Toast.makeText(getApplicationContext(), "해당 재료는 없습니다.", Toast.LENGTH_LONG).show();
+            if(check == 1)
+                Toast.makeText(getApplicationContext(), "해당 재료는 없습니다.", Toast.LENGTH_LONG).show();
         }
         edt.setText("");
 //        result_layout.setVisibility(View.VISIBLE);
     }
 
+    private void initIngredients(){
+     ingredients_meat = new ArrayList<>();
+     ingredients_fish = new ArrayList<>();
+     ingredients_veget = new ArrayList<>();
+     ingredients_mushroom = new ArrayList<>();
+     ingredients_seasoning = new ArrayList<>();
+     ingredients_others = new ArrayList<>();
+    }
+
     //initialize data
     private void initData() {
-        List<Ingredient> ingredients_meat = new ArrayList<>();
+        initIngredients();
+        //List<Ingredient> ingredients_meat = new ArrayList<>();
         ingredients_meat.add(new Ingredient("돼지고기", R.drawable.meat));
         ingredients_meat.add(new Ingredient("돼지갈비", R.drawable.galbi));
         ingredients_meat.add(new Ingredient("소고기", R.drawable.beaf));
@@ -131,7 +200,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         ingredients_meat.add(new Ingredient("닭가슴살", R.drawable.chicken));
         ingredients_meat.add(new Ingredient("닭다리", R.drawable.chicken_leg));
 
-        List<Ingredient> ingredients_fish = new ArrayList<>();
+        //List<Ingredient> ingredients_fish = new ArrayList<>();
         ingredients_fish.add(new Ingredient("오징어", R.drawable.squid));
         ingredients_fish.add(new Ingredient("새우", R.drawable.shrimp));
         ingredients_fish.add(new Ingredient("조개", R.drawable.shellfish));
@@ -147,7 +216,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         ingredients_fish.add(new Ingredient("쭈꾸미", R.drawable.fish7));
         ingredients_fish.add(new Ingredient("도미", R.drawable.fish8));
 
-        List<Ingredient> ingredients_veget = new ArrayList<>();
+        //List<Ingredient> ingredients_veget = new ArrayList<>();
         ingredients_veget.add(new Ingredient("마늘", R.drawable.garlic));
         ingredients_veget.add(new Ingredient("무", R.drawable.radish));
         ingredients_veget.add(new Ingredient("양파", R.drawable.onion));
@@ -178,7 +247,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         ingredients_veget.add(new Ingredient("토마토", R.drawable.tomato));
         ingredients_veget.add(new Ingredient("무순", R.drawable.musoon));
 
-        List<Ingredient> ingredients_mushroom = new ArrayList<>();
+        //List<Ingredient> ingredients_mushroom = new ArrayList<>();
         ingredients_mushroom.add(new Ingredient("표고 버섯", R.drawable.pyogo));
         ingredients_mushroom.add(new Ingredient("느타리 버섯", R.drawable.neutari));
         ingredients_mushroom.add(new Ingredient("팽이 버섯", R.drawable.pengi));
@@ -186,7 +255,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         ingredients_mushroom.add(new Ingredient("목이 버섯", R.drawable.moki));
         ingredients_mushroom.add(new Ingredient("새송이 버섯", R.drawable.saesongi));
 
-        List<Ingredient> ingredients_seasoning = new ArrayList<>();
+        //List<Ingredient> ingredients_seasoning = new ArrayList<>();
         ingredients_seasoning.add(new Ingredient("소금", R.drawable.salt));
         ingredients_seasoning.add(new Ingredient("설탕", R.drawable.sugar));
         ingredients_seasoning.add(new Ingredient("청주", R.drawable.cheongju));
@@ -204,7 +273,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
         ingredients_seasoning.add(new Ingredient("맛술", R.drawable.matsul));
         ingredients_seasoning.add(new Ingredient("새우젓", R.drawable.saeujeot));
 
-        List<Ingredient> ingredients_others = new ArrayList<>();
+        //List<Ingredient> ingredients_others = new ArrayList<>();
         ingredients_others.add(new Ingredient("버터", R.drawable.butter));
         ingredients_others.add(new Ingredient("밥", R.drawable.bob));
         ingredients_others.add(new Ingredient("다시마", R.drawable.dasima));
