@@ -60,8 +60,16 @@ public class PageFragment extends Fragment {
     int intMinute;
     int intSecond;
 
+    LinearLayout cameraLayout;
+    LinearLayout historyLayout;
+    Animation hideBtn;
+    Animation showBtn;
+    Animation hideLayout;
+    Animation showLayout;
+
     boolean timerStateflag = false;
     CountDownTimer countDownTimer;
+
 
     public static PageFragment create(String pageContents) {
         PageFragment fragment = new PageFragment();
@@ -84,13 +92,13 @@ public class PageFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
-        final LinearLayout cameraLayout = rootView.findViewById(R.id.cameraLayout);
-        final LinearLayout historyLayout = rootView.findViewById(R.id.historyLayout);
+        cameraLayout = rootView.findViewById(R.id.cameraLayout);
+        historyLayout = rootView.findViewById(R.id.historyLayout);
 
-        final Animation hideBtn = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_button);
-        final Animation showBtn = AnimationUtils.loadAnimation(getActivity(), R.anim.show_button);
-        final Animation hideLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_layout);
-        final Animation showLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.show_layout);
+        hideBtn = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_button);
+        showBtn = AnimationUtils.loadAnimation(getActivity(), R.anim.show_button);
+        hideLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_layout);
+        showLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.show_layout);
         showLayout.setInterpolator(AnimationUtils.loadInterpolator(getActivity(), android.R.anim.bounce_interpolator));
 
         addToHistoryBtn = rootView.findViewById(R.id.addToHistory);
@@ -158,7 +166,13 @@ public class PageFragment extends Fragment {
 
         if (!mPageString.substring(mPageString.indexOf("|") + 1).isEmpty()) {
             RequestOptions options = new RequestOptions().placeholder(R.drawable.placeholder).override(250, 200);
-            Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).thumbnail(0.2f).apply(options).into(imageView);
+            String url = (mPageString.substring(mPageString.indexOf("|") + 1));
+            if (url.equals("No URL")) {
+                Log.e("no","no");
+                Glide.with(this).load("https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/default.png?raw=true").thumbnail(0.2f).apply(options).into(imageView);
+            } else {
+                Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).thumbnail(0.2f).apply(options).into(imageView);
+            }
         }
         return rootView;
     }
@@ -349,5 +363,14 @@ public class PageFragment extends Fragment {
             countDownTimer.cancel();
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        showFABBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4B8A3D")));
+        cameraLayout.setVisibility(View.GONE);
+        historyLayout.setVisibility(View.GONE);
+        cameraLayout.startAnimation(hideLayout);
+        historyLayout.startAnimation(hideLayout);
+        showFABBtn.startAnimation(hideBtn);
+    }
 }

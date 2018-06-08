@@ -72,7 +72,8 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/transparent"
-            android:text="수정" />
+            android:text="수정"
+            android:textColor="#ff000000" />
 
         <Button
             android:id="@+id/cancelBtn"
@@ -81,8 +82,9 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/transparent"
-            android:text="취소" />
+            android:text="취소"
+            android:textColor="#ff000000" />
 
     </LinearLayout>
 
-    </LinearLayout>
+</LinearLayout>

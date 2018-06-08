@@ -320,6 +320,7 @@ public class IngredientSelectActivity extends BaseActivity implements Ingredient
 
     @Override
     public void onItemClick(Ingredient ingredient, boolean isOnClicked) {
+        Log.e("IngredientSelectAct","onItemClick");
         if (ingredient.getIsListItem()) { // 리스트 아이템을 클릭한경우
             Toast.makeText(this, ingredient.getIngredientType() + "clicked: " + isOnClicked, Toast.LENGTH_SHORT).show();
             result = checkIsInResult(ingredient, result);

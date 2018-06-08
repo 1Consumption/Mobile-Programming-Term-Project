@@ -11,9 +11,9 @@
         android:id="@+id/item_ingredient_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:civ_border_width="2dp"
         app:civ_border_color="@android:color/darker_gray"
-        tools:src="@drawable/lettuce"/>
+        app:civ_border_width="2dp"
+        tools:src="@drawable/lettuce" />
 
     <TextView
         android:id="@+id/item_ingredient_name"
@@ -21,5 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="6dp"
-        tools:text="item"/>
+        android:textColor="#ff000000"
+        tools:text="item" />
 </LinearLayout>

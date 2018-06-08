@@ -14,9 +14,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:gravity="center_vertical"
             android:text="경고"
-            android:layout_gravity="center_horizontal"
             android:textColor="#ffffffff"
             android:textSize="20dp" />
 
@@ -30,12 +30,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="해당 히스토리는 삭제 됩니다!"
             android:textColor="#ff000000"
-            android:textSize="18dp"/>
+            android:textSize="18dp" />
 
     </LinearLayout>
 
@@ -55,20 +55,22 @@
         <Button
             android:id="@+id/confirmBtn"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:background="@color/transparent"
-            android:text="확인" />
+            android:text="확인"
+            android:textColor="#ff000000" />
 
         <Button
             android:id="@+id/cancelBtn_2"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:background="@color/transparent"
-            android:text="취소" />
+            android:text="취소"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
 </LinearLayout>

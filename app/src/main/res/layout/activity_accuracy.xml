@@ -54,7 +54,8 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:background="#00000000"
-            android:text="확인" />
+            android:text="확인"
+            android:textColor="#ff000000" />
 
         <Button
             android:id="@+id/seekbarCancel"
@@ -62,7 +63,8 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:background="#00000000"
-            android:text="취소" />
+            android:text="취소"
+            android:textColor="#ff000000" />
 
     </LinearLayout>
 

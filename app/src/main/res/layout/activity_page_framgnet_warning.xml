@@ -71,7 +71,8 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/transparent"
-            android:text="확인" />
+            android:text="확인"
+            android:textColor="#ff000000" />
 
         <Button
             android:id="@+id/noButton"
@@ -80,7 +81,8 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/transparent"
-            android:text="취소" />
+            android:text="취소"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
 </LinearLayout>
