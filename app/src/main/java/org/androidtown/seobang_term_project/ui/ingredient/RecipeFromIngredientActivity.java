@@ -1,6 +1,5 @@
 package org.androidtown.seobang_term_project.ui.ingredient;
 
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -13,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
@@ -62,6 +62,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
     RecyclerView rec;
     TextView text;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
         rec = findViewById(R.id.recyclerView_2);
         text = findViewById(R.id.noList_recipe);
+        img = findViewById(R.id.sadImg);
 
         calTotal();
 
@@ -263,6 +265,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         }
 
         if (percentCount != 0) {
+            img.setVisibility(View.INVISIBLE);
             text.setVisibility(View.INVISIBLE);
             rec.setVisibility(View.VISIBLE);
         }

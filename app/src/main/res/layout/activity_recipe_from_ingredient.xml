@@ -27,11 +27,20 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
+    <ImageView
+        android:id="@+id/sadImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sad"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        />
+
     <TextView
         android:id="@+id/noList_recipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="정확도에 맞는 요리가 없어요!"
+        android:text="일치하는 요리가 없어요!"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
