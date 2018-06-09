@@ -169,9 +169,9 @@ public class PageFragment extends Fragment {
             String url = (mPageString.substring(mPageString.indexOf("|") + 1));
             if (url.equals("No URL")) {
                 Log.e("no","no");
-                Glide.with(this).load("https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/default.png?raw=true").thumbnail(0.2f).apply(options).into(imageView);
+                Glide.with(this).load("https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/default.png?raw=true").apply(options).into(imageView);
             } else {
-                Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).thumbnail(0.2f).apply(options).into(imageView);
+                Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).thumbnail(0.5f).apply(options).into(imageView);
             }
         }
         return rootView;
@@ -373,4 +373,6 @@ public class PageFragment extends Fragment {
         historyLayout.startAnimation(hideLayout);
         showFABBtn.startAnimation(hideBtn);
     }
+
+
 }

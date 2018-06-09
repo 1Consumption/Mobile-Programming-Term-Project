@@ -140,4 +140,10 @@ public class RecipeActivity extends BaseActivity {
     public Boolean getTimerOn() {
         return timerOn;
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+//
+    }
 }
