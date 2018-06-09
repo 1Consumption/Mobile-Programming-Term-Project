@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2d334e"
+    android:id="@+id/layout_intro2"
+    android:layout_weight="10"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_intro"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/tap"
+                android:layout_marginLeft="140dp"
+                android:layout_marginTop="5dp"/>
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_intro"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/tap"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="45dp"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/tap"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="110dp"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/tap"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="170dp"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/tap"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="230dp"/>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="일치도 설정과 매뉴 선택"
+            android:textColor="#ffffff"
+            android:textSize="28sp"
+            android:id="@+id/textView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:text="사용자는 오른쪽 설정에서 일치도를 설정할 수 있고 \n 각 기능을 가진 매뉴를 선택할 수 있습니다."
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64dp" />
+
+
+</LinearLayout>

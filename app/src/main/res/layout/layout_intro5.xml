@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0a9184"
+    android:background="#2d334e"
     android:id="@+id/layout_intro2"
     android:layout_weight="10"
     android:orientation="vertical">
@@ -15,18 +15,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="10"
         android:gravity="center"
-        android:orientation="vertical">
-        <ImageView
+        android:orientation="horizontal">
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/grill"
-            android:layout_gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:id="@+id/img_statistics"/>
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/history_intro"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"/>
+
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/history_intro2"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"/>
+
+
+        </FrameLayout>
+
 
     </LinearLayout>
 
@@ -39,7 +59,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="요리의 재미"
+        android:text="사진 공유 히스토리"
         android:textColor="#ffffff"
         android:textSize="28sp"
         android:id="@+id/textView"/>
@@ -52,19 +72,27 @@
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:text="'서방; 요리를 하다'는 \n사용자에게 요리 방법을 제공해서 \n직접 요리 하는 재미를 가질 수 있도록 합니다."
+        android:text="사용자는 요리를 만든 후 사진 찍어 공유하거나 \n자신의 기록에 추가할 수 있습니다."
         android:textColor="#ffffff"
         android:textSize="18sp"
         />
 
-    <Space
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp"
+        android:text="자! 그럼 시작해 볼까요?"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="64dp" />
+        android:layout_height="20dp" />
 
 
 </LinearLayout>
