@@ -46,6 +46,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     ArrayList<String> waterWeight = new ArrayList<>();
     ArrayList<String> yuksuWeight = new ArrayList<>();
 
+    ArrayList<Cursor> cursorList = new ArrayList<>();
+
     int recipeLength = 0;
     int cnt = 0;
 
@@ -288,12 +290,12 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     }
 
     private String getFoodName(String code) {
-        Cursor[] cursor = new Cursor[100];
-        cursor[cursorFlag] = db_info.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + code + "\"", null);
-        cursor[cursorFlag].moveToNext();
-        String name = cursor[cursorFlag].getString(0);
-        cursor[cursorFlag].close();
-
+        cursorList.add(db_info.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + code + "\"", null));
+        Cursor temp = cursorList.get(0);
+        temp.moveToNext();
+        String name = temp.getString(0);
+        temp.close();
+        cursorList.remove(0);
         return name;
     }
 
