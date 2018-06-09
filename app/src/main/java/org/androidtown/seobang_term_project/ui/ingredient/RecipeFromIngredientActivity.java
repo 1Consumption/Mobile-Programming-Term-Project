@@ -1,5 +1,6 @@
 package org.androidtown.seobang_term_project.ui.ingredient;
 
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -33,6 +34,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     public static final String TABLE_NAME = "recipe_ingredient_info";
     public static final String DB_Name_2 = "recipe_basic_information.db";
     public static final String TABLE_NAME_2 = "recipe_basic_information";
+    public static int cursorFlag = -1;
 
     public SQLiteDatabase db;
     public SQLiteDatabase db_info;
@@ -63,6 +65,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewById(R.layout.activity_recipe_from_ingredient);
+        cursorFlag++;
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
         DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
 
@@ -160,6 +163,9 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         }
 
+        for (int i = 0; i < recipeList.size(); i++)
+            Log.e("도출스", recipeList.get(i));
+
         getWaterWeight();
         getYuksuWeight();
         plusWaterWeight();
@@ -182,8 +188,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 //            }
 //        }
 
-        for (int i = 0; i < recipeList.size(); i++)
-            Log.e("도출스", recipeList.get(i));
 
         for (int i = 0; i < recipeList.size(); i++) {
             double weight = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf("w") + 1, recipeList.get(i).indexOf("t")));
@@ -249,7 +253,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 //                Log.e("iValue", recipeList.get(i));
                 Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
                 String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
-                if (percent > accuracy)
+                if (percent >= accuracy)
                     mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
                 else
                     continue;
@@ -267,7 +271,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             for (int i = (index - 1) * 10; i < index * 10; i++) {
                 Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
                 String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
-                if (percent > accuracy)
+                if (percent >= accuracy)
                     mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
                 else
                     continue;
@@ -284,10 +288,11 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     }
 
     private String getFoodName(String code) {
-        Cursor cursor = db_info.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + code + "\"", null);
-        startManagingCursor(cursor);
-        cursor.moveToNext();
-        String name = cursor.getString(0);
+        Cursor[] cursor = new Cursor[100];
+        cursor[cursorFlag] = db_info.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + code + "\"", null);
+        cursor[cursorFlag].moveToNext();
+        String name = cursor[cursorFlag].getString(0);
+        cursor[cursorFlag].close();
 
         return name;
     }
@@ -357,7 +362,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             String temp = cursor.getString(0);
             temp += "," + cursor.getString(1);
             waterWeight.add(temp);
-            Log.e("물",temp);
+            Log.e("물", temp);
         }
     }
 
@@ -367,7 +372,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             String temp = cursor.getString(0);
             temp += "," + cursor.getString(1);
             yuksuWeight.add(temp);
-            Log.e("육수",temp);
+            Log.e("육수", temp);
         }
     }
 
@@ -376,7 +381,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf("w"));
             Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
             String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
-            Log.e("여기는 물 웨이트",recipeCode+"w"+String.valueOf(recipeWeight)+"t"+recipeTotal);
+            Log.e("여기는 물 웨이트", recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal);
             for (int j = 0; j < waterWeight.size(); j++) {
                 String[] weight = waterWeight.get(j).split(",");
                 String waterRecipeCode = weight[0];
@@ -386,7 +391,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                     recipeWeight += waterWeight;
                     String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
                     recipeList.set(i, newRecipe);
-                    Log.e("워터 더하기","성공!");
+                    Log.e("워터 더하기", "성공!");
                     break;
                 }
 
@@ -400,7 +405,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
             String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
 
-            Log.e("여기는 육수 웨이트",recipeCode+"w"+String.valueOf(recipeWeight)+"t"+recipeTotal);
+            Log.e("여기는 육수 웨이트", recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal);
             for (int j = 0; j < yuksuWeight.size(); j++) {
                 String[] weight = yuksuWeight.get(j).split(",");
                 String yuksuRecipeCode = weight[0];
@@ -410,7 +415,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                     recipeWeight += yuksuWeight;
                     String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
                     recipeList.set(i, newRecipe);
-                    Log.e("육수 더하기","성공!");
+                    Log.e("육수 더하기", "성공!");
                     break;
                 }
 
