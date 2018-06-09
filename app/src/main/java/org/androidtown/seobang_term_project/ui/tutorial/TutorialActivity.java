@@ -26,6 +26,8 @@ public class TutorialActivity extends AppIntro {
         addSlide(SlideFragment.newInstance(R.layout.layout_intro1));
         addSlide(SlideFragment.newInstance(R.layout.layout_intro2));
         addSlide(SlideFragment.newInstance(R.layout.layout_intro3));
+        addSlide(SlideFragment.newInstance(R.layout.layout_intro4));
+        addSlide(SlideFragment.newInstance(R.layout.layout_intro5));
     }
 
     @Override
