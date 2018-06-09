@@ -4,19 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/noList_one"
+    <LinearLayout
+        android:id="@+id/noRecipeLayout_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@color/md_green_200"
-        android:text="아직 먹은 요리가 없어요!"
-        android:textColor="@color/black_title"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/sad" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/noList_recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/md_green_200"
+            android:text="아직 먹은 요리가 없어요!"
+            android:textColor="@color/black_title"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="5dp"
@@ -60,6 +74,7 @@
     </LinearLayout>
 
     <View
+        android:visibility="invisible"
         android:id="@+id/viewView"
         android:layout_below="@+id/tempLinear"
         android:background="#66000000"

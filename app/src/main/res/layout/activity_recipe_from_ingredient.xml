@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/tempAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tempAppBar">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -27,31 +27,37 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/sadImg"
+    <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/noRecipeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/sad"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        />
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/noList_recipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="일치하는 요리가 없어요!"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textColor="@color/black_title"
-        android:textSize="25dp"
-        android:background="@color/md_green_200"/>
+        <ImageView
+            android:id="@+id/sadImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/sad" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/noList_recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/md_green_200"
+            android:text="일치하는 요리가 없어요!"
+            android:textColor="@color/black_title"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:visibility="invisible"
-        android:layout_below="@+id/tempAppBar"
         android:id="@+id/recyclerView_2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tempAppBar"
+        android:visibility="invisible" />
 </RelativeLayout>

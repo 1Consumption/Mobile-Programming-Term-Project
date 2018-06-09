@@ -29,15 +29,14 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
     SQLiteDatabase db;
     MySQLiteOpenHelper helper;
 
-    String[] list = new String[500];
-    int listLength = 0;
+    ArrayList<String> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         helper = new MySQLiteOpenHelper(getContext(), "frequency.db", null, 3);
         View view = inflater.inflate(R.layout.history_two, container, false);
         if (countAll() != 0) {
-            view.findViewById(R.id.noList).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.noRecipeLayout_3).setVisibility(View.INVISIBLE);
             pieChart = (PieChart) view.findViewById(R.id.piechart);
             pieChart.setVisibility(View.VISIBLE);
             pieChart.setUsePercentValues(true);
@@ -53,22 +52,23 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
             ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();
 
             for (int i = 0; i < countAll(); i++) {
-                for(int j=0;j<countAll()-i-1;j++){
-                    if(Integer.parseInt(list[j].substring(list[j].indexOf(",")+1))<=Integer.parseInt(list[j+1].substring(list[j+1].indexOf(",")+1))){
-                        String temp=list[j];
-                        list[j]=list[j+1];
-                        list[j+1]=temp;
+                for (int j = 0; j < countAll() - i - 1; j++) {
+                    int curTimes = Integer.parseInt(list.get(j).substring(list.get(j).indexOf(",") + 1));
+                    int nextTimes = Integer.parseInt(list.get(j + 1).substring(list.get(j + 1).indexOf(",") + 1));
+                    if (curTimes <= nextTimes) {
+                        String temp = list.get(j);
+                        list.set(j, list.get(j + 1));
+                        list.set(j + 1, temp);
                     }
                 }
             }
 
-            for (int i = 0; i < listLength; i++) {
-                String name = list[i].substring(0, list[i].indexOf(","));
-                int frequency = Integer.parseInt(list[i].substring(list[i].indexOf(",") + 1));
+            for (int i = 0; i < list.size(); i++) {
+                String name = list.get(i).substring(0, list.get(i).indexOf(","));
+                int frequency = Integer.parseInt(list.get(i).substring(list.get(i).indexOf(",") + 1));
                 yValues.add(new PieEntry((((float) frequency / (float) (countFrequencyAll()) * 100)), name));
             }
 
-//            yValues.add(new PieEntry(10f, ""));
 
             Description description = new Description();
             description.setText("요리 목록(%)"); //라벨
@@ -109,16 +109,14 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
     public void delete(String id) {
         db = helper.getWritableDatabase();
         db.delete("frequency", "id=?", new String[]{id});
-        Log.i("db1", id + "정상적으로 삭제 되었습니다.");
     }
 
     public void select(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id+"\"", null);
+        Cursor c = db.rawQuery("select id,frequency from frequency where id=\"" + id + "\"", null);
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String _id = c.getString(c.getColumnIndex("id"));
-            Log.i("db1", "id: " + _id + ", frequency : " + String.valueOf(frequency));
         }
     }
 
@@ -128,15 +126,13 @@ public class HistoryTwoFragment extends android.support.v4.app.Fragment {
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String id = c.getString(c.getColumnIndex("id"));
-            list[listLength] = id + "," + String.valueOf(frequency);
-            listLength++;
-            Log.i("db1", "id: " + id + ", frequency : " + frequency);
+            list.add(id + "," + String.valueOf(frequency));
         }
     }
 
     public int countFrequency(String id) {
         db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id+"\"", null);
+        Cursor c = db.rawQuery("select count(frequency),frequency from frequency where id=\"" + id + "\"", null);
         c.moveToNext();
         if (c.getInt(0) == 0)
             return 0;

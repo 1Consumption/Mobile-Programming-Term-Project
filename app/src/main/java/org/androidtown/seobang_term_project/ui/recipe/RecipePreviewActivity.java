@@ -8,14 +8,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -54,7 +52,7 @@ public class RecipePreviewActivity extends BaseActivity {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
     public static final String DB_Name = "recipe_basic_information.db";
     public static final String TABLE_NAME = "recipe_basic_information";
-    public static final String DB_Name_2 = "test_ingredient_4.db";
+    public static final String DB_Name_2 = "ingredient_info_modify_weight.db";
     public static final String TABLE_NAME_2 = "recipe_ingredient_info";
 
     private SQLiteDatabase db;
@@ -65,7 +63,6 @@ public class RecipePreviewActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("onCreate", "생성되었다");
         super.onCreate(savedInstanceState);
         setContentViewById(R.layout.activity_recipe_preview);
         setToolbarName("레시피 미리보기 - " + getSelectedRecipeName());

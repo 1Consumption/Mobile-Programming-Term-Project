@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
@@ -35,11 +34,8 @@ public class RecipeActivity extends BaseActivity {
 
     private SQLiteDatabase db;
     private Cursor cursor;
-    private SQLiteDatabase db_2;
-    private Cursor cursor_2;
 
     public static Boolean timerOn = false;
-    public static Boolean dialogFlag=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +47,6 @@ public class RecipeActivity extends BaseActivity {
 
         String result = getSelectedRecipeId();
 
-        Log.e("ASDSDASD", result);
-//
-//        db_2 = DatabaseFactory.create(this, DB_Name_2);
-//        cursor_2 = db_2.rawQuery("SELECT recipe_name FROM " + TABLE_NAME_2 + " WHERE recipe_code=\"" + result + "\"", null);
-//        cursor_2.moveToNext();
-//        String name=cursor_2.getString(0);
         String name = getSelectedRecipeName();
         db = DatabaseFactory.create(this, DB_Name);
         cursor = db.rawQuery("SELECT process,explanation,url FROM " + TABLE_NAME + " WHERE recipe_code=\"" + result + "\"", null); //쿼리문
@@ -73,7 +63,6 @@ public class RecipeActivity extends BaseActivity {
         strRecipeProcess = strRecipeProcess.substring(0, strRecipeProcess.length() - 1);
 
         RecipeProcess = strRecipeProcess.split("#");
-        Log.e("LENGTH", String.valueOf(RecipeProcess.length));
 
         QuickSortString.sort(RecipeProcess, 0, RecipeProcess.length - 1);
         RecipeProcess[RecipeProcess.length - 1] += "last";
@@ -145,23 +134,27 @@ public class RecipeActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder alert_ex = new AlertDialog.Builder(this);
-        alert_ex.setMessage("정말로 종료하시겠습니까?\n실행중인 타이머는 종료됩니다.");
+        if (timerOn == true) {
+            AlertDialog.Builder alert_ex = new AlertDialog.Builder(this);
+            alert_ex.setMessage("정말로 종료하시겠습니까?\n실행 중인 타이머는 종료됩니다.");
 
-        alert_ex.setPositiveButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+            alert_ex.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-        alert_ex.setNegativeButton("종료", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                RecipeActivity.super.onBackPressed();
-            }
-        });
-        alert_ex.setTitle("경고!");
-        AlertDialog alert = alert_ex.create();
-        alert.show();
+                }
+            });
+            alert_ex.setNegativeButton("종료", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    RecipeActivity.super.onBackPressed();
+                }
+            });
+            alert_ex.setTitle("경고!");
+            AlertDialog alert = alert_ex.create();
+            alert.show();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

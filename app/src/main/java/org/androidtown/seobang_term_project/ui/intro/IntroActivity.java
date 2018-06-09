@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 
 import org.androidtown.seobang_term_project.R;
@@ -32,7 +31,6 @@ public class IntroActivity extends AppCompatActivity {
         applySharedPreference();
         Drawable alpha = ((ImageView) findViewById(R.id.logo)).getDrawable();
         alpha.setAlpha(80);
-        Log.e("STATE",String.valueOf(State));
         handler = new Handler();
         handler.postDelayed(pass, 2000);
     }
@@ -71,7 +69,6 @@ public class IntroActivity extends AppCompatActivity {
         preference = getSharedPreferences("isFirst", MODE_PRIVATE);
         if (preference != null && preference.contains("State")) {
             State = preference.getBoolean("State", true);
-            Log.e("tempAccuracy", String.valueOf(State));
         }
     }
 }

@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
+import org.androidtown.seobang_term_project.ui.main.MainActivity;
 import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 import java.text.SimpleDateFormat;
@@ -109,7 +109,6 @@ public class HistoryActivity extends BaseActivity {
     public void delete(String id) {
         db = helper.getWritableDatabase();
         db.delete("frequency", "id=?", new String[]{id});
-        Log.i("db1", id + "정상적으로 삭제 되었습니다.");
     }
 
     public void select(String id) {
@@ -118,7 +117,6 @@ public class HistoryActivity extends BaseActivity {
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String _id = c.getString(c.getColumnIndex("id"));
-            Log.i("db1", "id: " + _id + ", frequency : " + String.valueOf(frequency));
         }
     }
 
@@ -128,7 +126,6 @@ public class HistoryActivity extends BaseActivity {
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String id = c.getString(c.getColumnIndex("id"));
-            Log.i("db1", "id: " + id + ", frequency : " + frequency);
         }
     }
 
@@ -150,5 +147,12 @@ public class HistoryActivity extends BaseActivity {
         return Integer.parseInt(c.getString(0));
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
 }
 

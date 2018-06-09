@@ -30,11 +30,12 @@ import java.util.ArrayList;
 
 public class RecipeFromIngredientActivity extends BaseActivity implements RecipeViewHolder.Delegate {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "test_ingredient_4.db";
+    public static final String DB_Name = "ingredient_info_modify_weight.db";
     public static final String TABLE_NAME = "recipe_ingredient_info";
     public static final String DB_Name_2 = "recipe_basic_information.db";
     public static final String TABLE_NAME_2 = "recipe_basic_information";
-    public static int cursorFlag = -1;
+
+    public Boolean loadingFlag = false;
 
     public SQLiteDatabase db;
     public SQLiteDatabase db_info;
@@ -45,10 +46,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     ArrayList<String> mapping = new ArrayList<>();
     ArrayList<String> waterWeight = new ArrayList<>();
     ArrayList<String> yuksuWeight = new ArrayList<>();
-
     ArrayList<Cursor> cursorList = new ArrayList<>();
 
-    int recipeLength = 0;
     int cnt = 0;
 
     double totalWeight = 0;
@@ -68,11 +67,10 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewById(R.layout.activity_recipe_from_ingredient);
-        cursorFlag++;
+
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
         DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
 
-        Log.e("RecipeFromIngredient", "onCreate");
 
         db = DatabaseFactory.create(this, DB_Name);
         db_info = DatabaseFactory.create(this, DB_Name_2);
@@ -81,6 +79,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
         String received = bundle.getString("result");
         String[] ingredient = received.split(",");
+
 
         rec = findViewById(R.id.recyclerView_2);
         text = findViewById(R.id.noList_recipe);
@@ -91,9 +90,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         SharedPreferences preferences = getSharedPreferences("Accuracy", MODE_PRIVATE);
         accuracy = preferences.getInt("Accuracy", 50);
 
-        for (int i = 0; i < ingredient.length; i++)
-            Log.e("RecipeFromIngredient", "\"" + ingredient[i] + "\"");
-
 
         for (int i = 0; i < ingredient.length; i++) {
             cursor = db.rawQuery("SELECT recipe_code,weight FROM recipe_ingredient_info WHERE ingredient_name=\"" + ingredient[i] + "\"", null); //쿼리문
@@ -102,13 +98,9 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                 String temp = cursor.getString(0);
                 temp += "w" + cursor.getString(1);
                 tempList.add(temp);
-                Log.e("zzz", "zzzz");
             }
         }
         QuickSortArrayList.sort(tempList, 0, tempList.size() - 1);
-
-        for (int i = 0; i < tempList.size(); i++)
-            Log.e("test", tempList.get(i));
 
 
         if (tempList.size() == 1) {
@@ -167,31 +159,10 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         }
 
-        for (int i = 0; i < recipeList.size(); i++)
-            Log.e("도출스", recipeList.get(i));
-
         getWaterWeight();
         getYuksuWeight();
         plusWaterWeight();
         plusYuksuWeight();
-//        for (int i = 0; i < recipeList.size(); i++) {
-//            String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf("w"));
-//            Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
-//            String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
-//            for (int j = 0; j < waterWeight.size(); j++) {
-//                String[] weight = waterWeight.get(i).split(",");
-//                String waterRecipeCode = weight[0];
-//                Double waterWeight = Double.parseDouble(weight[i]);
-//
-//                if (waterRecipeCode.equals(recipeCode)) {
-//                    recipeWeight += waterWeight;
-//                    String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
-//                    recipeList.set(i, newRecipe);
-//                }
-//
-//            }
-//        }
-
 
         for (int i = 0; i < recipeList.size(); i++) {
             double weight = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf("w") + 1, recipeList.get(i).indexOf("t")));
@@ -242,9 +213,9 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         }
 
-        if (recipeLength < 10) {
+        if (recipeList.size() < 10) {
             for (int i = 0; i < recipeList.size(); i++) {
-                //Log.e("iValue", recipeList.get(i));
+
                 Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
                 String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
                 if (percent > accuracy)
@@ -254,7 +225,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         } else {
             for (int i = 0; i < 10; i++) {
-//                Log.e("iValue", recipeList.get(i));
                 Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
                 String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
                 if (percent >= accuracy)
@@ -264,22 +234,35 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             }
         }
 
+        loadingFlag = true;
+
         if (percentCount != 0) {
-            img.setVisibility(View.INVISIBLE);
-            text.setVisibility(View.INVISIBLE);
             rec.setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.noRecipeLayout).setVisibility(View.VISIBLE);
         }
     }
 
     private void loadMore() {
         if ((index * 10) <= recipeList.size()) {
-            for (int i = (index - 1) * 10; i < index * 10; i++) {
-                Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
-                String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
-                if (percent >= accuracy)
-                    mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
-                else
-                    continue;
+            if ((index + 1) * 10 > recipeList.size()) {
+                for (int i = (index - 1) * 10; i < recipeList.size(); i++) {
+                    Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
+                    String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                    if (percent >= accuracy)
+                        mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
+                    else
+                        continue;
+                }
+            } else {
+                for (int i = (index - 1) * 10; i < index * 10; i++) {
+                    Double percent = Double.parseDouble(recipeList.get(i).substring(recipeList.get(i).indexOf(",") + 1));
+                    String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf(","));
+                    if (percent >= accuracy)
+                        mAdapter.addItem(new Recipe(getFoodName(recipeCode), getFoodPreviewImage(recipeCode)));
+                    else
+                        continue;
+                }
             }
             index++;
         }
@@ -332,7 +315,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         super.onDestroy();
         db.close();
         db_info.close();
-        Log.e("디스트로이", "ㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
     }
 
     @Override
@@ -342,13 +324,11 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
         db = DatabaseFactory.create(this, DB_Name);
         db_info = DatabaseFactory.create(this, DB_Name_2);
-        Log.e("RecipeFromIngredient", "onRestart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("RecipeFromIngredient", "onResume");
     }
 
     public void calTotal() {
@@ -358,7 +338,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             temp += "," + cursor.getString(1);
             mapping.add(temp);
         }
-        Log.e("totalCount", String.valueOf(mapping.size()));
     }
 
     public void getWaterWeight() {
@@ -367,7 +346,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             String temp = cursor.getString(0);
             temp += "," + cursor.getString(1);
             waterWeight.add(temp);
-            Log.e("물", temp);
         }
     }
 
@@ -377,7 +355,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             String temp = cursor.getString(0);
             temp += "," + cursor.getString(1);
             yuksuWeight.add(temp);
-            Log.e("육수", temp);
         }
     }
 
@@ -386,7 +363,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf("w"));
             Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
             String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
-            Log.e("여기는 물 웨이트", recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal);
             for (int j = 0; j < waterWeight.size(); j++) {
                 String[] weight = waterWeight.get(j).split(",");
                 String waterRecipeCode = weight[0];
@@ -396,7 +372,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                     recipeWeight += waterWeight;
                     String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
                     recipeList.set(i, newRecipe);
-                    Log.e("워터 더하기", "성공!");
                     break;
                 }
 
@@ -410,7 +385,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
             String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
 
-            Log.e("여기는 육수 웨이트", recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal);
             for (int j = 0; j < yuksuWeight.size(); j++) {
                 String[] weight = yuksuWeight.get(j).split(",");
                 String yuksuRecipeCode = weight[0];
@@ -420,7 +394,6 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                     recipeWeight += yuksuWeight;
                     String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
                     recipeList.set(i, newRecipe);
-                    Log.e("육수 더하기", "성공!");
                     break;
                 }
 

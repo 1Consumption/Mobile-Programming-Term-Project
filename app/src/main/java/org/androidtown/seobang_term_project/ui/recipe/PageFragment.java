@@ -1,28 +1,22 @@
 
 package org.androidtown.seobang_term_project.ui.recipe;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -168,7 +162,6 @@ public class PageFragment extends Fragment {
             RequestOptions options = new RequestOptions().placeholder(R.drawable.placeholder).override(250, 200);
             String url = (mPageString.substring(mPageString.indexOf("|") + 1));
             if (url.equals("No URL")) {
-                Log.e("no","no");
                 Glide.with(this).load(R.drawable.default_2).into(imageView);
             } else {
 //                Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).into(imageView);
@@ -254,20 +247,15 @@ public class PageFragment extends Fragment {
 
             time = (int) extractedTime;
             tempTime = time + 1;
-            Log.e("timetime", String.valueOf(time));
             timerStartButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    Log.e("timerOn", String.valueOf(RecipeActivity.timerOn));
                     if (RecipeActivity.timerOn == false && timerStateflag == false) {
                         RecipeActivity.timerOn = true;
                         timerStateflag = true;
-                        Log.e("timerOn", String.valueOf(RecipeActivity.timerOn));
-                        Log.e("extracedTime", String.valueOf(tempTime));
                         countDownTimer = setTimer(processString, tempTime);
                         countDownTimer.start();
 
                     } else if (RecipeActivity.timerOn == true) {
-                        Log.e("asda", "ㄴㄴ");
                         Toast.makeText(getActivity().getApplicationContext(), "이미 다른 타이머를 실행 중입니다!", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -295,7 +283,6 @@ public class PageFragment extends Fragment {
                     intMinute = ((tempTime - 1) - (intHour * 3600)) / 60;
                     intSecond = ((tempTime - 1) - (intHour * 3600 + intMinute * 60));
 
-                    Log.e("timer", String.valueOf(tempTime));
                     hour.setText(String.format("%02d", intHour));
                     minute.setText(String.format("%02d", intMinute));
                     second.setText(String.format("%02d", intSecond));
@@ -312,7 +299,6 @@ public class PageFragment extends Fragment {
                 intHour = tempTime / 3600;
                 intMinute = (tempTime - (intHour * 3600)) / 60;
                 intSecond = (tempTime - (intHour * 3600 + intMinute * 60));
-                Log.e("timer", String.valueOf(tempTime));
                 hour.setText(String.format("%02d", intHour));
                 minute.setText(String.format("%02d", intMinute));
                 second.setText(String.format("%02d", intSecond));
@@ -362,8 +348,8 @@ public class PageFragment extends Fragment {
         super.onDestroyView();
         if (countDownTimer != null)
             countDownTimer.cancel();
-        RecipeActivity.timerOn=false;
-        timerStateflag=false;
+        RecipeActivity.timerOn = false;
+        timerStateflag = false;
     }
 
     @Override

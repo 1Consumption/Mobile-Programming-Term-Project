@@ -22,6 +22,7 @@ public class PowerMenuUtils {
         return new PowerMenu.Builder(context)
                 .addItem(new PowerMenuItem("튜토리얼", false))
                 .addItem(new PowerMenuItem("일치도 설정", false))
+                .addItem(new PowerMenuItem("요리 사진 찍기", false))
                 .setLifecycleOwner(lifecycleOwner)
                 .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
                 .setMenuRadius(10f)

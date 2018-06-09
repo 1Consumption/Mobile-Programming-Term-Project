@@ -5,5 +5,9 @@
         android:title="튜토리얼" />
     <item
         android:id="@+id/m2"
-        android:title="정확도 설정"/>
+        android:title="일치도 설정"/>
+
+    <item
+        android:id="@+id/m3"
+        android:title="요리 사진 찍기"/>
 </menu>

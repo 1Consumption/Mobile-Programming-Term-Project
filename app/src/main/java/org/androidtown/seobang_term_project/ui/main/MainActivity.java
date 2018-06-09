@@ -24,6 +24,7 @@ import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
 import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
 import org.androidtown.seobang_term_project.ui.info.InfoActivity;
 import org.androidtown.seobang_term_project.ui.ingredient.IngredientSelectActivity;
+import org.androidtown.seobang_term_project.ui.recipe.CameraActivity;
 import org.androidtown.seobang_term_project.ui.recipe.RecipeSelectActivity;
 import org.androidtown.seobang_term_project.ui.tutorial.TutorialActivity;
 import org.androidtown.seobang_term_project.utils.PowerMenuUtils;
@@ -93,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     Intent intent1 = new Intent(getApplicationContext(), AccuracyActivity.class);
                     startActivity(intent1);
+                    break;
+                case 2:
+                    Intent intent2 = new Intent(getApplicationContext(), CameraActivity.class);
+                    startActivity(intent2);
                     break;
                 default:
                     break;

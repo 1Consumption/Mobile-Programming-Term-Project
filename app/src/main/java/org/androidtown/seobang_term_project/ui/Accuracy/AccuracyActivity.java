@@ -3,7 +3,6 @@ package org.androidtown.seobang_term_project.ui.Accuracy;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -44,12 +43,11 @@ public class AccuracyActivity extends Activity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Log.e("seekbar", "start");
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.e("seekbar", "stop");
+
             }
         });
 
@@ -85,7 +83,6 @@ public class AccuracyActivity extends Activity {
             int Accuracy = sh_Pref.getInt("Accuracy", 50);
             textView.setText("일치도 : " + Accuracy + "%");
             tempAccuracy = Accuracy;
-            Log.e("tempAccuracy",String.valueOf(Accuracy));
         }
     }
 }

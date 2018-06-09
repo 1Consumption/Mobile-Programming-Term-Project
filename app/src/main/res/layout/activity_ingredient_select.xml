@@ -26,6 +26,17 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/setAccuracy"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="10dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/settings"
+                android:tint="#ffffffff" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

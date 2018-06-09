@@ -3,7 +3,6 @@ package org.androidtown.seobang_term_project.ui.history;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,6 @@ public class HistoryAdapter extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putString("RecipeName", title.getText().toString());
                 bundle.putString("selectedRecipe", listViewItem.getCode());
-                Log.e("title", title.getText().toString());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
@@ -103,7 +101,6 @@ public class HistoryAdapter extends BaseAdapter {
         HistoryList item = new HistoryList();
 
         item.setImg(URL);
-        Log.e("setImg", URL);
         item.setTitle(title);
         item.setContext(desc);
         item.setCode(code);

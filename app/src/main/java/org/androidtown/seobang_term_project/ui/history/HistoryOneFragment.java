@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class HistoryOneFragment extends android.support.v4.app.Fragment {
 
@@ -29,27 +30,24 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
     private ListView listview;
     private HistoryAdapter adapter;
 
-    String[] list = new String[500];
-    int listLength = 0;
-
+    ArrayList<String> list = new ArrayList<>();
     boolean flag = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        String[] URLList = new String[500];
-
         View view = inflater.inflate(R.layout.history_one, container, false);
         helper = new MySQLiteOpenHelper(getContext(), "frequency.db", null, 3);
-        if(countAll()!=0) {
+        if (countAll() != 0) {
 
             DBUtils.setDB(getContext(), ROOT_DIR, DB_Name);
             db_2 = DatabaseFactory.create(getContext(), DB_Name);
 
             adapter = new HistoryAdapter(getActivity().getApplicationContext());
             listview = (ListView) view.findViewById(R.id.List_view);
+            view.findViewById(R.id.tempLinear).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.viewView).setVisibility(View.VISIBLE);
             listview.setVisibility(View.VISIBLE);
-            view.findViewById(R.id.noList_one).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.noRecipeLayout_2).setVisibility(View.INVISIBLE);
             adapter.notifyDataSetChanged();
             //어뎁터 할당
             listview.setAdapter(adapter);
@@ -59,37 +57,33 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
             Cursor cursor;
 
             for (int i = 0; i < countAll(); i++) {
-                cursor = db_2.rawQuery("SELECT URL FROM " + TABLE_NAME + " WHERE recipe_name=\"" + list[i].substring(0, list[i].indexOf(",")) + "\"", null);
-                cursor.moveToNext();
-                URLList[i] = cursor.getString(0);
-                Log.e("URLURLRULR", URLList[i]);
-            }
-
-            for (int i = 0; i < countAll(); i++) {
                 for (int j = 0; j < countAll() - i - 1; j++) {
-                    if (Integer.parseInt(list[j].substring(list[j].indexOf(",") + 1)) <= Integer.parseInt(list[j + 1].substring(list[j + 1].indexOf(",") + 1))) {
-                        String temp = list[j];
-                        list[j] = list[j + 1];
-                        list[j + 1] = temp;
+                    int curTimes = Integer.parseInt(list.get(j).substring(list.get(j).indexOf(",") + 1));
+                    int nextTimes = Integer.parseInt(list.get(j + 1).substring(list.get(j + 1).indexOf(",") + 1));
+                    if (curTimes <= nextTimes) {
+                        String temp = list.get(j);
+                        list.set(j, list.get(j + 1));
+                        list.set(j + 1, temp);
                     }
                 }
             }
 
             //adapter를 통한 값 전달
             for (int i = 0; i < countAll(); i++) {
-                String name = list[i].substring(0, list[i].indexOf(","));
+                String name = list.get(i).substring(0, list.get(i).indexOf(","));
 
                 cursor = db_2.rawQuery("SELECT URL,recipe_code FROM " + TABLE_NAME + " WHERE recipe_name=\"" + name + "\"", null);
                 cursor.moveToNext();
                 String URL = cursor.getString(0);
                 String code = cursor.getString(1);
-                String frequency = list[i].substring(list[i].indexOf(",") + 1) + "번";
+                String frequency = list.get(i).substring(list.get(i).indexOf(",") + 1) + "번";
                 adapter.addHistory(URL, name, frequency, code);
             }
         }
 
         return view;
     }
+
 
     public void insert(String id, int frequency) {
         db = helper.getWritableDatabase();
@@ -109,7 +103,6 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
     public void delete(String id) {
         db = helper.getWritableDatabase();
         db.delete("frequency", "id=?", new String[]{id});
-        Log.i("db1", id + "정상적으로 삭제 되었습니다.");
     }
 
     public void select(String id) {
@@ -118,7 +111,6 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String _id = c.getString(c.getColumnIndex("id"));
-            Log.i("db1", "id: " + _id + ", frequency : " + String.valueOf(frequency));
         }
     }
 
@@ -128,9 +120,7 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
         while (c.moveToNext()) {
             int frequency = c.getInt(c.getColumnIndex("frequency"));
             String id = c.getString(c.getColumnIndex("id"));
-            list[listLength] = id + "," + String.valueOf(frequency);
-            listLength++;
-            Log.i("db1", "id: " + id + ", frequency : " + frequency);
+            list.add(id + "," + String.valueOf(frequency));
         }
     }
 
