@@ -29,6 +29,7 @@ public class IngredientListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+
     public void addIngredientListItems(List<IngredientList> ingredientLists) {
         addItemsOnSection(0, ingredientLists);
         notifyDataSetChanged();
@@ -43,5 +44,10 @@ public class IngredientListAdapter extends BaseAdapter {
     @Override
     protected BaseViewHolder viewHolder(int i, View view) {
         return new IngredientListViewHolder(view, delegate);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 }
