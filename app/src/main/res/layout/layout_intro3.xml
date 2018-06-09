@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            android:src="@drawable/grill"
+            android:src="@drawable/statistics"
             android:layout_gravity="center"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -39,7 +39,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="요리의 재미"
+        android:text="통계 제공"
         android:textColor="#ffffff"
         android:textSize="28sp"
         android:id="@+id/textView"/>
@@ -52,7 +52,7 @@
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:text="'서방; 요리를 하다'는 \n사용자에게 요리 방법을 제공해서 \n직접 요리를 하는 재미를 가질 수 있도록 합니다."
+        android:text="'서방; 요리를 하다'는 \n사용자의 기록을 한 눈에 볼 수 있도록 \n통계를 제공합니다."
         android:textColor="#ffffff"
         android:textSize="18sp"
         />
