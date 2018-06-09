@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
@@ -21,8 +20,6 @@ import org.androidtown.seobang_term_project.factory.DatabaseFactory;
 import org.androidtown.seobang_term_project.items.Recipe;
 import org.androidtown.seobang_term_project.recycler.adapters.RecipeAdapter;
 import org.androidtown.seobang_term_project.recycler.viewholders.RecipeViewHolder;
-import org.androidtown.seobang_term_project.ui.Accuracy.AccuracyActivity;
-import org.androidtown.seobang_term_project.ui.recipe.RecipeActivity;
 import org.androidtown.seobang_term_project.ui.recipe.RecipePreviewActivity;
 import org.androidtown.seobang_term_project.utils.DBUtils;
 import org.androidtown.seobang_term_project.utils.QuickSortArrayList;
@@ -32,7 +29,7 @@ import java.util.ArrayList;
 
 public class RecipeFromIngredientActivity extends BaseActivity implements RecipeViewHolder.Delegate {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "test_ingredient_3.db";
+    public static final String DB_Name = "test_ingredient_4.db";
     public static final String TABLE_NAME = "recipe_ingredient_info";
     public static final String DB_Name_2 = "recipe_basic_information.db";
     public static final String TABLE_NAME_2 = "recipe_basic_information";
@@ -81,12 +78,9 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
         text = findViewById(R.id.noList_recipe);
 
         calTotal();
-//        for (int i = 0; i < mapCount; i++) {
-//            Log.e("test", mapping[i]);
-//        }
+
         SharedPreferences preferences = getSharedPreferences("Accuracy", MODE_PRIVATE);
         accuracy = preferences.getInt("Accuracy", 50);
-        Toast.makeText(getApplicationContext(), String.valueOf(accuracy), Toast.LENGTH_LONG).show();
 
         for (int i = 0; i < ingredient.length; i++)
             Log.e("RecipeFromIngredient", "\"" + ingredient[i] + "\"");

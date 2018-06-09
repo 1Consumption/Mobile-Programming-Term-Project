@@ -11,11 +11,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.skydoves.powermenu.OnMenuItemClickListener;
 import com.skydoves.powermenu.PowerMenu;
@@ -32,8 +30,6 @@ import org.androidtown.seobang_term_project.utils.PowerMenuUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.os.Build.VERSION_CODES.M;
 
 /**
  * Developed by hayeon0824 on 2018-05-19.
@@ -97,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     Intent intent1 = new Intent(getApplicationContext(), AccuracyActivity.class);
                     startActivity(intent1);
-                    Toast.makeText(getApplication(), "메뉴2", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;

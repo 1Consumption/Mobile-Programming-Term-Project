@@ -31,7 +31,7 @@ public class HistoryEditActivity extends Activity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!receive.getText().toString().equals("")) {
+                if ((!receive.getText().toString().equals("")) && isInteger(receive.getText().toString()) == true) {
                     int num = Integer.parseInt(receive.getText().toString());
                     if (num < 0)
                         Toast.makeText(getApplicationContext(), "숫자 범위를 다시 확인 해주세요.", Toast.LENGTH_LONG).show();
@@ -65,10 +65,18 @@ public class HistoryEditActivity extends Activity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "캔슬", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
+    }
+
+    public Boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override

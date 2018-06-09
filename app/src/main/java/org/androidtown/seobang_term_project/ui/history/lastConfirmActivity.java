@@ -2,7 +2,6 @@ package org.androidtown.seobang_term_project.ui.history;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;

@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -23,7 +22,6 @@ import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class HistoryTwoFragment extends android.support.v4.app.Fragment {
 

@@ -1,21 +1,15 @@
 package org.androidtown.seobang_term_project.ui.history;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -84,7 +78,6 @@ public class HistoryAdapter extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putString("RecipeName", title.getText().toString());
                 intent.putExtras(bundle);
-                Toast.makeText(context, (pos + 1) + "번째 꾸우우욱리스트가 클릭되었습니다.", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
                 return true;
             }

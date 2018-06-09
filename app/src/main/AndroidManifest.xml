@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/small_logo"
+        android:icon="@drawable/small_logo2"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -30,12 +30,12 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.ingredient.IngredientSelectActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.tutorial.TutorialActivity" />
         <activity
             android:name=".ui.recipe.RecipeSelectActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
