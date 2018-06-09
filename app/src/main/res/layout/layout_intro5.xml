@@ -72,7 +72,7 @@
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:text="사용자는 요리를 만든 후 사진 찍어 공유하거나 \n자신의 기록에 추가할 수 있습니다."
+        android:text="사용자는 요리를 만든 후 \n사진 찍어 공유하거나 \n자신의 기록에 추가할 수 있습니다."
         android:textColor="#ffffff"
         android:textSize="18sp"
         />
