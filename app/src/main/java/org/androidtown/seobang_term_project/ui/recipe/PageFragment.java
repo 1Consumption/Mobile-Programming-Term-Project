@@ -169,8 +169,9 @@ public class PageFragment extends Fragment {
             String url = (mPageString.substring(mPageString.indexOf("|") + 1));
             if (url.equals("No URL")) {
                 Log.e("no","no");
-                Glide.with(this).load("https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/default.png?raw=true").apply(options).into(imageView);
+                Glide.with(this).load(R.drawable.default_2).into(imageView);
             } else {
+//                Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).into(imageView);
                 Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).thumbnail(0.5f).apply(options).into(imageView);
             }
         }
@@ -361,6 +362,8 @@ public class PageFragment extends Fragment {
         super.onDestroyView();
         if (countDownTimer != null)
             countDownTimer.cancel();
+        RecipeActivity.timerOn=false;
+        timerStateflag=false;
     }
 
     @Override

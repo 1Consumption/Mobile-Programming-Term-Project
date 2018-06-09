@@ -1,5 +1,6 @@
 package org.androidtown.seobang_term_project.ui.recipe;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
@@ -143,7 +146,23 @@ public class RecipeActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-//
+        AlertDialog.Builder alert_ex = new AlertDialog.Builder(this);
+        alert_ex.setMessage("정말로 종료하시겠습니까?\n실행중인 타이머는 종료됩니다.");
+
+        alert_ex.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alert_ex.setNegativeButton("종료", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                RecipeActivity.super.onBackPressed();
+            }
+        });
+        alert_ex.setTitle("경고!");
+        AlertDialog alert = alert_ex.create();
+        alert.show();
     }
 }
