@@ -41,6 +41,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     ArrayList<String> recipeList = new ArrayList<>();
     ArrayList<String> tempList = new ArrayList<>();
     ArrayList<String> mapping = new ArrayList<>();
+    ArrayList<String> waterWeight = new ArrayList<>();
+    ArrayList<String> yuksuWeight = new ArrayList<>();
 
     int recipeLength = 0;
     int cnt = 0;
@@ -157,6 +159,28 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
                 }
             }
         }
+
+        getWaterWeight();
+        getYuksuWeight();
+        plusWaterWeight();
+        plusYuksuWeight();
+//        for (int i = 0; i < recipeList.size(); i++) {
+//            String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf("w"));
+//            Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
+//            String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
+//            for (int j = 0; j < waterWeight.size(); j++) {
+//                String[] weight = waterWeight.get(i).split(",");
+//                String waterRecipeCode = weight[0];
+//                Double waterWeight = Double.parseDouble(weight[i]);
+//
+//                if (waterRecipeCode.equals(recipeCode)) {
+//                    recipeWeight += waterWeight;
+//                    String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
+//                    recipeList.set(i, newRecipe);
+//                }
+//
+//            }
+//        }
 
         for (int i = 0; i < recipeList.size(); i++)
             Log.e("도출스", recipeList.get(i));
@@ -325,5 +349,72 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
             mapping.add(temp);
         }
         Log.e("totalCount", String.valueOf(mapping.size()));
+    }
+
+    public void getWaterWeight() {
+        cursor = db.rawQuery("SELECT recipe_code,weight FROM " + TABLE_NAME + " WHERE ingredient_name=\"" + "물" + "\"", null);
+        while (cursor.moveToNext()) {
+            String temp = cursor.getString(0);
+            temp += "," + cursor.getString(1);
+            waterWeight.add(temp);
+            Log.e("물",temp);
+        }
+    }
+
+    public void getYuksuWeight() {
+        cursor = db.rawQuery("SELECT recipe_code,weight FROM " + TABLE_NAME + " WHERE ingredient_name=\"" + "육수" + "\"", null);
+        while (cursor.moveToNext()) {
+            String temp = cursor.getString(0);
+            temp += "," + cursor.getString(1);
+            yuksuWeight.add(temp);
+            Log.e("육수",temp);
+        }
+    }
+
+    public void plusWaterWeight() {
+        for (int i = 0; i < recipeList.size(); i++) {
+            String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf("w"));
+            Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
+            String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
+            Log.e("여기는 물 웨이트",recipeCode+"w"+String.valueOf(recipeWeight)+"t"+recipeTotal);
+            for (int j = 0; j < waterWeight.size(); j++) {
+                String[] weight = waterWeight.get(j).split(",");
+                String waterRecipeCode = weight[0];
+                Double waterWeight = Double.parseDouble(weight[1]);
+
+                if (waterRecipeCode.equals(recipeCode)) {
+                    recipeWeight += waterWeight;
+                    String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
+                    recipeList.set(i, newRecipe);
+                    Log.e("워터 더하기","성공!");
+                    break;
+                }
+
+            }
+        }
+    }
+
+    public void plusYuksuWeight() {
+        for (int i = 0; i < recipeList.size(); i++) {
+            String recipeCode = recipeList.get(i).substring(0, recipeList.get(i).indexOf("w"));
+            Double recipeWeight = Double.parseDouble(recipeList.get(i).substring((recipeList.get(i).indexOf("w") + 1), recipeList.get(i).indexOf("t")));
+            String recipeTotal = recipeList.get(i).substring(recipeList.get(i).indexOf("t") + 1);
+
+            Log.e("여기는 육수 웨이트",recipeCode+"w"+String.valueOf(recipeWeight)+"t"+recipeTotal);
+            for (int j = 0; j < yuksuWeight.size(); j++) {
+                String[] weight = yuksuWeight.get(j).split(",");
+                String yuksuRecipeCode = weight[0];
+                Double yuksuWeight = Double.parseDouble(weight[1]);
+
+                if (yuksuRecipeCode.equals(recipeCode)) {
+                    recipeWeight += yuksuWeight;
+                    String newRecipe = recipeCode + "w" + String.valueOf(recipeWeight) + "t" + recipeTotal;
+                    recipeList.set(i, newRecipe);
+                    Log.e("육수 더하기","성공!");
+                    break;
+                }
+
+            }
+        }
     }
 }
