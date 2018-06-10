@@ -10,7 +10,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -67,6 +66,8 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewById(R.layout.activity_recipe_from_ingredient);
+
+        setRefreshView();
 
         DBUtils.setDB(this, ROOT_DIR, DB_Name);
         DBUtils.setDB(this, ROOT_DIR, DB_Name_2);
