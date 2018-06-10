@@ -139,6 +139,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
                                 if (curRecipeCode.equals(mappedRecipeCode)) {
                                     recipeList.add(tempList.get(i) + "t" + String.valueOf(mappedTotal));
+                                    break;
                                 }
                             }
 
@@ -149,6 +150,7 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
 
                                 if (curRecipeCode.equals(mappedRecipeCode)) {
                                     recipeList.add(tempList.get(i).substring(0, tempList.get(i).indexOf("w")) + "w" + String.valueOf(totalWeight) + "t" + String.valueOf(mappedTotal));
+                                    break;
                                 }
                             }
                         }
@@ -332,12 +334,16 @@ public class RecipeFromIngredientActivity extends BaseActivity implements Recipe
     }
 
     public void calTotal() {
-        cursor = db.rawQuery("SELECT recipe_code,count(*) FROM " + TABLE_NAME + " group by recipe_code order by count(*) desc", null);
-        while (cursor.moveToNext()) {
-            String temp = cursor.getString(0);
-            temp += "," + cursor.getString(1);
-            mapping.add(temp);
+        ArrayList<Cursor> tempCursorList = new ArrayList<>();
+        tempCursorList.add(db.rawQuery("SELECT recipe_code,sum(weight) FROM " + TABLE_NAME + " GROUP BY recipe_code", null));
+        Cursor tempCursor = tempCursorList.get(0);
+
+        while (tempCursor.moveToNext()) {
+            mapping.add(tempCursor.getString(0) + "," + tempCursor.getString(1));
         }
+
+        tempCursor.close();
+        tempCursorList.remove(0);
     }
 
     public void getWaterWeight() {
