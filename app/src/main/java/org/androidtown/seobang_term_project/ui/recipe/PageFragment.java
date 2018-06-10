@@ -17,6 +17,7 @@ import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,12 @@ public class PageFragment extends Fragment {
     FloatingActionButton showFABBtn;
     FloatingActionButton addToHistoryBtn;
     FloatingActionButton goToCameraBtn;
+    FloatingActionButton showTimerFAB;
+    FloatingActionButton reloadFAB;
+
+    CardView timerCardView;
+    CardView recipeCardView;
+
     int result = 0;
     int time = 0;
     int tempTime = 0;
@@ -63,7 +70,6 @@ public class PageFragment extends Fragment {
 
     boolean timerStateflag = false;
     CountDownTimer countDownTimer;
-
 
     public static PageFragment create(String pageContents) {
         PageFragment fragment = new PageFragment();
@@ -86,6 +92,9 @@ public class PageFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
+        showTimerFAB = rootView.findViewById(R.id.showTimerFAB);
+        reloadFAB = rootView.findViewById(R.id.reload);
+
         cameraLayout = rootView.findViewById(R.id.cameraLayout);
         historyLayout = rootView.findViewById(R.id.historyLayout);
 
@@ -94,6 +103,9 @@ public class PageFragment extends Fragment {
         hideLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_layout);
         showLayout = AnimationUtils.loadAnimation(getActivity(), R.anim.show_layout);
         showLayout.setInterpolator(AnimationUtils.loadInterpolator(getActivity(), android.R.anim.bounce_interpolator));
+
+        timerCardView = rootView.findViewById(R.id.timerCardView);
+        recipeCardView = rootView.findViewById(R.id.recipeCardView);
 
         addToHistoryBtn = rootView.findViewById(R.id.addToHistory);
         goToCameraBtn = rootView.findViewById(R.id.goToCamera);
@@ -143,6 +155,7 @@ public class PageFragment extends Fragment {
 
 
         ((TextView) rootView.findViewById(R.id.pageTextView)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
+        ((TextView) rootView.findViewById(R.id.pageTextView_2)).setText(mPageString.substring(mPageString.indexOf("+") + 1, mPageString.indexOf("&")));
         if (mPageString.indexOf("last") != -1) {
             mPageString = mPageString.substring(0, mPageString.indexOf("last"));
             (rootView.findViewById(R.id.showFAB)).setVisibility(View.VISIBLE);
@@ -168,6 +181,25 @@ public class PageFragment extends Fragment {
                 Glide.with(this).load((mPageString.substring(mPageString.indexOf("|") + 1))).thumbnail(0.5f).apply(options).into(imageView);
             }
         }
+
+        showTimerFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimerFAB.setImageResource(R.drawable.reload);
+                recipeCardView.setVisibility(View.INVISIBLE);
+                timerCardView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        reloadFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimerFAB.setImageResource(R.drawable.timer);
+                recipeCardView.setVisibility(View.VISIBLE);
+                timerCardView.setVisibility(View.INVISIBLE);
+            }
+        });
+
         return rootView;
     }
 
@@ -202,8 +234,9 @@ public class PageFragment extends Fragment {
             Button timerStopButton = rootView.findViewById(R.id.timerStopButton);
 
             if (processString.indexOf("시간") != -1 && processString.indexOf("시간") != 0 && processString.charAt(processString.indexOf("시간") - 1) != ' ') {
-                timerLayout.setVisibility(View.VISIBLE);
-                timerButtonLayout.setVisibility(View.VISIBLE);
+//                timerLayout.setVisibility(View.VISIBLE);
+//                timerButtonLayout.setVisibility(View.VISIBLE);
+                showTimerFAB.setVisibility(View.VISIBLE);
                 int index = processString.indexOf("시간");
 
                 timeIndex = extractTime(processString, index);
@@ -228,8 +261,7 @@ public class PageFragment extends Fragment {
                 char errorCheck = processString.charAt(processString.indexOf("분") - 1);
 
                 if (Character.isDigit(errorCheck)) {
-                    timerLayout.setVisibility(View.VISIBLE);
-                    timerButtonLayout.setVisibility(View.VISIBLE);
+                    showTimerFAB.setVisibility(View.VISIBLE);
                     timeInProcess = processString.substring(timeIndex, processString.indexOf("분"));
 
                     if (timeInProcess.indexOf("~") != -1 || timeInProcess.indexOf("-") != -1) {

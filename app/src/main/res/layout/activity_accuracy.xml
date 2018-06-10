@@ -32,6 +32,17 @@
         android:textColor="#ff000000"
         android:textSize="20dp" />
 
+
+    <TextView
+        android:textColor="#ff000000"
+        android:gravity="center"
+        android:textSize="13dp"
+        android:layout_gravity="center"
+        android:text="내가 고른 재료와 레시피의 재료가\n얼마나 일치할지를 설정해주세요."
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content" />
+
     <SeekBar
         android:id="@+id/seekbar"
         android:layout_width="match_parent"

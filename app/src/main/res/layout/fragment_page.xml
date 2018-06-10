@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +13,10 @@
         android:scaleType="fitXY" />
 
     <android.support.v7.widget.CardView
+        android:id="@+id/recipeCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/page_image"
         android:layout_margin="10dp"
         android:padding="10dp"
         app:cardCornerRadius="2dp"
@@ -24,102 +26,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/recipeString"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textColor="@color/black_content"
-                android:textSize="20sp" />
-
-            <LinearLayout
-            android:id="@+id/timerLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="invisible">
-
-                <ImageView
-                    android:id="@+id/clokcIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/clock" />
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/hourText"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/recipeString"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="00"
-                    android:textColor="#ff000000"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textColor="#ff000000"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:id="@+id/minuteText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="00"
-                    android:textColor="#ff000000"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textColor="#ff000000"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:id="@+id/secondText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="00"
-                    android:textColor="#ff000000"
-                    android:textSize="30dp" />
-            </LinearLayout>
-
-            <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/timerLayout"
-            android:id="@+id/timerButtonLayout"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal"
-            android:visibility="invisible">
-
-                <Button
-                    android:id="@+id/timerStartButton"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:background="#00ff0000"
-                    android:text="start"
-                    android:textColor="#ff000000" />
-
-                <Button
-                    android:id="@+id/timerPauseButton"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:background="#00ff0000"
-                    android:text="pause"
-                    android:textColor="#ff000000" />
-
-                <Button
-                    android:id="@+id/timerStopButton"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:background="#00ff0000"
-                    android:text="stop"
-                    android:textColor="#ff000000" />
-
-            </LinearLayout>
+                    android:padding="10dp"
+                    android:textColor="@color/black_content"
+                    android:textSize="20sp" />
+            </ScrollView>
 
             <TextView
                 android:id="@+id/pageTextView"
@@ -132,6 +50,21 @@
                 android:textColor="#ff000000"
                 android:textSize="20dp"
                 android:textStyle="italic|bold" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/showTimerFAB"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="16dp"
+                android:src="@drawable/timer"
+                android:tint="@color/md_white_1000"
+                android:visibility="invisible"
+                app:backgroundTint="@color/colorPrimary"
+                app:elevation="0dp"
+                app:fabSize="normal" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/showFAB"
@@ -215,5 +148,140 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/timerCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/page_image"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/reload"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="16dp"
+                android:src="@drawable/reload"
+                android:tint="@color/md_white_1000"
+                app:backgroundTint="@color/colorPrimary"
+                app:elevation="0dp"
+                app:fabSize="normal" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/timerLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/clokcIcon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/clock" />
+
+                    <TextView
+                        android:id="@+id/hourText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="#ff000000"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" : "
+                        android:textColor="#ff000000"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/minuteText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="#ff000000"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" : "
+                        android:textColor="#ff000000"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/secondText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="#ff000000"
+                        android:textSize="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/timerButtonLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/timerLayout"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/timerStartButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:background="#00ff0000"
+                        android:text="start"
+                        android:textColor="#ff000000" />
+
+                    <Button
+                        android:id="@+id/timerPauseButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:background="#00ff0000"
+                        android:text="pause"
+                        android:textColor="#ff000000" />
+
+                    <Button
+                        android:id="@+id/timerStopButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:background="#00ff0000"
+                        android:text="stop"
+                        android:textColor="#ff000000" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pageTextView_2"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:textColor="#ff000000"
+                android:textSize="20dp"
+                android:textStyle="italic|bold" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

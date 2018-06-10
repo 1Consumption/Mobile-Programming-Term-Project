@@ -72,11 +72,9 @@
         </activity>
         <activity
             android:name=".ui.history.HistoryEditActivity"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".ui.history.lastConfirmActivity"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".ui.recipe.CameraActivity"
@@ -87,7 +85,6 @@
         <activity
             android:name=".ui.recipe.pageFramgnetWarningActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
     </application>
 
