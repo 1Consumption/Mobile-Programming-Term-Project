@@ -32,9 +32,9 @@ import butterknife.BindView;
 public class RecipeSelectActivity extends BaseActivity implements RecipeViewHolder.Delegate {
 
     private static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    private static final String DB_Name = "recipe_basic_information.db";
+    private static final String DB_Name = "recipe_basic_information_2.db";
     private static final String TABLE_NAME = "recipe_basic_information";
-    private static final String DB_Name2 = "recipe_process.db";
+    private static final String DB_Name2 = "recipe_process_2.db";
 
     private SQLiteDatabase db_info;
     private Cursor cursor;

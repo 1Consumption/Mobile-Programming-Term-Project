@@ -37,7 +37,7 @@ import butterknife.OnClick;
 public class IngredientSelectActivity extends BaseActivity implements IngredientViewHolder.Delegate {
 
     public final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public final String DB_Name = "ingredient_info_modify_weight.db";
+    public final String DB_Name = "ingredient_info_modify_weight_2.db";
 
     public SQLiteDatabase db;
 

@@ -24,7 +24,7 @@ public class HistoryOneFragment extends android.support.v4.app.Fragment {
     private Cursor cursor;
 
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "recipe_basic_information.db";
+    public static final String DB_Name = "recipe_basic_information_2.db";
     public static final String TABLE_NAME = "recipe_basic_information";
 
     private ListView listview;

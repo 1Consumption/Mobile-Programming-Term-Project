@@ -27,9 +27,9 @@ public class RecipeActivity extends BaseActivity {
 
     private String[] RecipeProcess;
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "recipe_process.db";
+    public static final String DB_Name = "recipe_process_2.db";
     public static final String TABLE_NAME = "recipe_process";
-    public static final String DB_Name_2 = "recipe_basic_information.db";
+    public static final String DB_Name_2 = "recipe_basic_information_2.db";
     public static final String TABLE_NAME_2 = "recipe_basic_information";
 
     private SQLiteDatabase db;

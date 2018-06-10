@@ -50,9 +50,9 @@ public class RecipePreviewActivity extends BaseActivity {
     RelativeLayout layout;
 
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "recipe_basic_information.db";
+    public static final String DB_Name = "recipe_basic_information_2.db";
     public static final String TABLE_NAME = "recipe_basic_information";
-    public static final String DB_Name_2 = "ingredient_info_modify_weight.db";
+    public static final String DB_Name_2 = "ingredient_info_modify_weight_2.db";
     public static final String TABLE_NAME_2 = "recipe_ingredient_info";
 
     private SQLiteDatabase db;

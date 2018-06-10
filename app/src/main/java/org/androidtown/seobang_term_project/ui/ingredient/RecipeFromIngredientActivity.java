@@ -29,9 +29,9 @@ import java.util.ArrayList;
 
 public class RecipeFromIngredientActivity extends BaseActivity implements RecipeViewHolder.Delegate {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
-    public static final String DB_Name = "ingredient_info_modify_weight.db";
+    public static final String DB_Name = "ingredient_info_modify_weight_2.db";
     public static final String TABLE_NAME = "recipe_ingredient_info";
-    public static final String DB_Name_2 = "recipe_basic_information.db";
+    public static final String DB_Name_2 = "recipe_basic_information_2.db";
     public static final String TABLE_NAME_2 = "recipe_basic_information";
 
     public Boolean loadingFlag = false;
