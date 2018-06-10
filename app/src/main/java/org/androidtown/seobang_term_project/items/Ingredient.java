@@ -7,6 +7,9 @@ public class Ingredient {
     private boolean isListItem = true;
     private boolean isResultItem = true;
 
+
+    private boolean isClicked = false;
+
     public Ingredient() {
 
     }
@@ -14,6 +17,14 @@ public class Ingredient {
     public Ingredient(String ingredientType, int image) {
         this.ingredientType = ingredientType;
         this.image = image;
+    }
+
+    public boolean isClicked() {
+        return isClicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        isClicked = clicked;
     }
 
     public String getIngredientType() {
