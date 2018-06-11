@@ -27,16 +27,9 @@ public class DatabaseFactory {
     private DatabaseFactory() {
     }
 
-    /**
-     * @param context application context
-     * @param DB_Name database name
-     * @return SqliteDatabase
-     */
-
     public static SQLiteDatabase create(Context context, String DB_Name) {
-        if(helper == null) {
-            helper = new ProductDBHelper(context, DB_Name);
-        }
+
+        helper = new ProductDBHelper(context, DB_Name);
         return helper.getWritableDatabase();
     }
 }
