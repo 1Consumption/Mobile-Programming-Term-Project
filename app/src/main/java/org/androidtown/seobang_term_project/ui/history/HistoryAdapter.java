@@ -17,6 +17,17 @@ import org.androidtown.seobang_term_project.ui.recipe.RecipePreviewActivity;
 
 import java.util.ArrayList;
 
+/**
+ * @When:
+ * This adapter called when user views or modifies the listView
+ *
+ * @Function:
+ * store historyList into ArrayList and call it, so user can views each item
+ *
+ * @Technique:
+ * override BaseAdapter
+ */
+
 public class HistoryAdapter extends BaseAdapter {
     private ArrayList<HistoryList> history = new ArrayList<HistoryList>();
     private Context context;
@@ -50,7 +61,7 @@ public class HistoryAdapter extends BaseAdapter {
         final HistoryList listViewItem = history.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        Glide.with(parent).load(listViewItem.getImg()).into(image);
+        Glide.with(parent).load(listViewItem.getImg()).thumbnail(0.5f).into(image);
 //        image.loadUrl(listViewItem.getImg());
         title.setText(listViewItem.getTitle());
         Context.setText(listViewItem.getContext());

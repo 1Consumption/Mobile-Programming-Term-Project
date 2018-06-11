@@ -16,6 +16,19 @@ import android.widget.Toast;
 import org.androidtown.seobang_term_project.R;
 import org.androidtown.seobang_term_project.compose.BaseActivity;
 
+/**
+ * @When:
+ * This activity is shown when the user long click history list in listView
+ *
+ * @Function:
+ * If data is input to the user and the input data is a number,
+ * it is transferred to HistoryActivity.
+ *
+ * @Technique:
+ * override Activity, and it shown as dialog format.
+ * using Bundle into intent for wrapping data to send.
+ */
+
 public class HistoryEditActivity extends Activity {
 
     @Override

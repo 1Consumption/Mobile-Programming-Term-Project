@@ -16,6 +16,18 @@ import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+/**
+ * @When:
+ * This fragment is shown when the user enters 요리별 기록 보기 button from the HistoryActivity
+ *
+ * @Function:
+ * this fragment show listView that read data from frequency.db and provide edit function, delete function
+ * you can call HistoryEditActivity act as listView long click
+ *
+ * @Technique:
+ * This fragment utilizes the adapter for access to listView and using the sqlite db for read data.
+ */
+
 public class HistoryOneFragment extends android.support.v4.app.Fragment {
 
     SQLiteDatabase db;

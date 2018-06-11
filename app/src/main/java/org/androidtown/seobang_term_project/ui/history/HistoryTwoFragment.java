@@ -23,6 +23,18 @@ import org.androidtown.seobang_term_project.utils.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+/**
+ * @When:
+ * This fragment is shown when the user enters 그래프 보기 button from the HistoryActivity
+ *
+ * @Function:
+ * this fragment show pie chart that read data from frequency.db.
+ *
+ * @Technique:
+ * This fragment using the sqlite db for read data.
+ *  delivery convenience to view using pie Chart API.
+ */
+
 public class HistoryTwoFragment extends android.support.v4.app.Fragment {
 
     PieChart pieChart;

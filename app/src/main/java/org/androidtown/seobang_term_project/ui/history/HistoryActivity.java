@@ -17,9 +17,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Developed by hayeon0824 on 2018-05-19.
- * Copyright (c) 2018 hayeon0824 rights reserved.
+ * @When:
+ * This activity is shown when the user enters 히스토리 보기 button from the MainActivity
+ *
+ * @Function:
+ * Use the viewpager to display historyOneFragment and historyTwoFragment.
+ * frequency Read data from the database and provide it to HistoryOneFragment and HistoryTwoFragment.
+ *
+ * @Technique:
+ * This activity utilizes the viewpager and  the sqlite db.
  */
+
 public class HistoryActivity extends BaseActivity {
     ViewPager mPager;
     TabLayout tabLayout;
