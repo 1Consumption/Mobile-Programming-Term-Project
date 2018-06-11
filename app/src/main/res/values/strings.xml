@@ -4,6 +4,11 @@
     <string name="fish">생선류</string>
     <string name="vege">채소류</string>
     <string name="etc">기타재료</string>
+    <string name="menu1">요리 선택</string>
+    <string name="menu2">재료 선택</string>
+    <string name="menu3">히스토리 선택</string>
+    <string name="menu4">개발자 정보</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
