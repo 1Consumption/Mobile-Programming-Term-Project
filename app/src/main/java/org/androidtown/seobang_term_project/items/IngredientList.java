@@ -2,14 +2,17 @@ package org.androidtown.seobang_term_project.items;
 
 import java.util.List;
 
-
+/**
+ * Developed by hayeon0824 on 2018-05-19.
+ * Copyright (c) 2018 hayeon0824 rights reserved.
+ */
 
 /**
  * @When:
- * This class is for covering the lists of categorizing
+ * This data model class is for covering the lists of categorizing
  *
  * @Functions & Technique:
- * It has methods which will be utilized from IngredientSelectActivity for checking states
+ * It has methods which will be utilized from {@link org.androidtown.seobang_term_project.recycler.viewholders.IngredientListViewHolder} for checking states
  * This class is good for software architecture
  */
 
@@ -22,6 +25,11 @@ public class IngredientList {
         this.name = name;
         this.ingredients = ingredients;
     }
+
+
+    /*********************
+     * getters & setters *
+     ********************/
 
     public String getName() {
         return name;

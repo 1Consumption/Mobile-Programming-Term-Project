@@ -15,7 +15,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  * by implement or extends this class, code lines can be reduced which will be helpful for the structure
  */
 
-
 public class ProductDBHelper extends SQLiteOpenHelper {
 
     public ProductDBHelper(Context context, String DB_Name) {

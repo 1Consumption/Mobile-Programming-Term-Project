@@ -14,17 +14,16 @@ import mehdi.sakout.aboutpage.Element;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
-/*
-*
-* @When:
-* This activity will be shown when user clicks 개발자 정보 ImageButton from the MainActivity
-*
-* @Functions:
-* This activity is for showing 개발자 정보 page.
-*
-* @Technique:
-* We utilized open source library for keeping material designing
-*/
+/**
+ * @When
+ * This activity will be shown when user clicks 개발자 정보 ImageButton from the MainActivity
+ *
+ * @Functions
+ * This activity is for showing 개발자 정보 page.
+ *
+ * @Technique
+ * We utilized open source library for keeping material designing
+ */
 
 public class InfoActivity extends AppCompatActivity {
 

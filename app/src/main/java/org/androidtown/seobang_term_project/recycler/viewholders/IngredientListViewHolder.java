@@ -19,9 +19,8 @@ import butterknife.ButterKnife;
  * This class is for holding the items and adapt it by the adapter
  *
  * @functions & @technique:
- * by IngredientListViewHolder, items can be shown to the page by the adapter
+ * by {@link org.androidtown.seobang_term_project.recycler.adapters.IngredientListAdapter}, items can be shown to the page by the adapter
  */
-
 
 public class IngredientListViewHolder extends BaseViewHolder {
 

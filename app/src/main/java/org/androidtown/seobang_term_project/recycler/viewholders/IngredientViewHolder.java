@@ -21,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * This class is for holding the items and adapt it by the adapter
  *
  * @Functions & @Technique:
- * by IngredientViewHolder, items can be shown to the page
+ * by {@link org.androidtown.seobang_term_project.recycler.adapters.IngredientAdapter}, items can be shown to the page
  * from this ViewHolder, the settings of the items can be changed or managed
  */
 

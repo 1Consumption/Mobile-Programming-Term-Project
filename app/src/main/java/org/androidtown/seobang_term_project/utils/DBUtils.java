@@ -19,8 +19,6 @@ import java.io.InputStream;
  * Simple opening database
  */
 
-
-
 public class DBUtils {
     public static void setDB(Context ctx, String ROOT_DIR, String DB_Name) {
         File folder = new File(ROOT_DIR);

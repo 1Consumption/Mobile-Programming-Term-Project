@@ -32,11 +32,10 @@ import butterknife.ButterKnife;
  * This class is for holding the recipe items and adapt it by the adapter
  *
  * @Functions & @Technique:
- * RecipeViewHolder, items can be shown to the page
+ * {@link org.androidtown.seobang_term_project.recycler.adapters.RecipeAdapter}, items can be shown to the page
  * from this RecipeViewHolder, the settings of the items can be changed or managed
  * We utilized the the open source libraries for the designing which is small but completes the level of completion
  */
-
 
 public class RecipeViewHolder extends BaseViewHolder {
 

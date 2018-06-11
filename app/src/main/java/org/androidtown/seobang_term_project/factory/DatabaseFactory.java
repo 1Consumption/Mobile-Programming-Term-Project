@@ -15,6 +15,7 @@ import org.androidtown.seobang_term_project.utils.ProductDBHelper;
  * This Activity is implemented from few activities which utilizes database
  *
  * @Functions & Technique:
+ * implemented by singleTon pattern.
  * By implementing this Activity, many code lines can be reduced
  * to optimize code structure for good software architecture
  */
@@ -23,8 +24,19 @@ public class DatabaseFactory {
 
     private static ProductDBHelper helper;
 
+    private DatabaseFactory() {
+    }
+
+    /**
+     * @param context application context
+     * @param DB_Name database name
+     * @return SqliteDatabase
+     */
+
     public static SQLiteDatabase create(Context context, String DB_Name) {
-        helper = new ProductDBHelper(context, DB_Name);
+        if(helper == null) {
+            helper = new ProductDBHelper(context, DB_Name);
+        }
         return helper.getWritableDatabase();
     }
 }

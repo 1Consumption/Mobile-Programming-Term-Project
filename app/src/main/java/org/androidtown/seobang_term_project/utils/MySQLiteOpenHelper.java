@@ -16,8 +16,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  * By utilizing the activity life cycle, helps opening the database
  */
 
-
-
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public MySQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

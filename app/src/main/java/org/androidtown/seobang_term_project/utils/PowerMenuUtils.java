@@ -17,12 +17,11 @@ import org.androidtown.seobang_term_project.R;
  * This class is called when the user clicks the power menu from the MainActivity tool bar
  *
  * @functions:
- * This shows menus which contains 튜토리얼, 일치도 설정, 요리 사진 찍기
+ * This shows dialog popup menu items which contains 튜토리얼, 일치도 설정, 요리 사진 찍기
  *
  * @technique:
  * By utilizing open source libraries, we made good design for users' convenient
  */
-
 
 public class PowerMenuUtils {
     public static PowerMenu getHamburgerPowerMenu(Context context, LifecycleOwner lifecycleOwner, OnMenuItemClickListener<PowerMenuItem> onMenuItemClickListener) {

@@ -27,7 +27,6 @@ import java.util.List;
  * by RecipeAdapter, adapting the items can be done by delegating
  */
 
-
 public class RecipeAdapter extends BaseAdapter {
 
     private RecipeViewHolder.Delegate delegate;

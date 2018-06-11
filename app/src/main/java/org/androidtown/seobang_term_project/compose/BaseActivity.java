@@ -23,8 +23,11 @@ import butterknife.Unbinder;
 
 /**
  * @When:
- * This Activity is implemented from few activities like IngredientSelectActivity,
- * RecipeSelectActivity, PageFragment, and else which needs tool bar or refresher effect
+ * This Activity is implemented from few activities like
+ * {@link org.androidtown.seobang_term_project.ui.ingredient.IngredientSelectActivity}
+ * {@link org.androidtown.seobang_term_project.ui.recipe.RecipeSelectActivity}
+ * {@link org.androidtown.seobang_term_project.ui.recipe.PageFragment}
+ * and else which needs tool bar or refresher effect
  *
  * @Functions & Technique:
  * By implementing this Activity, many code lines can be reduced
@@ -43,6 +46,10 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * setContentViewById manually with ButterKnife binding
+     * @param layout layout
+     */
     public void setContentViewById(int layout) {
         setContentView(layout);
         this.unbinder = ButterKnife.bind(this); // bind ButterKnife
@@ -50,21 +57,35 @@ public class BaseActivity extends AppCompatActivity {
         setDisplayHomeButton();
     }
 
+    /**
+     * set a toolbar
+     * @param toolbar Toolbar
+     */
     public void setToolbar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
     }
 
+    /**
+     * set Toolbar's name
+     * @param name toolbar name
+     */
+    public void setToolbarName(String name) {
+        toolbar_name.setText(name);
+    }
+
+    /**
+     * set back home button
+     */
     public void setDisplayHomeButton() {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
-    public void setToolbarName(String name) {
-        toolbar_name.setText(name);
-    }
-
+    /**
+     * set RefreshView
+     */
     public void setRefreshView() {
         final PullToRefreshView refreshView = findViewById(R.id.refreshView);
         if(refreshView != null) {
@@ -92,6 +113,9 @@ public class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * unbinding ButterKnife
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

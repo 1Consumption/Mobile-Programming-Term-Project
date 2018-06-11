@@ -37,7 +37,6 @@ public class IngredientListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-
     public void addIngredientListItems(List<IngredientList> ingredientLists) {
         addItemsOnSection(0, ingredientLists);
         notifyDataSetChanged();

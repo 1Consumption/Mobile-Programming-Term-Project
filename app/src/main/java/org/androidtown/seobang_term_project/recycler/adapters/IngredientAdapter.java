@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * @When
  * This class is for Adapting the ingredients items to the holder
@@ -68,6 +67,4 @@ public class IngredientAdapter extends BaseAdapter {
     protected BaseViewHolder viewHolder(int i, View view) {
         return new IngredientViewHolder(view, delegate);
     }
-
-
 }
