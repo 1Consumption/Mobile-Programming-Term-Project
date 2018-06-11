@@ -17,6 +17,16 @@ import org.androidtown.seobang_term_project.ui.tutorial.TutorialActivity;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * When:
+ * This activity is shown when the user enters 개발자 정보 button from the MainActivity
+ * Function:
+ * This activity just simply show the information about the users with application description
+ * Technique:
+ * This activity is composed with open source libraries for maintaining the material designing
+ */
+
+
 public class IntroActivity extends AppCompatActivity {
 
     private Handler handler;

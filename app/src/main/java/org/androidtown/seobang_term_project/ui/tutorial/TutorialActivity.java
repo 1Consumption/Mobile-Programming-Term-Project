@@ -16,6 +16,17 @@ import org.androidtown.seobang_term_project.ui.main.MainActivity;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+
+/**
+ * When:
+ * This activity is shown when the user first install the app or when the user selects the button 튜툐리얼
+ * from the power menu button from the MainActivity tool bar
+ * Function:
+ * This activity shows the tutorial of the app with clean view for the users
+ * Technique:
+ * This activity is composed with open source libraries for clean design
+ */
+
 public class TutorialActivity extends AppIntro {
 
     @Override

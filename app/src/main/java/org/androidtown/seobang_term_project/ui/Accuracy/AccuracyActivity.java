@@ -1,4 +1,4 @@
-package org.androidtown.seobang_term_project.ui.Accuracy;
+﻿package org.androidtown.seobang_term_project.ui.Accuracy;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -10,6 +10,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.androidtown.seobang_term_project.R;
+
+/*
+ * When:
+ * This activity will be shown when the user access to the power menu
+ * and click 일치도 설정 button
+ * Functions:
+ * User can adjust the bar of setting accuracy of the ingredients
+ * by scrolling the bar
+ * with the 517 of recipes' ingredients
+ * Technique:
+ * It is maintained by shared preference to keep it same every time user opens the app
+*/
 
 public class AccuracyActivity extends Activity {
 
