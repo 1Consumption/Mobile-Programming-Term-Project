@@ -14,6 +14,13 @@ import org.androidtown.seobang_term_project.recycler.adapters.IngredientAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * When & functions & technique:
+ * This class is for holding the items and adapt it by the adapter
+ * by IngredientListViewHolder, items can be shown to the page
+ */
+
+
 public class IngredientListViewHolder extends BaseViewHolder {
 
     protected @BindView(R.id.item_ingredient_list_name) TextView name;

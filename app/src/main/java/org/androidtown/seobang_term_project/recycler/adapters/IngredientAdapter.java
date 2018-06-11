@@ -1,8 +1,6 @@
 package org.androidtown.seobang_term_project.recycler.adapters;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.skydoves.baserecyclerviewadapter.BaseAdapter;
 import com.skydoves.baserecyclerviewadapter.BaseViewHolder;
@@ -14,8 +12,14 @@ import org.androidtown.seobang_term_project.recycler.viewholders.IngredientViewH
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+
+
+/**
+ * When & functions & technique:
+ * This class is for Adapting the ingredients items to the holder
+ * by IngredientAdapter, adapting the items can be done by delegating
+ */
 
 public class IngredientAdapter extends BaseAdapter {
 

@@ -19,6 +19,13 @@ import java.util.List;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * When & functions & technique:
+ * This class is for Adapting the Recipe items to the holder
+ * by RecipeAdapter, adapting the items can be done by delegating
+ */
+
+
 public class RecipeAdapter extends BaseAdapter {
 
     private RecipeViewHolder.Delegate delegate;

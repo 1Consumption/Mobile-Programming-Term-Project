@@ -27,6 +27,15 @@ import butterknife.ButterKnife;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * When & functions & technique:
+ * This class is for holding the recipe items and adapt it by the adapter
+ * by RecipeViewHolder, items can be shown to the page
+ * from this RecipeViewHolder, the settings of the items can be changed or managed
+ * We utilized the the open source libraries for the designing which is small but completes the level of completion
+ */
+
+
 public class RecipeViewHolder extends BaseViewHolder {
 
     private Recipe recipe;

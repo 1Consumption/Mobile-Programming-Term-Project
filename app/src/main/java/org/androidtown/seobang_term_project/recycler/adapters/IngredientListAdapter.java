@@ -15,6 +15,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * When & functions & technique:
+ * This class is for Adapting the ingredients categorized items to the holder
+ * by IngredientListAdapter, adapting the items can be done by delegating
+ */
+
 public class IngredientListAdapter extends BaseAdapter {
 
     private IngredientViewHolder.Delegate delegate;
