@@ -18,12 +18,14 @@ import org.androidtown.seobang_term_project.ui.main.MainActivity;
 
 
 /**
- * When:
+ * @When:
  * This activity is shown when the user first install the app or when the user selects the button 튜툐리얼
  * from the power menu button from the MainActivity tool bar
- * Function:
+ *
+ * @Function:
  * This activity shows the tutorial of the app with clean view for the users
- * Technique:
+ *
+ * @Technique:
  * This activity is composed with open source libraries for clean design
  */
 

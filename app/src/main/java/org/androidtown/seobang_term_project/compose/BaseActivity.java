@@ -22,10 +22,11 @@ import butterknife.Unbinder;
  */
 
 /**
- * When:
+ * @When:
  * This Activity is implemented from few activities like IngredientSelectActivity,
  * RecipeSelectActivity, PageFragment, and else which needs tool bar or refresher effect
- * Functions & Technique:
+ *
+ * @Functions & Technique:
  * By implementing this Activity, many code lines can be reduced
  * to optimize code structure for good software architecture
  */

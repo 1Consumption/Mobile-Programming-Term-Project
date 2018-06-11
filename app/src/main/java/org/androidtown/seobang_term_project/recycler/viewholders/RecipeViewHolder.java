@@ -28,9 +28,11 @@ import butterknife.ButterKnife;
  */
 
 /**
- * When & functions & technique:
+ * @When
  * This class is for holding the recipe items and adapt it by the adapter
- * by RecipeViewHolder, items can be shown to the page
+ *
+ * @Functions & @Technique:
+ * RecipeViewHolder, items can be shown to the page
  * from this RecipeViewHolder, the settings of the items can be changed or managed
  * We utilized the the open source libraries for the designing which is small but completes the level of completion
  */

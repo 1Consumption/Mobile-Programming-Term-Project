@@ -15,9 +15,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * When & functions & technique:
+ * @When
  * This class is for holding the items and adapt it by the adapter
- * by IngredientListViewHolder, items can be shown to the page
+ *
+ * @functions & @technique:
+ * by IngredientListViewHolder, items can be shown to the page by the adapter
  */
 
 

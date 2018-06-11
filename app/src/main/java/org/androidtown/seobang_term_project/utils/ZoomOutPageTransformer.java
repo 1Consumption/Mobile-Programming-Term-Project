@@ -4,8 +4,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 /**
- * Developed by hayeon0824 on 2018-05-19.
- * Copyright (c) 2018 hayeon0824 rights reserved.
+ * @When & @functions & @technique:
+ * This class is for Transforming effect
+ * For the effect, we put a lot of effort
+ * event though this is just small effect, we did for the utility
  */
 
 public class ZoomOutPageTransformer implements ViewPager.PageTransformer {

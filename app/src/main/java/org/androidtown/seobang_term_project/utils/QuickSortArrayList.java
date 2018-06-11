@@ -7,6 +7,13 @@ import java.util.ArrayList;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * @When & @functions & @technique:
+ * This class is for sorting the unordered database lines
+ * for showing each steps of the things in the database, call this class and sort the arrays
+ */
+
+
 public class QuickSortArrayList {
     public static void sort(ArrayList<String> data, int l, int r) {
         int left = l;

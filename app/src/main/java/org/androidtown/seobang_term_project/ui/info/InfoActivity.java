@@ -16,11 +16,13 @@ import mehdi.sakout.aboutpage.Element;
 
 /*
 *
-* When:
+* @When:
 * This activity will be shown when user clicks 개발자 정보 ImageButton from the MainActivity
-* Functions:
+*
+* @Functions:
 * This activity is for showing 개발자 정보 page.
-* Technique:
+*
+* @Technique:
 * We utilized open source library for keeping material designing
 */
 

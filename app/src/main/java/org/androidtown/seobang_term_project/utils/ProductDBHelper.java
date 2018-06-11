@@ -9,6 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * @When & @functions & @technique:
+ * This database helper class is for optimizing the database functions
+ * by implement or extends this class, code lines can be reduced which will be helpful for the structure
+ */
+
+
 public class ProductDBHelper extends SQLiteOpenHelper {
 
     public ProductDBHelper(Context context, String DB_Name) {

@@ -4,6 +4,20 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
+/**
+ * @When:
+ * This class is for opening SQLite
+ *
+ * @functions:
+ * By helping opening SQLite, reduce redundant code and make good software architecture
+ *
+ * @technique:
+ * By utilizing the activity life cycle, helps opening the database
+ */
+
+
+
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public MySQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

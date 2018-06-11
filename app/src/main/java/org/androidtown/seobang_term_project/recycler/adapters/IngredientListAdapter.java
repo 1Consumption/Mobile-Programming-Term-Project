@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * When & functions & technique:
+ * @When
  * This class is for Adapting the ingredients categorized items to the holder
+ *
+ * @Functions & @Technique:
  * by IngredientListAdapter, adapting the items can be done by delegating
  */
 

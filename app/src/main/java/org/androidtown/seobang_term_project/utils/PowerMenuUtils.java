@@ -13,9 +13,16 @@ import com.skydoves.powermenu.PowerMenuItem;
 import org.androidtown.seobang_term_project.R;
 
 /**
- * Developed by hayeon0824 on 2018-05-19.
- * Copyright (c) 2018 hayeon0824 rights reserved.
+ * @When:
+ * This class is called when the user clicks the power menu from the MainActivity tool bar
+ *
+ * @functions:
+ * This shows menus which contains 튜토리얼, 일치도 설정, 요리 사진 찍기
+ *
+ * @technique:
+ * By utilizing open source libraries, we made good design for users' convenient
  */
+
 
 public class PowerMenuUtils {
     public static PowerMenu getHamburgerPowerMenu(Context context, LifecycleOwner lifecycleOwner, OnMenuItemClickListener<PowerMenuItem> onMenuItemClickListener) {

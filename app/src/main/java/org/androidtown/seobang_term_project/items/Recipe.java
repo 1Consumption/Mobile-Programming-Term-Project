@@ -7,9 +7,10 @@ package org.androidtown.seobang_term_project.items;
 
 
 /**
- * When:
+ * @When:
  * This class is for covering the items of the recipe
- * Functions & Technique:
+ *
+ * @Functions & Technique:
  * It has methods with name and Url for image which will be utilized from IngredientSelectActivity for checking states
  * This class is good for software architecture
  */

@@ -18,11 +18,13 @@ import org.androidtown.seobang_term_project.ui.tutorial.TutorialActivity;
  */
 
 /**
- * When:
+ * @When:
  * This activity is shown when the user enters 개발자 정보 button from the MainActivity
- * Function:
+ *
+ * @Function:
  * This activity just simply show the information about the users with application description
- * Technique:
+ *
+ * @Technique:
  * This activity is composed with open source libraries for maintaining the material designing
  */
 

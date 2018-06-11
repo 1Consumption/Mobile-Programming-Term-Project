@@ -16,8 +16,10 @@ import java.util.List;
 
 
 /**
- * When & functions & technique:
+ * @When
  * This class is for Adapting the ingredients items to the holder
+ *
+ * @functions & @technique:
  * by IngredientAdapter, adapting the items can be done by delegating
  */
 

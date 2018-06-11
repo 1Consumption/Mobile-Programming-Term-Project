@@ -5,9 +5,10 @@ import java.util.List;
 
 
 /**
- * When:
+ * @When:
  * This class is for covering the lists of categorizing
- * Functions & Technique:
+ *
+ * @Functions & Technique:
  * It has methods which will be utilized from IngredientSelectActivity for checking states
  * This class is good for software architecture
  */

@@ -1,5 +1,12 @@
 package org.androidtown.seobang_term_project.utils;
 
+/**
+ * @When & @functions & @technique:
+ * This class is for sorting the unordered database lines
+ * for showing each steps of the things in the database, call this class and sort the arrays
+ */
+
+
 public class QuickSortString {
     public static void sort(String[] data, int l, int r) {
         int left = l;

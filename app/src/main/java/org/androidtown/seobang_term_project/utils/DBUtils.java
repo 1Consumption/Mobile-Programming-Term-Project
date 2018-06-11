@@ -8,6 +8,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @When:
+ * This class is for setting database
+ *
+ * @functions:
+ * This reduces redundant code lines by implements this class or call
+ *
+ * @technique:
+ * Simple opening database
+ */
+
+
+
 public class DBUtils {
     public static void setDB(Context ctx, String ROOT_DIR, String DB_Name) {
         File folder = new File(ROOT_DIR);

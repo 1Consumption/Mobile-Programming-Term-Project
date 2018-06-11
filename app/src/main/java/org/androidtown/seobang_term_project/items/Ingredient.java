@@ -3,9 +3,10 @@ package org.androidtown.seobang_term_project.items;
 
 
 /**
- * When:
+ * @When:
  * This class is for covering the items
- * Functions & Technique:
+ *
+ * @Functions & Technique:
  * It has methods which will be utilized from IngredientSelectActivity for checking states
  * This class is good for software architecture
  */

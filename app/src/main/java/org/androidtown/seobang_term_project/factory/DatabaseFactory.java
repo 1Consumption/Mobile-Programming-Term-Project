@@ -11,9 +11,10 @@ import org.androidtown.seobang_term_project.utils.ProductDBHelper;
  */
 
 /**
- * When:
+ * @When:
  * This Activity is implemented from few activities which utilizes database
- * Functions & Technique:
+ *
+ * @Functions & Technique:
  * By implementing this Activity, many code lines can be reduced
  * to optimize code structure for good software architecture
  */

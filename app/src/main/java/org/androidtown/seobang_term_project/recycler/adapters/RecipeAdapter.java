@@ -20,8 +20,10 @@ import java.util.List;
  */
 
 /**
- * When & functions & technique:
+ * @When
  * This class is for Adapting the Recipe items to the holder
+ *
+ * @functions & @technique:
  * by RecipeAdapter, adapting the items can be done by delegating
  */
 

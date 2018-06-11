@@ -17,8 +17,10 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * When & functions & technique:
+ * @When
  * This class is for holding the items and adapt it by the adapter
+ *
+ * @Functions & @Technique:
  * by IngredientViewHolder, items can be shown to the page
  * from this ViewHolder, the settings of the items can be changed or managed
  */

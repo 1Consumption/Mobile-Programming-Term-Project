@@ -12,14 +12,16 @@ import android.widget.TextView;
 import org.androidtown.seobang_term_project.R;
 
 /*
- * When:
+ * @When:
  * This activity will be shown when the user access to the power menu
  * and click 일치도 설정 button
- * Functions:
+ *
+ * @Functions:
  * User can adjust the bar of setting accuracy of the ingredients
  * by scrolling the bar
  * with the 517 of recipes' ingredients
- * Technique:
+ *
+ * @Technique:
  * It is maintained by shared preference to keep it same every time user opens the app
 */
 
