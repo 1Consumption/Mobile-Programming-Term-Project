@@ -10,6 +10,14 @@ import org.androidtown.seobang_term_project.utils.ProductDBHelper;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * When:
+ * This Activity is implemented from few activities which utilizes database
+ * Functions & Technique:
+ * By implementing this Activity, many code lines can be reduced
+ * to optimize code structure for good software architecture
+ */
+
 public class DatabaseFactory {
 
     private static ProductDBHelper helper;

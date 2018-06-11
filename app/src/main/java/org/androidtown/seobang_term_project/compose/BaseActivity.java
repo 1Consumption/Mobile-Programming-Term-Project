@@ -21,6 +21,15 @@ import butterknife.Unbinder;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * When:
+ * This Activity is implemented from few activities like IngredientSelectActivity,
+ * RecipeSelectActivity, PageFragment, and else which needs tool bar or refresher effect
+ * Functions & Technique:
+ * By implementing this Activity, many code lines can be reduced
+ * to optimize code structure for good software architecture
+ */
+
 public class BaseActivity extends AppCompatActivity {
 
     private Unbinder unbinder; // ButterKnife unbinder

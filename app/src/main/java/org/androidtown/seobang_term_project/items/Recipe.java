@@ -5,6 +5,15 @@ package org.androidtown.seobang_term_project.items;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+
+/**
+ * When:
+ * This class is for covering the items of the recipe
+ * Functions & Technique:
+ * It has methods with name and Url for image which will be utilized from IngredientSelectActivity for checking states
+ * This class is good for software architecture
+ */
+
 public class Recipe {
 
     private String name;

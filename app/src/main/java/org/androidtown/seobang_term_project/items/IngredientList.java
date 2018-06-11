@@ -2,6 +2,16 @@ package org.androidtown.seobang_term_project.items;
 
 import java.util.List;
 
+
+
+/**
+ * When:
+ * This class is for covering the lists of categorizing
+ * Functions & Technique:
+ * It has methods which will be utilized from IngredientSelectActivity for checking states
+ * This class is good for software architecture
+ */
+
 public class IngredientList {
 
     private String name;
