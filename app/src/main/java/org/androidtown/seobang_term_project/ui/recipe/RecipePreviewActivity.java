@@ -29,6 +29,16 @@ import org.androidtown.seobang_term_project.utils.DBUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * @When:
+ * It runs when the user selects cooking from recipeselectactivty.
+ *
+ * @Function:
+ * Provides basic information about the dishes you choose.
+ *
+ * @Technique:
+ * It searches the database for the code of the dish you have selected and loads the information stored in the database.
+ */
 public class RecipePreviewActivity extends BaseActivity {
 
     @BindView(R.id.classification)
