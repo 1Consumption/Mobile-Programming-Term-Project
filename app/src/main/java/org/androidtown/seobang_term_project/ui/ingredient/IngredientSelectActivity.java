@@ -34,6 +34,22 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * @When:
+ * This activity is executed on the screen for selecting ingredients.
+ *
+ * @Functions
+ * If user press the select finish button without selecting a ingredient, an toast alarm will appear
+ * It tells user whether or not the ingredient the user searched for is in the database.
+ * It shows all the ingredients in the database.
+ * Sends the selected ingredients to the RecipeFromIngredientActivity.
+ *
+ * @Technique
+ * Send data to another activity using intent and bundle.
+ * Use sqlite's query to retrieve it from the database.
+ *
+ */
+
 public class IngredientSelectActivity extends BaseActivity implements IngredientViewHolder.Delegate {
 
     public final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
