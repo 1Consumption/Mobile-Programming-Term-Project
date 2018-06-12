@@ -37,6 +37,26 @@ import org.androidtown.seobang_term_project.ui.history.HistoryActivity;
 
 import butterknife.ButterKnife;
 
+/**
+ * @When:
+ * It is executed when you send information about recipe process in recipeactivity.
+ *
+ * @Function:
+ * If send information about the recipe process in recipeactivity, this activity create a fragment of the number of processes and show it to the user.
+ * If there is time in the recipe information, call up the timer.
+ * When the timer is over, the push alarm will alert
+ * At the end of the recipe process, show the camera and history buttons.
+ *  When user press the camera button, the cameraactivity is executed, and when user press the history button, the cooking is added to the history.
+ *
+ * @Technique:
+ *  Recipe information is extracted from information received from recipeactivity.
+ * When the last recipe page is displayed, change the camera and history buttons to visible.
+ * In the recipe information, find the number and ~ or - and set the timer according to the number.
+ *  When the timer is over, it alert a push alarm through notificationcompat and when touch push alarm through pendingintent to return to the timer screen again.
+ * Add cooking to your history list by sending information about cooking to historyactivity.
+ *  Press the timer button to display the timer. Press the button again to display the recipe information.
+ */
+
 public class PageFragment extends Fragment {
 
     private String mPageString;
