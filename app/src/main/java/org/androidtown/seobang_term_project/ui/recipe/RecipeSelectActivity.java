@@ -29,6 +29,22 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
+/**
+ * @When:
+ * This activity runs when the user wants to view the food list in maincativity.
+ *
+ * @Function:
+ * Display the list of food imported from the data.
+ * There are many dishes so that users can search directly.
+ *  You can also see related dishes through autocomplete.
+ * When the user selects the dish, it moves to RecipePreviewActivity.
+ *
+ * @Technique:
+ * autocompletetextview to autocomplete.
+ * The dishes are fetched through query.
+ * It tells RecipePreviewActivity what is the dish selected through intent and buldle.
+ */
+
 public class RecipeSelectActivity extends BaseActivity implements RecipeViewHolder.Delegate {
 
     private static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
