@@ -26,6 +26,18 @@ import org.androidtown.seobang_term_project.utils.QuickSortArrayList;
 
 import java.util.ArrayList;
 
+/**
+ * @When:
+ * When receive the ingredients from ingredientselectactivity, this activity executed.
+ *
+ * @Functions
+ * Calculate the weight of the ingredients received to create a matching cookbook.
+ *
+ * @Technique
+ *  Use sqlite's query to retrieve it from the database.
+ *  Different weights of different properties of ingredients, resulting in various results
+ */
+
 
 public class RecipeFromIngredientActivity extends BaseActivity implements RecipeViewHolder.Delegate {
     public static final String ROOT_DIR = "/data/data/org.androidtown.seobang_term_project/databases/";
