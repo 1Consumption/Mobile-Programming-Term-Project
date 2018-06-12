@@ -29,6 +29,21 @@ import java.util.List;
 
 import static android.os.Build.VERSION_CODES.M;
 
+/**
+ * @When:
+ * In the pagefragment, when the user presses the camera button, it is executed.
+ *
+ * @Function:
+ *  If the permission is set, the picture is taken and the picture is saved in the picture.
+ * You can share your saved photos on Twitter, KakaoTalk, Instagram, Facebook, and Lines.
+ * Create a file and save the photo.
+ * @Technique:
+ *  Save the picture using the date and time the picture was taken.
+ *   Create a file in the main path of each cell phone.
+ *    It is shot through ACTION_IMAGE_CAPTURE.
+ *
+ */
+
 public class CameraActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1001;
     String str = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Seobang";
