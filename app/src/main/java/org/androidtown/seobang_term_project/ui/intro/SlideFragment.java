@@ -7,8 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 /**
- * @When:
- * This class is for future extension
+ * @When
+ * This is the screen shown when the tutorial is run.
+ *
+ * * @Function & @Technique:
+ * Passing a value along with the xml file in tutorialactivity generates a fragment page.
+ * Show xml files through inflater.
+ *
+
  * */
 
 public class SlideFragment extends Fragment {
