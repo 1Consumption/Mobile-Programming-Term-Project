@@ -8,6 +8,17 @@ import android.view.Window;
 
 import org.androidtown.seobang_term_project.R;
 
+/**
+ * @When:
+ * It is executed when the user wants to terminate while the timer is on.
+ *
+ * @Function:
+ * If the user desires, it will terminate the timer.
+ *
+ * @Technique:
+ *  Receive user choice through setonclicklistener
+ */
+
 public class pageFramgnetWarningActivity extends Activity {
 
     @Override
