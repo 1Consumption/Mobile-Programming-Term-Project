@@ -1,8 +1,8 @@
 # Seobang; Cooking helper Application Project
 An Application that helps you to cook with what you have. 
 
-![tutorial](https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/main_screen.jpg?raw=true) 
-![tutorial](https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/tutorial_1.jpg?raw=true) 
+![tutorial](https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/tutorial_2.jpg?raw=true) 
+![main_screen](https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/main_screen_2.jpg?raw=true) 
 <br>
 
 ## 
