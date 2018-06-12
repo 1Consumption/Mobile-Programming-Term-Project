@@ -37,6 +37,27 @@ import butterknife.OnClick;
  * Copyright (c) 2018 hayeon0824 rights reserved.
  */
 
+/**
+ * @When:
+ * This activity runs when you start the application for the first time.
+ *
+ * @Function:
+ * Let users choose what they want to do.
+ * there are 4 options.
+ * food selection, ingredient selection, history view, developer info
+ *
+ * and 3 sub options
+ * Set Accuracy, Capture Camera, View Tutorial
+ *
+ *It sets the permissions of this application.
+ * Set permissions for save and retrieve and camera
+ *
+ * @Technique:
+ * we made sub options through power menu.
+ * Go to the class file through onclicklistener.
+ * Set the access authority of the mobile phone.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private PowerMenu powerMenu;
