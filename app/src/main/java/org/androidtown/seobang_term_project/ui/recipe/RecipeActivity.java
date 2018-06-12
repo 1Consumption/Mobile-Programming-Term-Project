@@ -20,6 +20,21 @@ import org.androidtown.seobang_term_project.utils.ZoomOutPageTransformer;
 
 import butterknife.BindView;
 
+/**
+ * @When:
+ * When the user views the recipe to cook, it is executed.
+ *
+ * @Function:
+ * In the database, find the recipe of the dish of your choice.
+ * It shows each course of cooking.
+ * If the user exits while the timer is running, a warning message is displayed.
+ *
+ * @Technique:
+ * In the database, we find recipes that match the cooked code, store the order of the recipes together, sort them, and show them in order.
+ * If timeron is true, an alert window appears.
+ * Send the recipe information as a pagefragment.
+ */
+
 public class RecipeActivity extends BaseActivity {
     protected @BindView(R.id.pager)
     ViewPager viewpager;
