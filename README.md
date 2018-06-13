@@ -6,7 +6,7 @@ An Application that helps you to cook with what you have.
 <br>
 
 # Download: Android Play Store '서방'
-![main_screen](https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/gooogle.jpg?raw=true) 
+![google](https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/gooogle.jpg?raw=true) 
 <br>
 
 ## 
