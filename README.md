@@ -5,6 +5,8 @@ An Application that helps you to cook with what you have.
 ![main_screen](https://github.com/HanseopShin/Mobile-Programming-Term-Project/blob/master/main_screen_2.jpg?raw=true) 
 <br>
 
+# Download: Android Play Store '서방'
+
 ## 
 #### Gradle
 ```java
