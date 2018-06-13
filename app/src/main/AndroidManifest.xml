@@ -28,10 +28,6 @@
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.InfoActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.ingredient.IngredientSelectActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -79,9 +75,6 @@
         <activity
             android:name=".ui.recipe.CameraActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.Accuracy.AccuracyActivity"
-            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".ui.recipe.pageFramgnetWarningActivity"
             android:launchMode="singleTask"

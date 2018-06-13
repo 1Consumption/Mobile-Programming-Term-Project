@@ -1,4 +1,4 @@
-﻿package org.androidtown.seobang_term_project.ui.Accuracy;
+package org.androidtown.seobang_term_project.ui.Accuracy;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -100,3 +100,4 @@ public class AccuracyActivity extends Activity {
         }
     }
 }
+

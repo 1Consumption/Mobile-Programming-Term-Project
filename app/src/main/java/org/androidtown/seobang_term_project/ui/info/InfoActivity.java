@@ -1,4 +1,4 @@
-﻿package org.androidtown.seobang_term_project.ui.info;
+package org.androidtown.seobang_term_project.ui.info;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -46,3 +46,4 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(aboutPage);
     }
 }
+
