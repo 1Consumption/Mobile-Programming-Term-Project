@@ -7,6 +7,7 @@ An Application that helps you to cook with what you have.
 
 # Download: Android Play Store '서방'
 You can download our application from Google Play Store
+Notice: Target SDK Version(27)
 ## 
 #### Gradle
 ```java
